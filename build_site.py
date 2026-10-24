@@ -187,6 +187,12 @@ def load_upcoming(released):
     return out
 
 
+def upcoming_logo(u):
+    """Адрес логотипа с версией: после замены картинки браузер не покажет старую из кэша."""
+    with open(os.path.join(UPCOMING, u["logo"]), "rb") as f:
+        return f"upcoming/{html.escape(u['logo'])}?v={hashlib.sha1(f.read()).hexdigest()[:8]}"
+
+
 def soon_badge():
     return f'<span class="btn soon">{t("Coming soon to CurseForge", "Скоро на CurseForge")}</span>'
 
@@ -197,7 +203,7 @@ def render_upcoming_card(u):
     tags = "".join(f"<li>{e(c)}</li>" for c in u["tags"])
     return f"""
   <article class="mod card">
-    <a href="{page}"><img class="logo" src="upcoming/{e(u['logo'])}" alt="" width="96" height="96"></a>
+    <a href="{page}"><img class="logo" src="{upcoming_logo(u)}" alt="" width="96" height="96"></a>
     <div class="mod-title">
       <h2><a href="{page}">{e(u['name'])}</a></h2>
       {bilingual('p', e(u['summary']['en']), e(u['summary']['ru']), 'summary')}
@@ -217,7 +223,7 @@ def render_upcoming_page(u):
     return f"""
   <a class="back" href="../../">{t('← All mods', '← Все моды')}</a>
   <section class="mod page-head">
-    <img class="logo" src="../../upcoming/{e(u['logo'])}" alt="" width="128" height="128">
+    <img class="logo" src="../../{upcoming_logo(u)}" alt="" width="128" height="128">
     <div class="mod-title">
       <h1>{e(u['name'])}</h1>
       {bilingual('p', e(u['summary']['en']), e(u['summary']['ru']), 'summary')}
