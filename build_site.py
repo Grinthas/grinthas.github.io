@@ -166,6 +166,75 @@ def render_card(mod, files, ru):
   </article>"""
 
 
+UPCOMING = os.path.join(HERE, "upcoming")
+
+
+def load_upcoming(released):
+    """Моды из upcoming/*.json, которых ещё нет среди одобренных на CurseForge.
+    Совпадение — по cf_id или по названию: как только мод одобрят, его карточка
+    сама сменится на настоящую (со ссылкой на CurseForge и файлами)."""
+    ids = {m["id"] for m in released}
+    names = {m["name"].lower() for m in released}
+    out = []
+    for name in sorted(os.listdir(UPCOMING)) if os.path.isdir(UPCOMING) else []:
+        if not name.endswith(".json"):
+            continue
+        with open(os.path.join(UPCOMING, name), encoding="utf-8") as f:
+            u = json.load(f)
+        if u.get("cf_id") in ids or u["name"].lower() in names:
+            continue
+        out.append(u)
+    return out
+
+
+def soon_badge():
+    return f'<span class="btn soon">{t("Coming soon to CurseForge", "Скоро на CurseForge")}</span>'
+
+
+def render_upcoming_card(u):
+    e = html.escape
+    page = f"mods/{e(u['slug'])}/"
+    tags = "".join(f"<li>{e(c)}</li>" for c in u["tags"])
+    return f"""
+  <article class="mod card">
+    <a href="{page}"><img class="logo" src="upcoming/{e(u['logo'])}" alt="" width="96" height="96"></a>
+    <div class="mod-title">
+      <h2><a href="{page}">{e(u['name'])}</a></h2>
+      {bilingual('p', e(u['summary']['en']), e(u['summary']['ru']), 'summary')}
+      <ul class="tags">{tags}</ul>
+      <p class="facts">Minecraft {e(u['minecraft'])} · {e(u['loader'])}</p>
+      <div class="actions">
+        <a class="btn" href="{page}">{t('Details →', 'Подробнее →')}</a>
+        {soon_badge()}
+      </div>
+    </div>
+  </article>"""
+
+
+def render_upcoming_page(u):
+    e = html.escape
+    tags = "".join(f"<li>{e(c)}</li>" for c in u["tags"])
+    return f"""
+  <a class="back" href="../../">{t('← All mods', '← Все моды')}</a>
+  <section class="mod page-head">
+    <img class="logo" src="../../upcoming/{e(u['logo'])}" alt="" width="128" height="128">
+    <div class="mod-title">
+      <h1>{e(u['name'])}</h1>
+      {bilingual('p', e(u['summary']['en']), e(u['summary']['ru']), 'summary')}
+      <ul class="tags">{tags}</ul>
+      <dl class="meta">
+        <div><dt>Minecraft</dt><dd>{e(u['minecraft'])}</dd></div>
+        <div><dt>{t('Loader', 'Загрузчик')}</dt><dd>{e(u['loader'])}</dd></div>
+      </dl>
+      <div class="actions">{soon_badge()}</div>
+    </div>
+  </section>
+  <section class="block" id="about">
+    <h2>{t('Description', 'Описание')}</h2>
+    {bilingual('div', u['description']['en'], u['description']['ru'], 'desc-body')}
+  </section>"""
+
+
 MC_COLORS = "0123456789abcdef"
 
 
@@ -427,12 +496,24 @@ def build():
         data.append((mod, files, description, ru))
         cards.append(render_card(mod, files, ru))
 
+    upcoming = load_upcoming(mods)
+    if upcoming:
+        shutil.copytree(UPCOMING, os.path.join(OUT, "upcoming"), ignore=shutil.ignore_patterns("*.json"))
+    cards += [render_upcoming_card(u) for u in upcoming]
+
     def nav(root):
-        return "".join(f'<a href="{root}mods/{html.escape(m["slug"])}/">{html.escape(m["name"])}</a>' for m, *_ in data)
+        return "".join(f'<a href="{root}mods/{html.escape(s)}/">{html.escape(n)}</a>'
+                       for s, n in [(m["slug"], m["name"]) for m, *_ in data] + [(u["slug"], u["name"]) for u in upcoming])
 
     write(os.path.join(OUT, "index.html"),
           page(template, "", "Grint — моды для Minecraft | Minecraft Mods", nav(""), home.replace("{{MODS}}", "".join(cards))))
     urls = [SITE_URL]
+    for u in upcoming:
+        url = f"{SITE_URL}mods/{u['slug']}/"
+        urls.append(url)
+        write(os.path.join(OUT, "mods", u["slug"], "index.html"),
+              page(template, "../../", f"{u['name']} — мод для Minecraft | Grint", nav("../../"), render_upcoming_page(u),
+                   url, f"{u['name']}: {u['summary']['en']} Скоро на CurseForge."))
     for mod, files, description, ru in data:
         main = render_page(mod, files, description, ru, load_guide(mod["id"]))
         url = f"{SITE_URL}mods/{mod['slug']}/"

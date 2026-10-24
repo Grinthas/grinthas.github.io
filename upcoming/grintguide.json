@@ -1,0 +1,16 @@
+{
+  "name": "Grint Guide",
+  "slug": "grint-guide",
+  "logo": "grintguide.png",
+  "minecraft": "1.20.1",
+  "loader": "Forge",
+  "tags": ["Utility & QoL", "Map and Information"],
+  "summary": {
+    "en": "In-game guide for Grint mods: Molten Industry, AutomaticSpawner and AE2 CPU Box. Open it with G.",
+    "ru": "Внутриигровой гайд по модам Grint: Molten Industry, AutomaticSpawner и AE2 CPU Box. Открывается клавишей G."
+  },
+  "description": {
+    "en": "<p>Press <strong>G</strong> to open a guide book for Grint mods without leaving the game.</p><ul><li>Chapters for every machine: how to build it, what it does and how to connect it.</li><li>Recipes with item icons, right in the guide.</li><li>Covers Molten Industry, AutomaticSpawner and AE2 Crafting CPU Box.</li><li>English and Russian.</li></ul>",
+    "ru": "<p>Нажмите <strong>G</strong>, и откроется книга-гайд по модам Grint, не выходя из игры.</p><ul><li>Главы по каждой машине: как собрать, что делает и как подключить.</li><li>Рецепты с иконками предметов прямо в гайде.</li><li>Molten Industry, AutomaticSpawner и AE2 Crafting CPU Box.</li><li>На русском и английском.</li></ul>"
+  }
+}

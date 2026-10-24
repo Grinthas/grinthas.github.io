@@ -1,0 +1,16 @@
+{
+  "name": "Recipe Editor",
+  "slug": "recipe-editor",
+  "logo": "recipeeditor.png",
+  "minecraft": "1.20.1",
+  "loader": "Forge",
+  "tags": ["Utility & QoL", "Server Utility"],
+  "summary": {
+    "en": "In-game recipe editor: view, create, change and remove any recipe, saved as a world datapack.",
+    "ru": "Редактор рецептов в игре: смотрите, создавайте, меняйте и удаляйте любые рецепты, всё сохраняется датапаком мира."
+  },
+  "description": {
+    "en": "<p>Press <strong>K</strong> to open the recipe editor right in the game. No more digging through JSON files and restarting.</p><ul><li>Search items and recipes, including crafting, furnace and any modded recipe types.</li><li>Change ingredients, result count, cooking time and experience, or edit the recipe JSON directly.</li><li>Create new recipes and remove or reset existing ones.</li><li>Changes are saved as a datapack inside the world and applied instantly, like <code>/reload</code>.</li></ul>",
+    "ru": "<p>Нажмите <strong>K</strong>, и редактор рецептов откроется прямо в игре. Не нужно копаться в JSON-файлах и перезапускать игру.</p><ul><li>Поиск предметов и рецептов: верстак, печь и любые рецепты из модов.</li><li>Меняйте ингредиенты, количество результата, время и опыт или правьте JSON рецепта напрямую.</li><li>Создавайте новые рецепты, удаляйте или сбрасывайте существующие.</li><li>Изменения сохраняются датапаком внутри мира и применяются сразу, как после <code>/reload</code>.</li></ul>"
+  }
+}

@@ -181,3 +181,5 @@ footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
   header.site .wrap { justify-content: space-between; }
   .recipe { grid-template-columns: auto auto; grid-template-areas: "grid arrow" "result result" "legend legend"; }
 }
+.btn.soon { cursor: default; color: var(--accent); border-style: dashed; }
+.btn.soon:hover { filter: none; transform: none; }

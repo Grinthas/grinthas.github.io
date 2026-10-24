@@ -1,0 +1,17 @@
+{
+  "cf_id": 1763320,
+  "name": "ExtraMeAssembler",
+  "slug": "extrameassembler",
+  "logo": "extremeassembler.png",
+  "minecraft": "1.20.1",
+  "loader": "Forge",
+  "tags": ["Applied Energistics 2", "Automation", "Technology", "Addons"],
+  "summary": {
+    "en": "AE2 autocrafting for Avaritia 3x3-9x9 table recipes and Draconic Evolution fusion crafting.",
+    "ru": "Автокрафт AE2 для рецептов столов Avaritia 3x3–9x9 и крафта слиянием Draconic Evolution."
+  },
+  "description": {
+    "en": "<p>An <strong>Applied Energistics 2</strong> addon that lets your ME network autocraft <strong>Avaritia table recipes (3x3, 5x5, 7x7 and 9x9)</strong> and <strong>Draconic Evolution fusion crafting</strong>. No more filling huge tables and fusion injectors by hand.</p><h3>Blocks and items</h3><ul><li><strong>Extreme Pattern Encoder Panel</strong> - goes on an ME cable like the AE2 terminals. Switch between 3x3, 5x5, 7x7 and 9x9 + fusion tables, lay out a recipe and press <em>Encode</em>.</li><li><strong>Extreme Pattern Provider</strong> - holds the patterns; their recipes appear in the crafting terminal.</li><li><strong>Extreme Molecular Assembler</strong> - placed next to the provider, it performs the craft. Several assemblers craft in parallel.</li></ul><h3>Energy</h3><p>2000 AE/t while crafting (20,000 AE per craft).</p><h3>Requirements</h3><p>Applied Energistics 2, Avaritia, Draconic Evolution. JEI and EMI are supported.</p>",
+    "ru": "<p>Аддон для <strong>Applied Energistics 2</strong>: МЭ-сеть сама крафтит <strong>рецепты столов Avaritia (3x3, 5x5, 7x7 и 9x9)</strong> и <strong>крафт слиянием Draconic Evolution</strong>. Больше не нужно вручную заполнять огромные верстаки и инжекторы.</p><h3>Блоки и предметы</h3><ul><li><strong>Панель экстремального шифратора</strong> - ставится на МЭ-кабель, как терминалы AE2. Переключайте стол 3x3, 5x5, 7x7 или 9x9 + слияние, раскладывайте рецепт и жмите <em>Запись</em>.</li><li><strong>Экстремальный поставщик шаблонов</strong> - хранит шаблоны, их рецепты появляются в терминале крафта.</li><li><strong>Экстремальный молекулярный сборщик</strong> - ставится рядом с поставщиком и выполняет крафт. Несколько сборщиков работают параллельно.</li></ul><h3>Энергия</h3><p>2000 AE/т во время крафта (20 000 AE за крафт).</p><h3>Требуется</h3><p>Applied Energistics 2, Avaritia, Draconic Evolution. Поддерживаются JEI и EMI.</p>"
+  }
+}
