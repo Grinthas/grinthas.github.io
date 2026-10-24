@@ -61,6 +61,38 @@
       e.preventDefault();
     }, { passive: false });
   });
+
+  // скриншоты открываются поверх страницы: стрелки листают, Esc или клик мимо закрывает
+  var shots = Array.prototype.slice.call(document.querySelectorAll(".shots a"));
+  if (shots.length) {
+    var box = document.createElement("div");
+    box.className = "lightbox";
+    box.hidden = true;
+    box.innerHTML = '<button class="lb-close" aria-label="Close">✕</button>' +
+      '<button class="lb-prev" aria-label="Previous">‹</button><img alt=""><button class="lb-next" aria-label="Next">›</button>';
+    document.body.appendChild(box);
+    var img = box.querySelector("img"), cur = 0;
+    function show(i) {
+      cur = (i + shots.length) % shots.length;
+      img.src = shots[cur].href;
+      img.alt = shots[cur].querySelector("img").alt;
+      box.hidden = false;
+      document.body.style.overflow = "hidden";
+    }
+    function close() { box.hidden = true; img.src = ""; document.body.style.overflow = ""; }
+    shots.forEach(function (a, i) {
+      a.addEventListener("click", function (e) { e.preventDefault(); show(i); });
+    });
+    box.querySelector(".lb-prev").onclick = function (e) { e.stopPropagation(); show(cur - 1); };
+    box.querySelector(".lb-next").onclick = function (e) { e.stopPropagation(); show(cur + 1); };
+    box.addEventListener("click", function (e) { if (e.target !== img) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (box.hidden) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowLeft") show(cur - 1);
+      else if (e.key === "ArrowRight") show(cur + 1);
+    });
+  }
 </script>
 </body>
 </html>

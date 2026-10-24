@@ -200,3 +200,10 @@ footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
 .suggest-form :focus { outline: 2px solid var(--accent); outline-offset: 1px; }
 .suggest-form button { justify-self: start; cursor: pointer; }
 .suggest-form .sent { margin: 0; color: var(--accent); font-weight: 600; }
+.lightbox { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 24px; background: rgba(8, 7, 6, .92); }
+.lightbox[hidden] { display: none; }
+.lightbox img { max-width: min(1400px, 100%); max-height: 100%; object-fit: contain; border-radius: 10px; box-shadow: 0 10px 40px rgba(0, 0, 0, .6); }
+.lightbox button { flex: none; border: 1px solid var(--line); background: var(--surface); color: var(--text); border-radius: 999px; width: 44px; height: 44px; font-size: 24px; line-height: 1; cursor: pointer; }
+.lightbox button:hover { border-color: var(--accent); color: var(--accent); }
+.lightbox .lb-close { position: absolute; top: 16px; right: 16px; font-size: 18px; }
+@media (max-width: 600px) { .lightbox .lb-prev, .lightbox .lb-next { position: absolute; bottom: 16px; } .lightbox .lb-prev { left: 16px; } .lightbox .lb-next { right: 16px; } }
