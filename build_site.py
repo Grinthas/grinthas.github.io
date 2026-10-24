@@ -177,7 +177,7 @@ IDEAS_CATEGORY = ("Ideas", "DIC_kwDOVVtnrs4DJgn-")
 # а варианты мода должны совпадать с вариантами в самой форме, иначе Google отклонит ответ.
 SUGGEST_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSdQb0cwp2ciF2dtAmVmpB6cQ6U4jc4YdmGng_qoEhiOFTlo2Q/formResponse"
 FORM_NICK, FORM_MOD, FORM_TEXT = "entry.93182872", "entry.1433504158", "entry.1926191801"
-FORM_MODS = ["AutomaticSpawner", "AE2 Crafting CPU Box", "Molten Industry", "ExtremeAe2Assembler", "Grint Guide", "Recipe Editor"]
+FORM_MODS = ["AutomaticSpawner", "AE2 Crafting CPU Box", "Molten Industry", "ExtremeAe2Assembler", "Grint Guide", "Recipe Editor", "Предложить новый мод"]
 
 
 def suggest_form():
