@@ -172,8 +172,35 @@ UPCOMING = os.path.join(HERE, "upcoming")
 GISCUS_REPO, GISCUS_REPO_ID = "Grinthas/grinthas.github.io", "R_kgDOVVtnrg"
 COMMENTS_CATEGORY = ("General", "DIC_kwDOVVtnrs4DJgn8")
 IDEAS_CATEGORY = ("Ideas", "DIC_kwDOVVtnrs4DJgn-")
-# Google Форма для предложений без регистрации (ответы видит только владелец формы)
-SUGGEST_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSdQb0cwp2ciF2dtAmVmpB6cQ6U4jc4YdmGng_qoEhiOFTlo2Q/viewform?embedded=true"
+# Google Форма для предложений без регистрации (ответы видит только владелец формы).
+# Своя форма в стиле сайта шлёт ответы прямо в неё; entry.* — номера полей Google Формы,
+# а варианты мода должны совпадать с вариантами в самой форме, иначе Google отклонит ответ.
+SUGGEST_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSdQb0cwp2ciF2dtAmVmpB6cQ6U4jc4YdmGng_qoEhiOFTlo2Q/formResponse"
+FORM_NICK, FORM_MOD, FORM_TEXT = "entry.93182872", "entry.1433504158", "entry.1926191801"
+FORM_MODS = ["AutomaticSpawner", "AE2 Crafting CPU Box", "Molten Industry", "ExtremeAe2Assembler", "Grint Guide", "Recipe Editor"]
+
+
+def suggest_form():
+    options = "".join(f'<option>{html.escape(m)}</option>' for m in FORM_MODS)
+    return f"""
+    <form class="suggest-form" id="suggest">
+      <label>{t('Nickname (optional)', 'Ник (необязательно)')}<input name="{FORM_NICK}" maxlength="60"></label>
+      <label>{t('Which mod?', 'Для какого мода?')}<select name="{FORM_MOD}" required>{options}</select></label>
+      <label>{t('Your suggestion', 'Ваше предложение')}<textarea name="{FORM_TEXT}" rows="6" required></textarea></label>
+      <button class="btn primary" type="submit">{t('Send', 'Отправить')}</button>
+      <p class="sent" hidden>{t('Thanks! Your suggestion has been sent.', 'Спасибо! Предложение отправлено.')}</p>
+    </form>
+    <script>
+      document.getElementById("suggest").addEventListener("submit", function (e) {{
+        e.preventDefault();
+        var f = e.target, btn = f.querySelector("button");
+        btn.disabled = true;
+        // Google не отдаёт ответ чужому сайту (no-cors), поэтому считаем отправку успешной
+        fetch("{SUGGEST_FORM}", {{method: "POST", mode: "no-cors", body: new FormData(f)}})
+          .then(function () {{ f.reset(); f.querySelector(".sent").hidden = false; }})
+          .finally(function () {{ btn.disabled = false; }});
+      }});
+    </script>"""
 
 
 def giscus(category, term):
@@ -223,7 +250,7 @@ def render_suggestions():
   <section class="block" id="form">
     <h2>{t('Suggest without signing up', 'Предложить без регистрации')}</h2>
     <p class="hint">{t('Only Grint sees these suggestions.', 'Такие предложения видит только Grint.')}</p>
-    <iframe class="gform" src="{SUGGEST_FORM}" title="Suggestions form" loading="lazy">…</iframe>
+    {suggest_form()}
   </section>
   <section class="block" id="github">
     <h2>{t('Public suggestions (GitHub account)', 'Открытые предложения (через GitHub)')}</h2>

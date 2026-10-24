@@ -190,4 +190,10 @@ footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
 .btn.soon:hover { filter: none; transform: none; }
 .hint { color: var(--muted); margin: -8px 0 16px; }
 .mods a.suggest { color: var(--accent); }
-.gform { width: 100%; height: 900px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.suggest-form { display: grid; gap: 16px; max-width: 640px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.suggest-form label { display: grid; gap: 6px; font-weight: 600; font-size: 14px; }
+.suggest-form input, .suggest-form select, .suggest-form textarea { font: 400 15px Inter, sans-serif; color: var(--text); background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+.suggest-form textarea { resize: vertical; }
+.suggest-form :focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+.suggest-form button { justify-self: start; cursor: pointer; }
+.suggest-form .sent { margin: 0; color: var(--accent); font-weight: 600; }
