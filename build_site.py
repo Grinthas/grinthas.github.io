@@ -377,11 +377,18 @@ def render_page(mod, files, description, ru, guide):
   </section>"""
 
 
-def page(template, root, title, nav, main):
+SITE_URL = "https://grinthas.github.io/"
+HOME_DESC = ("Моды для Minecraft от Grint: гайды, рецепты и все версии для скачивания. "
+             "Minecraft mods by Grint: guides, recipes and downloads for every version.")
+
+
+def page(template, root, title, nav, main, url=SITE_URL, desc=HOME_DESC):
     built = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     with open(os.path.join(HERE, "site", "style.css"), "rb") as f:
         css_version = hashlib.sha1(f.read()).hexdigest()[:10]  # сбрасывает кэш браузера при изменении стилей
     return (template.replace("{{TITLE}}", html.escape(title))
+                    .replace("{{DESC}}", html.escape(desc))
+                    .replace("{{URL}}", url)
                     .replace("{{CSSV}}", css_version)
                     .replace("{{ROOT}}", root)
                     .replace("{{NAV}}", nav)
@@ -424,11 +431,21 @@ def build():
         return "".join(f'<a href="{root}mods/{html.escape(m["slug"])}/">{html.escape(m["name"])}</a>' for m, *_ in data)
 
     write(os.path.join(OUT, "index.html"),
-          page(template, "", "Grint — Minecraft Mods", nav(""), home.replace("{{MODS}}", "".join(cards))))
+          page(template, "", "Grint — моды для Minecraft | Minecraft Mods", nav(""), home.replace("{{MODS}}", "".join(cards))))
+    urls = [SITE_URL]
     for mod, files, description, ru in data:
         main = render_page(mod, files, description, ru, load_guide(mod["id"]))
+        url = f"{SITE_URL}mods/{mod['slug']}/"
+        urls.append(url)
         write(os.path.join(OUT, "mods", mod["slug"], "index.html"),
-              page(template, "../../", f"{mod['name']} — Grint", nav("../../"), main))
+              page(template, "../../", f"{mod['name']} — мод для Minecraft | Grint", nav("../../"), main,
+                   url, f"{mod['name']}: {mod.get('summary', '')} Гайд, рецепты и скачивание."))
+
+    # для поисковиков: список страниц и разрешение их обходить
+    write(os.path.join(OUT, "sitemap.xml"),
+          '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+          + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
+    write(os.path.join(OUT, "robots.txt"), f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}sitemap.xml\n")
 
     write(os.path.join(OUT, "mods.json"),
           json.dumps([{"id": m["id"], "name": m["name"], "url": m["links"]["websiteUrl"]} for m, *_ in data], indent=2))
