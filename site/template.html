@@ -53,6 +53,13 @@
       try { localStorage.setItem("lang", b.dataset.lang); } catch (e) {}
     });
   });
+  // колесико мыши прокручивает меню модов вбок, когда оно не помещается
+  var nav = document.querySelector("nav.mods");
+  nav.addEventListener("wheel", function (e) {
+    if (nav.scrollWidth <= nav.clientWidth || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+    nav.scrollLeft += e.deltaY;
+    e.preventDefault();
+  }, { passive: false });
 </script>
 </body>
 </html>
