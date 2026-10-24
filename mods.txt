@@ -3,3 +3,4 @@
 # как только мод будет одобрен.
 1761018  # Molten Industry
 1761067  # AE2 Crafting CPU Box
+1762978  # AutomaticSpawner
