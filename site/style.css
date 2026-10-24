@@ -70,6 +70,7 @@ html[lang="en"] .lang [data-lang="en"], html[lang="ru"] .lang [data-lang="ru"] {
 .btn small { font: 500 12px "JetBrains Mono", monospace; opacity: .8; }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
 .btn.ghost { background: none; }
+.btn.discord { flex-direction: row; align-items: center; gap: 8px; background: #5865f2; border-color: #5865f2; color: #fff; }
 .btn.small { padding: 5px 12px; font-size: 13px; border-radius: 8px; }
 
 /* страница мода */
