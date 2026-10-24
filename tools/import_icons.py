@@ -29,6 +29,7 @@ class Assets:
 
     def __init__(self, sources):
         self.index = {}
+        self.extra_textures = {}  # текстуры не из textures/ (например, ядро энергокуба Mekanism)
         for src in sources:
             if os.path.isdir(src) and not glob.glob(os.path.join(src, "*.jar")):
                 for root, _, files in os.walk(src):
@@ -59,6 +60,8 @@ class Assets:
         return json.loads(raw.decode("utf-8-sig")) if raw else None
 
     def texture(self, ref):
+        if ref in self.extra_textures:
+            return self.extra_textures[ref]
         ns, _, name = ref.partition(":") if ":" in ref else ("minecraft", "", ref)
         raw = self.read(f"assets/{ns}/textures/{name}.png")
         if not raw:
@@ -122,6 +125,98 @@ def cube(top, left, right):
     out.alpha_composite(shade(parallelogram(right, (s / 2, 2 * h), (s / 2, -h), (0, s / 2)), 0.6))
     out.alpha_composite(parallelogram(top, (0, h), (s / 2, -h), (s / 2, h)))
     return out
+
+
+def project(x, y, z):
+    """Точка модели (0..16) на экране; смотрим с северо-запада сверху: север слева, запад справа."""
+    s, h = SIZE, SIZE / 4
+    return (s / 2 - x * s / 32 + z * s / 32, 2 * h - (x + z) * h / 16 + (16 - y) * s / 32)
+
+
+def sub(a, b):
+    return (a[0] - b[0], a[1] - b[1])
+
+
+def face_texture(assets, textures, f, default_uv):
+    ref = resolve(textures, f["texture"])
+    tex = assets.texture(ref) if ref else None
+    if tex is None:
+        return None
+    u1, v1, u2, v2 = f.get("uv", default_uv)
+    k = tex.width / 16
+    box = [min(u1, u2) * k, min(v1, v2) * k, max(u1, u2) * k, max(v1, v2) * k]
+    box = [int(box[0]), int(box[1]), max(int(box[0]) + 1, round(box[2])), max(int(box[1]) + 1, round(box[3]))]
+    crop = tex.crop(tuple(box))
+    if u1 > u2:
+        crop = crop.transpose(Image.FLIP_LEFT_RIGHT)
+    if v1 > v2:
+        crop = crop.transpose(Image.FLIP_TOP_BOTTOM)
+    if f.get("rotation"):
+        crop = crop.rotate(-f["rotation"], expand=True)
+    return crop
+
+
+def render_elements(assets, textures, elements, tint=None):
+    """Рисует модель из нескольких деталей: видимые грани (верх, север, запад) от дальних к ближним."""
+    faces = []
+    for el in elements:
+        (x1, y1, z1), (x2, y2, z2) = el["from"], el["to"]
+        fs = el.get("faces") or {}
+        if "up" in fs and x2 > x1 and z2 > z1:
+            o = project(x1, y2, z1)
+            faces.append(((x1 + x2) / 2 + (z1 + z2) / 2 - y2 * 2, fs["up"], [x1, z1, x2, z2],
+                          o, sub(project(x2, y2, z1), o), sub(project(x1, y2, z2), o), 1.0))
+        if "north" in fs and x2 > x1 and y2 > y1:
+            o = project(x2, y2, z1)
+            faces.append(((x1 + x2) / 2 + z1 * 2 - (y1 + y2) / 2, fs["north"], [16 - x2, 16 - y2, 16 - x1, 16 - y1],
+                          o, sub(project(x1, y2, z1), o), sub(project(x2, y1, z1), o), 0.8))
+        if "west" in fs and z2 > z1 and y2 > y1:
+            o = project(x1, y2, z1)
+            faces.append((x1 * 2 + (z1 + z2) / 2 - (y1 + y2) / 2, fs["west"], [z1, 16 - y2, z2, 16 - y1],
+                          o, sub(project(x1, y2, z2), o), sub(project(x1, y1, z1), o), 0.62))
+    out = Image.new("RGBA", (SIZE, SIZE), (0, 0, 0, 0))
+    for _, f, uv, o, u, v, light in sorted(faces, key=lambda t: -t[0]):
+        tex = face_texture(assets, textures, f, uv)
+        if tex is None or abs(u[0] * v[1] - u[1] * v[0]) < 1e-6:
+            continue
+        if tint and f["texture"] == "#core":
+            tex = tinted(tex, tint)
+        out.alpha_composite(shade(parallelogram(tex, o, u, v), light))
+    return out
+
+
+def tinted(tex, color):
+    """Светящаяся текстура в цвете: узор задаёт яркость от 55% до 100% цвета, без прозрачности."""
+    gray = tex.convert("L")
+    rgb = [gray.point(lambda p, c=c: int(c * (0.55 + 0.45 * p / 255))) for c in color]
+    return Image.merge("RGBA", (*rgb, Image.new("L", tex.size, 255)))
+
+
+def is_full_cube(elements):
+    return len(elements) == 1 and elements[0]["from"] == [0, 0, 0] and elements[0]["to"] == [16, 16, 16]
+
+
+def mekanism_energy_cube(assets, chain, textures):
+    """Энергокуб Mekanism: рамка из модели плюс ядро, которое в игре рисует код, в цвете уголков уровня."""
+    frame = next((m["frame"] for _, m in chain if m.get("frame")), None)
+    if not frame:
+        return None
+    corner = assets.texture(resolve(textures, "corner") or "")
+    color = (255, 255, 255)
+    if corner:
+        px = [p for p in corner.convert("RGBA").getdata() if p[3] > 0 and max(p[:3]) - min(p[:3]) > 30]
+        if px:
+            color = tuple(sum(p[i] for p in px) // len(px) for i in range(3))
+    raw = assets.read("assets/mekanism/render/energy_core.png")
+    core_faces = {}
+    if raw:
+        textures = dict(textures, core="mekanism:__core__")
+        core = Image.open(io.BytesIO(raw)).convert("RGBA")
+        # текстура ядра — 4 одинаковые плитки 2×2, берём одну
+        assets.extra_textures["mekanism:__core__"] = core.crop((0, 0, max(1, core.width // 2), max(1, core.height // 2)))
+        core_faces = {f: {"texture": "#core", "uv": [0, 0, 16, 16]} for f in ("up", "north", "west")}
+    elements = ([{"from": [4.5, 4.5, 4.5], "to": [11.5, 11.5, 11.5], "faces": core_faces}] if core_faces else []) + frame
+    return render_elements(assets, textures, elements, tint=color)
 
 
 def face(assets, textures, element, name):
@@ -195,6 +290,11 @@ def icon(assets, item):
             tex = tex.resize((SIZE, SIZE), Image.NEAREST)
             out = tex if out is None else Image.alpha_composite(out, tex)
         return out
+
+    if any(m.get("frame") for _, m in chain):
+        return mekanism_energy_cube(assets, chain, textures)
+    if elements and not is_full_cube(elements):
+        return render_elements(assets, textures, elements)
 
     if elements:
         def volume(e):
