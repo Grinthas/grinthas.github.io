@@ -458,6 +458,32 @@ def load_guide(mod_id):
         return json.load(f)
 
 
+def changelog(mod_id, file_id):
+    """Changelog файла с CurseForge (HTML) или пустая строка, если его нет."""
+    try:
+        return (cf(f"/mods/{mod_id}/files/{file_id}/changelog") or "").strip()
+    except Exception as e:
+        print(f"Changelog {mod_id}/{file_id} недоступен: {e}")
+        return ""
+
+
+def render_changes(mod, files):
+    """Вкладка «Изменения»: что нового в каждой версии, новые сверху."""
+    e = html.escape
+    items = []
+    for f in files:
+        en, ru_, cls = RELEASE.get(f["releaseType"], RELEASE[1])
+        text = changelog(mod["id"], f["id"])
+        if not re.sub(r"<[^>]+>|&nbsp;|\s", "", text):
+            text = f'<p class="hint">{t("No changelog for this version.", "Для этой версии нет списка изменений.")}</p>'
+        items.append(f"""
+      <article class="change">
+        <h3>{e(f['displayName'])} <span class="badge {cls}">{t(en, ru_)}</span> <span class="date">{date(f['fileDate'])}</span></h3>
+        <div class="desc-body">{text}</div>
+      </article>""")
+    return "".join(items)
+
+
 def description_images(description):
     """Картинки из описания: замена галереи, если на CurseForge её не заполнили."""
     urls = re.findall(r'<img[^>]+src="([^"]+)"', description or "")
@@ -497,7 +523,8 @@ def render_page(mod, files, description, ru, guide):
     tabs = []
     if guide:
         tabs.append(("guide", t("Guide", "Гайд")))
-    tabs += [("about", t("Description", "Описание")), ("files", t("All versions", "Все версии")),
+    tabs += [("about", t("Description", "Описание")), ("changes", t("Changelog", "Изменения")),
+             ("files", t("All versions", "Все версии")),
              ("comments", t("Comments", "Комментарии"))]
     tab_nav = "".join(f'<a href="#{k}">{label}</a>' for k, label in tabs)
 
@@ -535,6 +562,10 @@ def render_page(mod, files, description, ru, guide):
   <section class="block" id="about">
     <h2>{t('Description', 'Описание')}</h2>
     {bilingual('div', description, description_ru, 'desc-body')}
+  </section>
+  <section class="block" id="changes">
+    <h2>{t('Changelog', 'Изменения')}</h2>
+    {render_changes(mod, files)}
   </section>
   <section class="block" id="files">
     <h2>{t('All versions', 'Все версии')}</h2>
