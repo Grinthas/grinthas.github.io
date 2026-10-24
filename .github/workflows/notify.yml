@@ -12,7 +12,6 @@ permissions:
   contents: write
   pages: write
   id-token: write
-  models: read
 
 concurrency:
   group: notify
@@ -55,7 +54,7 @@ jobs:
       - name: Собрать сайт
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
-          MODELS_TOKEN: ${{ github.token }}
+          AUTO_TRANSLATE: "1"
         run: python build_site.py
       - name: Сохранить новые переводы
         run: |
