@@ -1,18 +1,29 @@
 """Собирает статический сайт с модами из mods.txt в папку _site.
 
 Нужен CF_API_KEY. Сайт двуязычный (EN/RU): строки интерфейса переключаются
-кнопкой, описания модов берутся с CurseForge как есть.
+кнопкой, описания модов берутся с CurseForge.
+
+Русские описания лежат в translations/<id>.json вместе с sha1 английского
+оригинала. Если оригинал на CurseForge изменился (или перевода нет), то при
+заданном DEEPL_API_KEY перевод делается заново через DeepL и сохраняется,
+иначе в русской версии показывается английский текст.
+Флаг --stamp проставляет sha1 в переводах, где он пустой (после ручного перевода).
 """
+import hashlib
 import html
 import json
 import os
 import re
 import shutil
+import sys
+import urllib.parse
+import urllib.request
 from datetime import datetime, timezone
 
-from notify import HERE, STATUS_APPROVED, cf, listed_ids
+from notify import HERE, STATUS_APPROVED, UA, cf, listed_ids
 
 OUT = os.path.join(HERE, "_site")
+TRANSLATIONS = os.path.join(HERE, "translations")
 PROFILE = "https://www.curseforge.com/members/grint/projects"
 LOADERS = {"Forge", "NeoForge", "Fabric", "Quilt"}
 RELEASE = {1: ("Release", "Релиз", "release"), 2: ("Beta", "Бета", "beta"), 3: ("Alpha", "Альфа", "alpha")}
@@ -21,6 +32,60 @@ RELEASE = {1: ("Release", "Релиз", "release"), 2: ("Beta", "Бета", "bet
 def t(en, ru):
     """Строка интерфейса на двух языках; видимую выбирает CSS по lang у <html>."""
     return f'<span lang="en">{html.escape(en)}</span><span lang="ru">{html.escape(ru)}</span>'
+
+
+def bilingual(tag, en, ru, cls=""):
+    """Блок с английским и русским вариантом; без перевода — только английский."""
+    c = f' class="{cls}"' if cls else ""
+    if ru is None:
+        return f"<{tag}{c}>{en}</{tag}>"
+    return f'<{tag}{c} lang="en">{en}</{tag}><{tag}{c} lang="ru">{ru}</{tag}>'
+
+
+def source_sha1(summary, description):
+    return hashlib.sha1(f"{summary}\n{description}".encode("utf-8")).hexdigest()
+
+
+def deepl(texts, html_tags):
+    key = os.environ["DEEPL_API_KEY"]
+    host = "api-free.deepl.com" if key.endswith(":fx") else "api.deepl.com"
+    params = [("target_lang", "RU"), ("source_lang", "EN")] + [("text", x) for x in texts]
+    if html_tags:
+        params.append(("tag_handling", "html"))
+    req = urllib.request.Request(f"https://{host}/v2/translate", data=urllib.parse.urlencode(params).encode(),
+                                 headers={"Authorization": f"DeepL-Auth-Key {key}", "User-Agent": UA})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        return [x["text"] for x in json.load(r)["translations"]]
+
+
+def russian(mod, description, stamp=False):
+    """(summary, description) на русском или None, если актуального перевода нет."""
+    path = os.path.join(TRANSLATIONS, f"{mod['id']}.json")
+    sha = source_sha1(mod.get("summary", ""), description)
+    tr = None
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            tr = json.load(f)
+        if stamp and not tr["source_sha1"]:
+            tr["source_sha1"] = sha
+            save_translation(path, tr)
+        if tr["source_sha1"] == sha:
+            return tr["summary"], tr["description"]
+    if not os.environ.get("DEEPL_API_KEY"):
+        return None
+    summary_ru, = deepl([mod.get("summary", "")], html_tags=False)
+    description_ru, = deepl([description], html_tags=True)
+    tr = {"source_sha1": sha, "summary": summary_ru, "description": description_ru}
+    save_translation(path, tr)
+    print(f"Переведено через DeepL: {mod['name']}")
+    return summary_ru, description_ru
+
+
+def save_translation(path, tr):
+    os.makedirs(TRANSLATIONS, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(tr, f, ensure_ascii=False, indent=2)
+        f.write("\n")
 
 
 def files_of(mod_id):
@@ -45,8 +110,9 @@ def download_url(mod, f):
     return f["downloadUrl"] or f"{mod['links']['websiteUrl']}/files/{f['id']}"
 
 
-def render_mod(mod, files, description):
+def render_mod(mod, files, description, ru):
     e = html.escape
+    summary_ru, description_ru = ru or (None, None)
     url = mod["links"]["websiteUrl"]
     logo = (mod.get("logo") or {}).get("url", "")
     tags = "".join(f"<li>{e(c['name'])}</li>" for c in mod["categories"])
@@ -86,7 +152,7 @@ def render_mod(mod, files, description):
       <img class="logo" src="{e(logo)}" alt="" width="112" height="112">
       <div class="mod-title">
         <h2>{e(mod['name'])}</h2>
-        <p class="summary">{e(mod.get('summary', ''))}</p>
+        {bilingual('p', e(mod.get('summary', '')), e(summary_ru) if summary_ru else None, 'summary')}
         <ul class="tags">{tags}</ul>
         <dl class="meta">
           <div><dt>{t('Minecraft', 'Minecraft')}</dt><dd>{e(', '.join(mc))}</dd></div>
@@ -103,7 +169,7 @@ def render_mod(mod, files, description):
     {f'<div class="shots">{shots}</div>' if shots else ''}
     <details class="desc">
       <summary>{t('Description', 'Описание')}</summary>
-      <div class="desc-body">{description}</div>
+      {bilingual('div', description, description_ru, 'desc-body')}
     </details>
     <h3>{t('All versions', 'Все версии')}</h3>
     <div class="table-wrap">
@@ -127,7 +193,8 @@ def build():
     for mod in mods:
         files = files_of(mod["id"])
         description = cf(f"/mods/{mod['id']}/description")
-        sections.append(render_mod(mod, files, description))
+        ru = russian(mod, description, stamp="--stamp" in sys.argv)
+        sections.append(render_mod(mod, files, description, ru))
         nav.append(f'<a href="#{html.escape(mod["slug"])}">{html.escape(mod["name"])}</a>')
 
     with open(os.path.join(HERE, "site", "template.html"), encoding="utf-8") as f:

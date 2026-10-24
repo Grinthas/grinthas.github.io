@@ -54,7 +54,14 @@ jobs:
       - name: Собрать сайт
         env:
           CF_API_KEY: ${{ secrets.CF_API_KEY }}
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
         run: python build_site.py
+      - name: Сохранить новые переводы
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add translations
+          git diff --cached --quiet || (git commit -m "Обновить переводы описаний" && git pull --rebase && git push)
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

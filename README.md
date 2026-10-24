@@ -10,5 +10,10 @@
 
 Новый мод: допишите его Project ID в `mods.txt` и закоммитьте.
 
-Secrets репозитория: `CF_API_KEY`, `DISCORD_WEBHOOK_URL`.
+Русские описания: `translations/<id>.json`. Если описание на CurseForge изменилось,
+перевод автоматически обновляется через DeepL (если задан `DEEPL_API_KEY`),
+иначе на русской версии сайта показывается английский текст.
+После ручной правки перевода очистите `source_sha1` и запустите `python build_site.py --stamp`.
+
+Secrets репозитория: `CF_API_KEY`, `DISCORD_WEBHOOK_URL`, необязательный `DEEPL_API_KEY`.
 Ручной запуск: Actions → CurseForge -> Discord + site → Run workflow.
