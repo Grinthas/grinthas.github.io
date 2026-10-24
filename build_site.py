@@ -197,9 +197,13 @@ def item_name(guide, item, lang):
 def item_icon(item, alt=""):
     """<img> иконки предмета из guides/icons или '' если её нет."""
     name = item.replace(":", "__") + ".png"
-    if not os.path.exists(os.path.join(ICONS, name)):
+    path = os.path.join(ICONS, name)
+    if not os.path.exists(path):
         return ""
-    return f'<img class="icon" src="../../icons/{name}" alt="{html.escape(alt)}" width="32" height="32" loading="lazy">'
+    with open(path, "rb") as f:
+        version = hashlib.sha1(f.read()).hexdigest()[:8]  # новая картинка — новый адрес, мимо кэша браузера
+    return (f'<img class="icon" src="../../icons/{name}?v={version}" alt="{html.escape(alt)}" '
+            f'width="32" height="32" loading="lazy">')
 
 
 def item_chips(guide, items, lang):
