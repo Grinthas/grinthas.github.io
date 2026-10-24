@@ -1,0 +1,534 @@
+{
+ "en": [
+  {
+   "title": "Overview",
+   "icon": "automaticspawner:chaos_spawner",
+   "blocks": [
+    {
+     "text": "AutomaticSpawner is a virtual mob farm in one block. Mobs killed by a player drop their souls. Put the souls into a Chaos Spawner and every cycle it \"kills\" those mobs virtually: nothing spawns in the world, you get their real loot table drops and the experience is stored."
+    },
+    {
+     "text": "Any mob works, including mobs from other mods."
+    },
+    {
+     "items": [
+      "automaticspawner:chaos_spawner",
+      "automaticspawner:mob_soul"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Mob souls",
+   "icon": "automaticspawner:mob_soul",
+   "blocks": [
+    {
+     "text": "Any mob can drop its soul when a player kills it, with any weapon, a bow or even bare hands."
+    },
+    {
+     "table": [
+      [
+       "No enchantment",
+       "2.5% (≈1 in 40)"
+      ],
+      [
+       "Looting I",
+       "3.5%"
+      ],
+      [
+       "Looting II",
+       "4.5%"
+      ],
+      [
+       "Looting III",
+       "5.5% (≈1 in 18)"
+      ]
+     ]
+    },
+    {
+     "text": "The Ender Dragon never drops a soul. Chances and the blacklist are set in automaticspawner-server.toml (the world's serverconfig folder)."
+    },
+    {
+     "text": "With EMI, the Soul Drops tab shows what every soul drops and how often."
+    }
+   ]
+  },
+  {
+   "title": "Chaos Spawner",
+   "icon": "automaticspawner:chaos_spawner",
+   "blocks": [
+    {
+     "table": [
+      [
+       "Soul slots",
+       "11, each soul is one mob per cycle"
+      ],
+      [
+       "Loot slots",
+       "21"
+      ],
+      [
+       "Upgrade slots",
+       "9"
+      ],
+      [
+       "Cycle",
+       "10 s without upgrades"
+      ],
+      [
+       "Energy use",
+       "800 RF per mob"
+      ],
+      [
+       "Buffer",
+       "1,000,000 RF, up to 20,000 RF/t input"
+      ]
+     ]
+    },
+    {
+     "text": "The spawner pushes loot into adjacent chests, hoppers and pipes by itself. Experience is stored inside; take it with the Collect XP button."
+    },
+    {
+     "heading": "Status"
+    },
+    {
+     "table": [
+      [
+       "No souls",
+       "Put souls into the top slots."
+      ],
+      [
+       "No energy",
+       "Connect RF."
+      ],
+      [
+       "Output full",
+       "Empty the loot slots or place a chest next to it."
+      ],
+      [
+       "Working",
+       "All good."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Upgrades",
+   "icon": "automaticspawner:speed_upgrade",
+   "blocks": [
+    {
+     "items": [
+      "automaticspawner:speed_upgrade",
+      "automaticspawner:looting_upgrade",
+      "automaticspawner:quantity_upgrade",
+      "automaticspawner:experience_upgrade",
+      "automaticspawner:efficiency_upgrade"
+     ]
+    },
+    {
+     "table": [
+      [
+       "Speed",
+       "+50% speed each, works up to 16"
+      ],
+      [
+       "Looting",
+       "+1 Looting level each, up to 10"
+      ],
+      [
+       "Quantity",
+       "+1 mob per soul each, up to 4"
+      ],
+      [
+       "Experience",
+       "+50% experience each, up to 16"
+      ],
+      [
+       "Efficiency",
+       "-10% energy use each, up to 9"
+      ]
+     ]
+    },
+    {
+     "text": "Upgrades beyond the limit have no effect."
+    }
+   ]
+  },
+  {
+   "title": "Recipes",
+   "icon": "minecraft:crafting_table",
+   "blocks": [
+    {
+     "recipe": "automaticspawner:chaos_spawner"
+    },
+    {
+     "recipe": "automaticspawner:speed_upgrade"
+    },
+    {
+     "recipe": "automaticspawner:looting_upgrade"
+    },
+    {
+     "recipe": "automaticspawner:quantity_upgrade"
+    },
+    {
+     "recipe": "automaticspawner:experience_upgrade"
+    },
+    {
+     "recipe": "automaticspawner:efficiency_upgrade"
+    }
+   ]
+  }
+ ],
+ "ru": [
+  {
+   "title": "Обзор",
+   "icon": "automaticspawner:chaos_spawner",
+   "blocks": [
+    {
+     "text": "AutomaticSpawner — виртуальная ферма мобов в одном блоке. С мобов, убитых игроком, падают их души. Души кладутся в Спавнер хаоса, и он раз в цикл «убивает» этих мобов виртуально: не спавнит их в мире, а сразу выдаёт добычу по их настоящей таблице лута и копит опыт."
+    },
+    {
+     "text": "Подходят любые мобы, в том числе из других модов."
+    },
+    {
+     "items": [
+      "automaticspawner:chaos_spawner",
+      "automaticspawner:mob_soul"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Души мобов",
+   "icon": "automaticspawner:mob_soul",
+   "blocks": [
+    {
+     "text": "Душа может выпасть с любого моба, если его убил игрок. Подойдёт любое оружие, лук или даже кулак."
+    },
+    {
+     "table": [
+      [
+       "Без зачарования",
+       "2,5% (≈1 на 40)"
+      ],
+      [
+       "Добыча I",
+       "3,5%"
+      ],
+      [
+       "Добыча II",
+       "4,5%"
+      ],
+      [
+       "Добыча III",
+       "5,5% (≈1 на 18)"
+      ]
+     ]
+    },
+    {
+     "text": "С дракона Края души не падают. Шансы и список исключений настраиваются в automaticspawner-server.toml (папка serverconfig мира)."
+    },
+    {
+     "text": "С модом EMI видно, что падает с каждой души и с каким шансом — вкладка «Добыча с душ»."
+    }
+   ]
+  },
+  {
+   "title": "Спавнер хаоса",
+   "icon": "automaticspawner:chaos_spawner",
+   "blocks": [
+    {
+     "table": [
+      [
+       "Слоты душ",
+       "11 — каждая душа = один моб за цикл"
+      ],
+      [
+       "Слоты добычи",
+       "21"
+      ],
+      [
+       "Слоты улучшений",
+       "9"
+      ],
+      [
+       "Цикл",
+       "10 с без улучшений"
+      ],
+      [
+       "Расход",
+       "800 RF за моба"
+      ],
+      [
+       "Буфер",
+       "1 000 000 RF, приём до 20 000 RF/тик"
+      ]
+     ]
+    },
+    {
+     "text": "Спавнер сам выгружает добычу в соседние сундуки, воронки и трубы. Опыт копится внутри — заберите его кнопкой «Собрать опыт» в окне спавнера."
+    },
+    {
+     "heading": "Состояния"
+    },
+    {
+     "table": [
+      [
+       "Нет душ",
+       "Положите души в верхние слоты."
+      ],
+      [
+       "Нет энергии",
+       "Подключите RF."
+      ],
+      [
+       "Склад полон",
+       "Освободите слоты добычи или поставьте рядом сундук."
+      ],
+      [
+       "Работает",
+       "Всё в порядке."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Улучшения",
+   "icon": "automaticspawner:speed_upgrade",
+   "blocks": [
+    {
+     "items": [
+      "automaticspawner:speed_upgrade",
+      "automaticspawner:looting_upgrade",
+      "automaticspawner:quantity_upgrade",
+      "automaticspawner:experience_upgrade",
+      "automaticspawner:efficiency_upgrade"
+     ]
+    },
+    {
+     "table": [
+      [
+       "Скорость",
+       "+50% к скорости за штуку, действует до 16 шт."
+      ],
+      [
+       "Добыча",
+       "+1 уровень «Добычи», до 10 шт."
+      ],
+      [
+       "Количество",
+       "+1 моб на каждую душу, до 4 шт."
+      ],
+      [
+       "Опыт",
+       "+50% опыта, до 16 шт."
+      ],
+      [
+       "Эффективность",
+       "−10% расхода энергии, до 9 шт."
+      ]
+     ]
+    },
+    {
+     "text": "Улучшения сверх лимита ничего не добавляют."
+    }
+   ]
+  },
+  {
+   "title": "Рецепты",
+   "icon": "minecraft:crafting_table",
+   "blocks": [
+    {
+     "recipe": "automaticspawner:chaos_spawner"
+    },
+    {
+     "recipe": "automaticspawner:speed_upgrade"
+    },
+    {
+     "recipe": "automaticspawner:looting_upgrade"
+    },
+    {
+     "recipe": "automaticspawner:quantity_upgrade"
+    },
+    {
+     "recipe": "automaticspawner:experience_upgrade"
+    },
+    {
+     "recipe": "automaticspawner:efficiency_upgrade"
+    }
+   ]
+  }
+ ],
+ "names": {
+  "automaticspawner:chaos_spawner": [
+   "Chaos Spawner",
+   "Спавнер хаоса"
+  ],
+  "automaticspawner:efficiency_upgrade": [
+   "Efficiency Upgrade",
+   "Улучшение эффективности"
+  ],
+  "automaticspawner:experience_upgrade": [
+   "Experience Upgrade",
+   "Улучшение опыта"
+  ],
+  "automaticspawner:looting_upgrade": [
+   "Looting Upgrade",
+   "Улучшение добычи"
+  ],
+  "automaticspawner:mob_soul": [
+   "Mob Soul",
+   "Душа моба"
+  ],
+  "automaticspawner:quantity_upgrade": [
+   "Quantity Upgrade",
+   "Улучшение количества"
+  ],
+  "automaticspawner:speed_upgrade": [
+   "Speed Upgrade",
+   "Улучшение скорости"
+  ],
+  "minecraft:crafting_table": [
+   "Crafting Table",
+   "Верстак"
+  ],
+  "minecraft:crying_obsidian": [
+   "Crying Obsidian",
+   "Плачущий обсидиан"
+  ],
+  "minecraft:diamond": [
+   "Diamond",
+   "Алмаз"
+  ],
+  "minecraft:diamond_block": [
+   "Block of Diamond",
+   "Алмазный блок"
+  ],
+  "minecraft:emerald": [
+   "Emerald",
+   "Изумруд"
+  ],
+  "minecraft:ender_eye": [
+   "Eye of Ender",
+   "Око Края"
+  ],
+  "minecraft:experience_bottle": [
+   "Bottle o' Enchanting",
+   "Пузырёк опыта"
+  ],
+  "minecraft:ghast_tear": [
+   "Ghast Tear",
+   "Слеза гаста"
+  ],
+  "minecraft:glowstone_dust": [
+   "Glowstone Dust",
+   "Светокаменная пыль"
+  ],
+  "minecraft:gold_ingot": [
+   "Gold Ingot",
+   "Золотой слиток"
+  ],
+  "minecraft:lapis_lazuli": [
+   "Lapis Lazuli",
+   "Лазурит"
+  ],
+  "minecraft:quartz": [
+   "Nether Quartz",
+   "Кварц Незера"
+  ],
+  "minecraft:redstone": [
+   "Redstone Dust",
+   "Редстоун"
+  ],
+  "minecraft:redstone_block": [
+   "Block of Redstone",
+   "Редстоуновый блок"
+  ],
+  "minecraft:sugar": [
+   "Sugar",
+   "Сахар"
+  ]
+ },
+ "recipes": {
+  "automaticspawner:chaos_spawner": {
+   "pattern": [
+    "OEO",
+    "EDE",
+    "OEO"
+   ],
+   "key": {
+    "O": "minecraft:crying_obsidian",
+    "E": "minecraft:ender_eye",
+    "D": "minecraft:diamond_block"
+   },
+   "count": 1
+  },
+  "automaticspawner:efficiency_upgrade": {
+   "pattern": [
+    "QGQ",
+    "GRG",
+    "QGQ"
+   ],
+   "key": {
+    "Q": "minecraft:quartz",
+    "R": "minecraft:redstone_block",
+    "G": "minecraft:gold_ingot"
+   },
+   "count": 1
+  },
+  "automaticspawner:experience_upgrade": {
+   "pattern": [
+    "YGY",
+    "GBG",
+    "YGY"
+   ],
+   "key": {
+    "Y": "minecraft:glowstone_dust",
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:experience_bottle"
+   },
+   "count": 1
+  },
+  "automaticspawner:looting_upgrade": {
+   "pattern": [
+    "LGL",
+    "GEG",
+    "LGL"
+   ],
+   "key": {
+    "G": "minecraft:gold_ingot",
+    "L": "minecraft:lapis_lazuli",
+    "E": "minecraft:emerald"
+   },
+   "count": 1
+  },
+  "automaticspawner:quantity_upgrade": {
+   "pattern": [
+    "DGD",
+    "GTG",
+    "DGD"
+   ],
+   "key": {
+    "D": "minecraft:diamond",
+    "T": "minecraft:ghast_tear",
+    "G": "minecraft:gold_ingot"
+   },
+   "count": 1
+  },
+  "automaticspawner:speed_upgrade": {
+   "pattern": [
+    "RGR",
+    "GSG",
+    "RGR"
+   ],
+   "key": {
+    "G": "minecraft:gold_ingot",
+    "R": "minecraft:redstone",
+    "S": "minecraft:sugar"
+   },
+   "count": 1
+  }
+ }
+}

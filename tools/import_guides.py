@@ -16,7 +16,7 @@ GUIDE = r"C:\mods\grintguide\src\main\resources\assets\grintguide\guide"
 MODS = {
     "industrialfurnace": {"project": 1761018, "source": r"C:\mods\mod\src\main\resources"},
     "ae2cpubox": {"project": 1761067, "source": r"C:\Users\bogba\Downloads\AE2 Crafting CPU Box\ae2cpubox-1.20.1-1.1.0.jar"},
-    # "automaticspawner": {"project": ..., "source": r"C:\Users\bogba\Downloads\AutomaticSpawner\automaticspawner-1.20.1-1.1.0.jar"},
+    "automaticspawner": {"project": 1762978, "source": r"C:\Users\bogba\Downloads\AutomaticSpawner\automaticspawner-1.20.1-1.1.0.jar"},
 }
 
 # предметы других модов и ванили, которые встречаются в гайдах и рецептах
@@ -65,6 +65,9 @@ EXTRA_NAMES = {
     "minecraft:gunpowder": ("Gunpowder", "Порох"),
     "minecraft:sugar": ("Sugar", "Сахар"),
     "minecraft:dropper": ("Dropper", "Выбрасыватель"),
+    "minecraft:crying_obsidian": ("Crying Obsidian", "Плачущий обсидиан"),
+    "minecraft:experience_bottle": ("Bottle o' Enchanting", "Пузырёк опыта"),
+    "minecraft:ghast_tear": ("Ghast Tear", "Слеза гаста"),
     "minecraft:lapis_lazuli": ("Lapis Lazuli", "Лазурит"),
     "minecraft:sticky_piston": ("Sticky Piston", "Липкий поршень"),
     "mekanism:alloy_atomic": ("Atomic Alloy", "Атомный сплав"),
