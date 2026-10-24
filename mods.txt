@@ -1,4 +1,4 @@
-﻿# Project ID модов на CurseForge (страница мода → About Project → Project ID).
+# Project ID модов на CurseForge (страница мода → About Project → Project ID).
 # Новый мод: допишите его ID строкой ниже и сделайте commit — уведомление уйдёт,
 # как только мод будет одобрен.
 1761018  # Molten Industry
