@@ -139,6 +139,22 @@ def face(assets, textures, element, name):
     return tex
 
 
+def blockstate_model(assets, ns, name):
+    """Модель первого варианта из blockstates/<name>.json."""
+    bs = assets.json(f"assets/{ns}/blockstates/{name}.json")
+    if not bs:
+        return None
+    variants = bs.get("variants") or {}
+    for v in variants.values():
+        v = v[0] if isinstance(v, list) else v
+        return v.get("model")
+    for part in bs.get("multipart", []):
+        a = part.get("apply")
+        a = a[0] if isinstance(a, list) else a
+        return a.get("model")
+    return None
+
+
 def chest(assets):
     t = assets.texture("entity/chest/normal")
     top = t.crop((14, 0, 28, 14))
@@ -156,8 +172,9 @@ def icon(assets, item):
     if item == "minecraft:chest":
         return chest(assets)
     chain = model_chain(assets, f"{ns}:item/{name}")
-    if not chain:
-        chain = model_chain(assets, f"{ns}:block/{name}")
+    if not chain or chain[-1][0] == "builtin/entity":
+        # предмет рисуется кодом (например, баки Mekanism): берём модель блока из blockstate
+        chain = model_chain(assets, blockstate_model(assets, ns, name) or f"{ns}:block/{name}")
     textures, elements = {}, None
     for _, m in reversed(chain):
         textures.update(m.get("textures") or {})
@@ -207,6 +224,7 @@ def main():
         with open(path, encoding="utf-8") as f:
             g = json.load(f)
         items.update(i for i in g["names"] if not i.startswith("#"))
+        items.update(g["recipes"])
     os.makedirs(OUT, exist_ok=True)
     missing = []
     for item in sorted(items):

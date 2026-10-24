@@ -5,12 +5,14 @@
 Берёт главы гайда (en_us/ru_ru), названия предметов из lang-файлов модов
 и рецепты крафта из исходников/jar. Результат коммитится, сайт собирается из него.
 """
+import glob
 import json
 import os
 import zipfile
 
 HERE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GUIDE = r"C:\mods\grintguide\src\main\resources\assets\grintguide\guide"
+INSTANCE_MODS = os.path.expanduser(r"~\.minecraftx\instances\my mods\mods")
 
 # ключ мода в гайде → Project ID на CurseForge и откуда брать lang/рецепты
 MODS = {
@@ -172,7 +174,10 @@ def collect_ids(chapters, recs):
     for ch in chapters:
         ids.add(ch.get("icon", ""))
         for b in ch["blocks"]:
-            ids.update(b.get("items", []))
+            ids.update(x[0] if isinstance(x, list) else x for x in b.get("items", []))
+            if "forging" in b:
+                ids.add(b["forging"]["result"])
+                ids.update(x[0] for x in b["forging"]["inputs"])
             if "recipe" in b:
                 ids.add(b["recipe"])
     for r in recs.values():
@@ -180,32 +185,58 @@ def collect_ids(chapters, recs):
     return {i for i in ids if i}
 
 
+def installed_names():
+    """Названия предметов всех модов из инстанса (для предметов чужих модов в гайдах)."""
+    names = {}
+    for jar in glob.glob(os.path.join(INSTANCE_MODS, "*.jar")):
+        files = read_source(jar)
+        for path in files:
+            if path.endswith("/lang/en_us.json"):
+                modid = path.split("/")[1]
+                for item, pair in lang_names(files, modid).items():
+                    names.setdefault(item, pair)
+    return names
+
+
+def with_extra(project, en, ru):
+    """Главы только для сайта из guides/extra/<project>.json, вставленные в гайд."""
+    path = os.path.join(HERE, "guides", "extra", f"{project}.json")
+    if not os.path.exists(path):
+        return en, ru
+    with open(path, encoding="utf-8") as f:
+        extra = json.load(f)
+    at = extra.get("insert_at", len(en))
+    return en[:at] + extra["en"] + en[at:], ru[:at] + extra["ru"] + ru[at:]
+
+
 def main():
     guide = {}
     for lang in ("en_us", "ru_ru"):
         with open(os.path.join(GUIDE, f"{lang}.json"), encoding="utf-8-sig") as f:
             guide[lang] = {m["mod"]: m for m in json.load(f)["mods"]}
+    others = installed_names()
 
     os.makedirs(os.path.join(HERE, "guides"), exist_ok=True)
     for modid, cfg in MODS.items():
         files = read_source(cfg["source"])
         names = lang_names(files, modid)
         recs = recipes(files, modid)
+        en, ru = with_extra(cfg["project"], guide["en_us"][modid]["chapters"], guide["ru_ru"][modid]["chapters"])
         missing = []
-        for i in collect_ids(guide["en_us"][modid]["chapters"], recs):
+        for i in collect_ids(en, recs):
             if i in names:
                 continue
             if i.startswith("#"):
                 pair = TAG_NAMES.get(i[1:])
             else:
-                pair = EXTRA_NAMES.get(i)
-            if pair:
-                names[i] = list(pair)
+                pair = EXTRA_NAMES.get(i) or others.get(i)
+            if pair and pair[0]:
+                names[i] = [pair[0], pair[1] or pair[0]]
             else:
                 missing.append(i)
         out = {
-            "en": guide["en_us"][modid]["chapters"],
-            "ru": guide["ru_ru"][modid]["chapters"],
+            "en": en,
+            "ru": ru,
             "names": dict(sorted(names.items())),
             "recipes": dict(sorted(recs.items())),
         }

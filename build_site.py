@@ -202,6 +202,16 @@ def item_icon(item, alt=""):
     return f'<img class="icon" src="../../icons/{name}" alt="{html.escape(alt)}" width="32" height="32" loading="lazy">'
 
 
+def item_chips(guide, items, lang):
+    """Плашки предметов: id или [id, количество]."""
+    chips = []
+    for x in items:
+        item, count = x if isinstance(x, list) else (x, 1)
+        num = f"<b>{count}×</b>" if count > 1 else ""
+        chips.append(f"<li>{item_icon(item)}{num}{html.escape(item_name(guide, item, lang))}</li>")
+    return "".join(chips)
+
+
 def render_recipe(guide, item, lang):
     e = html.escape
     r = guide["recipes"].get(item)
@@ -246,13 +256,22 @@ def render_guide(guide, lang):
             elif "heading" in b:
                 blocks.append(f"<h4>{e(b['heading'])}</h4>")
             elif "items" in b:
-                chips = "".join(f"<li>{item_icon(x)}{e(item_name(guide, x, lang))}</li>" for x in b["items"])
+                chips = item_chips(guide, b["items"], lang)
                 blocks.append(f'<ul class="items">{chips}</ul>')
             elif "table" in b:
                 rows = "".join(f"<tr><th>{mc_text(k)}</th><td>{mc_text(v)}</td></tr>" for k, v in b["table"])
                 blocks.append(f'<div class="table-wrap"><table class="kv">{rows}</table></div>')
             elif "recipe" in b:
                 blocks.append(render_recipe(guide, b["recipe"], lang))
+            elif "forging" in b:
+                f = b["forging"]
+                name = item_name(guide, f["result"], lang)
+                blocks.append(f"""
+      <div class="forging">
+        <div class="out"><span class="cell slot big" title="{e(name)}">{item_icon(f['result'], name)}</span>{e(name)}</div>
+        <ul class="items">{item_chips(guide, f['inputs'], lang)}</ul>
+        <p class="note">+ {mc_text(f['note'])}</p>
+      </div>""")
         body.append(f'<section class="chapter" id="{anchor}"><h3>{e(ch["title"])}</h3>{"".join(blocks)}</section>')
     title = "Contents" if lang == "en" else "Содержание"
     return f"""

@@ -452,6 +452,399 @@
    ]
   },
   {
+   "title": "Creative Forge",
+   "icon": "industrialfurnace:forge_controller",
+   "blocks": [
+    {
+     "text": "The Creative Forge is the endgame multiblock of Molten Industry: a 7×7×7 machine that forges creative items from top-tier materials of other mods, a fluid and a huge amount of energy."
+    },
+    {
+     "items": [
+      "industrialfurnace:forge_controller",
+      "industrialfurnace:forge_core",
+      "industrialfurnace:forge_frame",
+      "industrialfurnace:forge_casing",
+      "industrialfurnace:forge_vent",
+      "industrialfurnace:forge_glass",
+      "industrialfurnace:forge_input_port",
+      "industrialfurnace:forge_output_port",
+      "industrialfurnace:forge_energy_port",
+      "industrialfurnace:forge_builder",
+      "industrialfurnace:forge_speed_module"
+     ]
+    },
+    {
+     "heading": "Structure"
+    },
+    {
+     "text": "1. A 7×7×7 cube, hollow inside, with the Forge Core exactly in the centre."
+    },
+    {
+     "text": "2. All edges and corners are Forge Frame."
+    },
+    {
+     "text": "3. The faces are Forge Casing, Vent, Glass or ports, in any mix."
+    },
+    {
+     "text": "4. The controller goes in the middle of the bottom row of a face, one block above the frame."
+    },
+    {
+     "text": "5. You need at least one Input Port, one Output Port and one Energy Port anywhere in the faces."
+    },
+    {
+     "text": "The controller screen shows the coordinates of the first wrong block. With EMI, the Creative Forge Structure page shows the whole build layer by layer."
+    },
+    {
+     "heading": "Reference build"
+    },
+    {
+     "table": [
+      [
+       "Forge Frame",
+       "68"
+      ],
+      [
+       "Forge Casing",
+       "97"
+      ],
+      [
+       "Forge Glass",
+       "36 (3×3 windows on the front, sides and roof)"
+      ],
+      [
+       "Forge Vent",
+       "10"
+      ],
+      [
+       "Ports",
+       "2 energy (next to the controller), 2 input (right side), 2 output (left side)"
+      ],
+      [
+       "Controller and Core",
+       "1 each"
+      ]
+     ]
+    },
+    {
+     "text": "Casing, vents and glass are interchangeable, so the layout is only a suggestion."
+    },
+    {
+     "heading": "Forge Builder"
+    },
+    {
+     "text": "Place the controller, then right-click it with the Forge Builder: the whole forge appears at once. The blocks are taken from your inventory (free in creative mode); if something is missing, the chat lists what. The builder never breaks foreign blocks: if one is in the way, it tells you its coordinates."
+    },
+    {
+     "heading": "Ports"
+    },
+    {
+     "table": [
+      [
+       "Input Port",
+       "18 slots and a 512,000 mB tank. Fill it with pipes, hoppers or by hand."
+      ],
+      [
+       "Output Port",
+       "18 slots. Pushes finished items into adjacent chests and pipes twice a second."
+      ],
+      [
+       "Energy Port",
+       "Takes FE/RF from any cable into the controller's 50 billion FE buffer."
+      ]
+     ]
+    },
+    {
+     "heading": "Forging"
+    },
+    {
+     "text": "As soon as the input ports hold all items and the fluid of a recipe, the forge takes them and starts. The energy is spent evenly over the whole craft; if there is not enough, the forge pauses and resumes when power returns. If the output ports are full, the finished item waits inside."
+    },
+    {
+     "text": "Breaking the controller mid-craft drops the ingredients it has already taken, so nothing is lost."
+    },
+    {
+     "heading": "Speed modules"
+    },
+    {
+     "text": "Up to 4 Forge Speed Modules fit on the roof pylons: right-click the roof under a pylon. Each module adds +1 to the crafting speed (4 modules = 5× speed); energy per tick grows the same way, so a craft costs the same. Shift + right-click with an empty hand takes a module off."
+    },
+    {
+     "heading": "What it forges"
+    },
+    {
+     "text": "Recipes appear only when the needed mods are installed (Mekanism, Avaritia, Draconic Evolution, AE2). Change them with a datapack or KubeJS: recipe type industrialfurnace:forging."
+    },
+    {
+     "forging": {
+      "result": "mekanism:creative_energy_cube",
+      "inputs": [
+       [
+        "mekanism:ultimate_energy_cube",
+        4
+       ],
+       [
+        "mekanism:ultimate_induction_cell",
+        4
+       ],
+       [
+        "mekanism:ultimate_induction_provider",
+        4
+       ],
+       [
+        "mekanism:pellet_antimatter",
+        8
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ]
+      ],
+      "note": "128,000 mB of Superheated Sodium · 5 billion FE · 7.5 min"
+     }
+    },
+    {
+     "forging": {
+      "result": "mekanism:creative_bin",
+      "inputs": [
+       [
+        "mekanism:ultimate_bin",
+        4
+       ],
+       [
+        "mekanism:qio_drive_supermassive",
+        2
+       ],
+       [
+        "mekanism:pellet_antimatter",
+        4
+       ],
+       [
+        "avaritia:infinity_ingot",
+        2
+       ]
+      ],
+      "note": "64,000 mB of Superheated Sodium · 3 billion FE · 5 min"
+     }
+    },
+    {
+     "forging": {
+      "result": "mekanism:creative_fluid_tank",
+      "inputs": [
+       [
+        "mekanism:ultimate_fluid_tank",
+        4
+       ],
+       [
+        "mekanism:alloy_atomic",
+        16
+       ],
+       [
+        "mekanism:pellet_antimatter",
+        4
+       ],
+       [
+        "avaritia:infinity_ingot",
+        2
+       ]
+      ],
+      "note": "64,000 mB of Superheated Sodium · 3 billion FE · 5 min"
+     }
+    },
+    {
+     "forging": {
+      "result": "mekanism:creative_chemical_tank",
+      "inputs": [
+       [
+        "mekanism:ultimate_chemical_tank",
+        4
+       ],
+       [
+        "mekanism:alloy_atomic",
+        16
+       ],
+       [
+        "mekanism:pellet_antimatter",
+        4
+       ],
+       [
+        "avaritia:infinity_ingot",
+        2
+       ]
+      ],
+      "note": "64,000 mB of Superheated Sodium · 3 billion FE · 5 min"
+     }
+    },
+    {
+     "forging": {
+      "result": "ae2:creative_energy_cell",
+      "inputs": [
+       [
+        "ae2:dense_energy_cell",
+        16
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ],
+       [
+        "avaritia:neutron_ingot",
+        16
+       ],
+       [
+        "draconicevolution:awakened_core",
+        2
+       ]
+      ],
+      "note": "64,000 mB of Heavy Water · 2 billion FE · 5 min"
+     }
+    },
+    {
+     "forging": {
+      "result": "ae2:creative_item_cell",
+      "inputs": [
+       [
+        "ae2:item_storage_cell_256k",
+        4
+       ],
+       [
+        "ae2:quantum_entangled_singularity",
+        8
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ],
+       [
+        "avaritia:eternal_singularity",
+        1
+       ],
+       [
+        "draconicevolution:awakened_core",
+        2
+       ]
+      ],
+      "note": "128,000 mB of Heavy Water · 4 billion FE · 7.5 min"
+     }
+    },
+    {
+     "forging": {
+      "result": "ae2:creative_fluid_cell",
+      "inputs": [
+       [
+        "ae2:fluid_storage_cell_256k",
+        4
+       ],
+       [
+        "ae2:quantum_entangled_singularity",
+        8
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ],
+       [
+        "avaritia:eternal_singularity",
+        1
+       ],
+       [
+        "draconicevolution:awakened_core",
+        2
+       ]
+      ],
+      "note": "128,000 mB of Heavy Water · 4 billion FE · 7.5 min"
+     }
+    },
+    {
+     "forging": {
+      "result": "draconicevolution:creative_capacitor",
+      "inputs": [
+       [
+        "draconicevolution:chaotic_capacitor",
+        2
+       ],
+       [
+        "draconicevolution:chaotic_core",
+        4
+       ],
+       [
+        "draconicevolution:chaos_shard",
+        4
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ]
+      ],
+      "note": "128,000 mB of Lithium · 8 billion FE · 10 min"
+     }
+    },
+    {
+     "forging": {
+      "result": "draconicevolution:creative_op_capacitor",
+      "inputs": [
+       [
+        "draconicevolution:creative_capacitor",
+        1
+       ],
+       [
+        "draconicevolution:chaotic_core",
+        8
+       ],
+       [
+        "draconicevolution:awakened_draconium_block",
+        8
+       ],
+       [
+        "avaritia:infinity_ingot",
+        8
+       ],
+       [
+        "avaritia:eternal_singularity",
+        1
+       ]
+      ],
+      "note": "256,000 mB of Lithium · 20 billion FE · 15 min"
+     }
+    },
+    {
+     "heading": "Crafting the parts"
+    },
+    {
+     "recipe": "industrialfurnace:forge_frame"
+    },
+    {
+     "recipe": "industrialfurnace:forge_casing"
+    },
+    {
+     "recipe": "industrialfurnace:forge_vent"
+    },
+    {
+     "recipe": "industrialfurnace:forge_glass"
+    },
+    {
+     "recipe": "industrialfurnace:forge_input_port"
+    },
+    {
+     "recipe": "industrialfurnace:forge_output_port"
+    },
+    {
+     "recipe": "industrialfurnace:forge_energy_port"
+    },
+    {
+     "recipe": "industrialfurnace:forge_core"
+    },
+    {
+     "recipe": "industrialfurnace:forge_controller"
+    },
+    {
+     "recipe": "industrialfurnace:forge_builder"
+    },
+    {
+     "recipe": "industrialfurnace:forge_speed_module"
+    }
+   ]
+  },
+  {
    "title": "Recipes",
    "icon": "minecraft:crafting_table",
    "blocks": [
@@ -944,6 +1337,399 @@
    ]
   },
   {
+   "title": "Творческая кузня",
+   "icon": "industrialfurnace:forge_controller",
+   "blocks": [
+    {
+     "text": "Творческая кузня — эндгейм-мультиблок Molten Industry: машина 7×7×7, которая куёт творческие предметы из материалов высшего уровня других модов, жидкости и огромного количества энергии."
+    },
+    {
+     "items": [
+      "industrialfurnace:forge_controller",
+      "industrialfurnace:forge_core",
+      "industrialfurnace:forge_frame",
+      "industrialfurnace:forge_casing",
+      "industrialfurnace:forge_vent",
+      "industrialfurnace:forge_glass",
+      "industrialfurnace:forge_input_port",
+      "industrialfurnace:forge_output_port",
+      "industrialfurnace:forge_energy_port",
+      "industrialfurnace:forge_builder",
+      "industrialfurnace:forge_speed_module"
+     ]
+    },
+    {
+     "heading": "Структура"
+    },
+    {
+     "text": "1. Куб 7×7×7, внутри пусто, ядро кузни ровно в центре."
+    },
+    {
+     "text": "2. Все рёбра и углы — каркас кузни."
+    },
+    {
+     "text": "3. Грани — корпус, вентиляция, стекло кузни или порты, в любом сочетании."
+    },
+    {
+     "text": "4. Контроллер ставится в центр нижнего ряда одной из граней, на блок выше каркаса."
+    },
+    {
+     "text": "5. Где угодно в гранях нужен хотя бы один входной порт, один выходной и один энергопорт."
+    },
+    {
+     "text": "Экран контроллера показывает координаты первого неправильного блока. С EMI на странице «Структура творческой кузни» видна вся постройка по слоям."
+    },
+    {
+     "heading": "Эталонная постройка"
+    },
+    {
+     "table": [
+      [
+       "Каркас кузни",
+       "68"
+      ],
+      [
+       "Корпус кузни",
+       "97"
+      ],
+      [
+       "Стекло кузни",
+       "36 (окна 3×3 спереди, по бокам и на крыше)"
+      ],
+      [
+       "Вентиляция кузни",
+       "10"
+      ],
+      [
+       "Порты",
+       "2 энергопорта (рядом с контроллером), 2 входных (справа), 2 выходных (слева)"
+      ],
+      [
+       "Контроллер и ядро",
+       "по 1"
+      ]
+     ]
+    },
+    {
+     "text": "Корпус, вентиляция и стекло взаимозаменяемы, так что раскладка — только пример."
+    },
+    {
+     "heading": "Конструктор кузни"
+    },
+    {
+     "text": "Поставьте контроллер и нажмите по нему ПКМ Конструктором кузни: вся кузня появится сразу. Блоки берутся из инвентаря (в творческом режиме бесплатно); если чего-то не хватает, в чате будет список. Конструктор никогда не ломает чужие блоки: если что-то мешает, он покажет координаты."
+    },
+    {
+     "heading": "Порты"
+    },
+    {
+     "table": [
+      [
+       "Входной порт",
+       "18 слотов и бак на 512 000 мБ. Заполняется трубами, воронками или вручную."
+      ],
+      [
+       "Выходной порт",
+       "18 слотов. Дважды в секунду выталкивает готовые предметы в соседние сундуки и трубы."
+      ],
+      [
+       "Энергопорт",
+       "Принимает FE/RF с любых кабелей в буфер контроллера на 50 млрд FE."
+      ]
+     ]
+    },
+    {
+     "heading": "Ковка"
+    },
+    {
+     "text": "Как только во входных портах есть все предметы и жидкость рецепта, кузня забирает их и начинает работу. Энергия тратится равномерно за всё время крафта; если её не хватает, кузня встаёт на паузу и продолжает, когда питание вернётся. Если выходные порты заполнены, готовый предмет ждёт внутри."
+    },
+    {
+     "text": "Если сломать контроллер посреди крафта, уже забранные ингредиенты выпадут, так что ничего не пропадёт."
+    },
+    {
+     "heading": "Модули скорости"
+    },
+    {
+     "text": "На пилоны крыши ставится до 4 модулей скорости кузни: ПКМ по крыше под пилоном. Каждый модуль даёт +1 к скорости крафта (4 модуля = скорость ×5); расход энергии в тик растёт так же, поэтому крафт стоит столько же. Shift + ПКМ пустой рукой снимает модуль."
+    },
+    {
+     "heading": "Что она куёт"
+    },
+    {
+     "text": "Рецепты появляются, только если установлены нужные моды (Mekanism, Avaritia, Draconic Evolution, AE2). Изменить их можно датапаком или KubeJS: тип рецепта industrialfurnace:forging."
+    },
+    {
+     "forging": {
+      "result": "mekanism:creative_energy_cube",
+      "inputs": [
+       [
+        "mekanism:ultimate_energy_cube",
+        4
+       ],
+       [
+        "mekanism:ultimate_induction_cell",
+        4
+       ],
+       [
+        "mekanism:ultimate_induction_provider",
+        4
+       ],
+       [
+        "mekanism:pellet_antimatter",
+        8
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ]
+      ],
+      "note": "128 000 мБ перегретого натрия · 5 млрд FE · 7,5 мин"
+     }
+    },
+    {
+     "forging": {
+      "result": "mekanism:creative_bin",
+      "inputs": [
+       [
+        "mekanism:ultimate_bin",
+        4
+       ],
+       [
+        "mekanism:qio_drive_supermassive",
+        2
+       ],
+       [
+        "mekanism:pellet_antimatter",
+        4
+       ],
+       [
+        "avaritia:infinity_ingot",
+        2
+       ]
+      ],
+      "note": "64 000 мБ перегретого натрия · 3 млрд FE · 5 мин"
+     }
+    },
+    {
+     "forging": {
+      "result": "mekanism:creative_fluid_tank",
+      "inputs": [
+       [
+        "mekanism:ultimate_fluid_tank",
+        4
+       ],
+       [
+        "mekanism:alloy_atomic",
+        16
+       ],
+       [
+        "mekanism:pellet_antimatter",
+        4
+       ],
+       [
+        "avaritia:infinity_ingot",
+        2
+       ]
+      ],
+      "note": "64 000 мБ перегретого натрия · 3 млрд FE · 5 мин"
+     }
+    },
+    {
+     "forging": {
+      "result": "mekanism:creative_chemical_tank",
+      "inputs": [
+       [
+        "mekanism:ultimate_chemical_tank",
+        4
+       ],
+       [
+        "mekanism:alloy_atomic",
+        16
+       ],
+       [
+        "mekanism:pellet_antimatter",
+        4
+       ],
+       [
+        "avaritia:infinity_ingot",
+        2
+       ]
+      ],
+      "note": "64 000 мБ перегретого натрия · 3 млрд FE · 5 мин"
+     }
+    },
+    {
+     "forging": {
+      "result": "ae2:creative_energy_cell",
+      "inputs": [
+       [
+        "ae2:dense_energy_cell",
+        16
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ],
+       [
+        "avaritia:neutron_ingot",
+        16
+       ],
+       [
+        "draconicevolution:awakened_core",
+        2
+       ]
+      ],
+      "note": "64 000 мБ тяжёлой воды · 2 млрд FE · 5 мин"
+     }
+    },
+    {
+     "forging": {
+      "result": "ae2:creative_item_cell",
+      "inputs": [
+       [
+        "ae2:item_storage_cell_256k",
+        4
+       ],
+       [
+        "ae2:quantum_entangled_singularity",
+        8
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ],
+       [
+        "avaritia:eternal_singularity",
+        1
+       ],
+       [
+        "draconicevolution:awakened_core",
+        2
+       ]
+      ],
+      "note": "128 000 мБ тяжёлой воды · 4 млрд FE · 7,5 мин"
+     }
+    },
+    {
+     "forging": {
+      "result": "ae2:creative_fluid_cell",
+      "inputs": [
+       [
+        "ae2:fluid_storage_cell_256k",
+        4
+       ],
+       [
+        "ae2:quantum_entangled_singularity",
+        8
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ],
+       [
+        "avaritia:eternal_singularity",
+        1
+       ],
+       [
+        "draconicevolution:awakened_core",
+        2
+       ]
+      ],
+      "note": "128 000 мБ тяжёлой воды · 4 млрд FE · 7,5 мин"
+     }
+    },
+    {
+     "forging": {
+      "result": "draconicevolution:creative_capacitor",
+      "inputs": [
+       [
+        "draconicevolution:chaotic_capacitor",
+        2
+       ],
+       [
+        "draconicevolution:chaotic_core",
+        4
+       ],
+       [
+        "draconicevolution:chaos_shard",
+        4
+       ],
+       [
+        "avaritia:infinity_ingot",
+        4
+       ]
+      ],
+      "note": "128 000 мБ лития · 8 млрд FE · 10 мин"
+     }
+    },
+    {
+     "forging": {
+      "result": "draconicevolution:creative_op_capacitor",
+      "inputs": [
+       [
+        "draconicevolution:creative_capacitor",
+        1
+       ],
+       [
+        "draconicevolution:chaotic_core",
+        8
+       ],
+       [
+        "draconicevolution:awakened_draconium_block",
+        8
+       ],
+       [
+        "avaritia:infinity_ingot",
+        8
+       ],
+       [
+        "avaritia:eternal_singularity",
+        1
+       ]
+      ],
+      "note": "256 000 мБ лития · 20 млрд FE · 15 мин"
+     }
+    },
+    {
+     "heading": "Крафт деталей"
+    },
+    {
+     "recipe": "industrialfurnace:forge_frame"
+    },
+    {
+     "recipe": "industrialfurnace:forge_casing"
+    },
+    {
+     "recipe": "industrialfurnace:forge_vent"
+    },
+    {
+     "recipe": "industrialfurnace:forge_glass"
+    },
+    {
+     "recipe": "industrialfurnace:forge_input_port"
+    },
+    {
+     "recipe": "industrialfurnace:forge_output_port"
+    },
+    {
+     "recipe": "industrialfurnace:forge_energy_port"
+    },
+    {
+     "recipe": "industrialfurnace:forge_core"
+    },
+    {
+     "recipe": "industrialfurnace:forge_controller"
+    },
+    {
+     "recipe": "industrialfurnace:forge_builder"
+    },
+    {
+     "recipe": "industrialfurnace:forge_speed_module"
+    }
+   ]
+  },
+  {
    "title": "Рецепты",
    "icon": "minecraft:crafting_table",
    "blocks": [
@@ -984,21 +1770,57 @@
   }
  ],
  "names": {
+  "ae2:creative_energy_cell": [
+   "Creative Energy Cell",
+   "Творческое энергохранилище"
+  ],
+  "ae2:creative_fluid_cell": [
+   "Creative ME Fluid Cell",
+   "Творческая МЭ жидкостная ячейка"
+  ],
+  "ae2:creative_item_cell": [
+   "Creative ME Item Cell",
+   "Творческая МЭ предметная ячейка"
+  ],
+  "ae2:dense_energy_cell": [
+   "Dense Energy Cell",
+   "Плотное энергохранилище"
+  ],
+  "ae2:fluid_storage_cell_256k": [
+   "256k ME Fluid Storage Cell",
+   "256К МЭ жидкостная ячейка хранения"
+  ],
   "ae2:interface": [
    "ME Interface",
    "ME-интерфейс"
+  ],
+  "ae2:item_storage_cell_256k": [
+   "256k ME Item Storage Cell",
+   "256К МЭ предметная ячейка хранения"
   ],
   "ae2:pattern_provider": [
    "Pattern Provider",
    "Поставщик шаблонов"
   ],
+  "ae2:quantum_entangled_singularity": [
+   "Quantum Entangled Singularity",
+   "Сингулярность квантовой запутанности"
+  ],
   "avaritia:crystal_matrix_ingot": [
    "Crystal Matrix Ingot",
    "Слиток кристаллической матрицы"
   ],
+  "avaritia:eternal_singularity": [
+   "Eternal Singularity",
+   "Eternal Singularity"
+  ],
   "avaritia:extreme_crafting_table": [
    "Extreme Crafting Table",
    "Экстремальный верстак"
+  ],
+  "avaritia:infinity_ingot": [
+   "Infinity Ingot",
+   "Infinity Ingot"
   ],
   "avaritia:neutron_ingot": [
    "Neutronium Ingot",
@@ -1007,6 +1829,30 @@
   "draconicevolution:awakened_core": [
    "Awakened Core",
    "Пробуждённое ядро"
+  ],
+  "draconicevolution:awakened_draconium_block": [
+   "Awakened Draconium Block",
+   "Пробуждённый дракониевый блок"
+  ],
+  "draconicevolution:chaos_shard": [
+   "Chaos Shard",
+   "Осколок Хаоса"
+  ],
+  "draconicevolution:chaotic_capacitor": [
+   "Chaotic Capacitor",
+   "Конденсатор Хаоса"
+  ],
+  "draconicevolution:chaotic_core": [
+   "Chaotic Core",
+   "Ядро Хаоса"
+  ],
+  "draconicevolution:creative_capacitor": [
+   "Creative Capacitor",
+   "Творческий конденсатор"
+  ],
+  "draconicevolution:creative_op_capacitor": [
+   "Creative Power Source",
+   "Творческий источник энергии"
   ],
   "draconicevolution:draconium_core": [
    "Draconium Core",
@@ -1136,6 +1982,22 @@
    "Atomic Alloy",
    "Атомный сплав"
   ],
+  "mekanism:creative_bin": [
+   "Creative Bin",
+   "Творческий ящик"
+  ],
+  "mekanism:creative_chemical_tank": [
+   "Creative Chemical Tank",
+   "Творческий химический бак"
+  ],
+  "mekanism:creative_energy_cube": [
+   "Creative Energy Cube",
+   "Творческий энергетический куб"
+  ],
+  "mekanism:creative_fluid_tank": [
+   "Creative Fluid Tank",
+   "Творческий жидкостный бак"
+  ],
   "mekanism:ingot_refined_obsidian": [
    "Refined Obsidian Ingot",
    "Слиток очищенного обсидиана"
@@ -1144,9 +2006,41 @@
    "Steel Ingot",
    "Стальной слиток"
   ],
+  "mekanism:pellet_antimatter": [
+   "Antimatter Pellet",
+   "Гранула антиматерии"
+  ],
+  "mekanism:qio_drive_supermassive": [
+   "Supermassive QIO Drive",
+   "Сверхмассивная QIO Ячейка"
+  ],
+  "mekanism:ultimate_bin": [
+   "Ultimate Bin",
+   "Совершенный ящик"
+  ],
+  "mekanism:ultimate_chemical_tank": [
+   "Ultimate Chemical Tank",
+   "Совершенный химический бак"
+  ],
   "mekanism:ultimate_control_circuit": [
    "Ultimate Control Circuit",
    "Совершенная схема управления"
+  ],
+  "mekanism:ultimate_energy_cube": [
+   "Ultimate Energy Cube",
+   "Совершенный энергетический куб"
+  ],
+  "mekanism:ultimate_fluid_tank": [
+   "Ultimate Fluid Tank",
+   "Совершенный жидкостный бак"
+  ],
+  "mekanism:ultimate_induction_cell": [
+   "Ultimate Induction Cell",
+   "Совершенная индукционная ячейка"
+  ],
+  "mekanism:ultimate_induction_provider": [
+   "Ultimate Induction Provider",
+   "Совершенный индукционный поставщик"
   ],
   "minecraft:blaze_powder": [
    "Blaze Powder",
