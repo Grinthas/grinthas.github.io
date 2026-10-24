@@ -5,8 +5,8 @@
 
 Русские описания лежат в translations/<id>.json вместе с sha1 английского
 оригинала. Если оригинал на CurseForge изменился (или перевода нет), то при
-заданном DEEPL_API_KEY перевод делается заново через DeepL и сохраняется,
-иначе в русской версии показывается английский текст.
+заданном MODELS_TOKEN (токен GitHub с доступом к GitHub Models) перевод
+делается заново и сохраняется, иначе в русской версии показывается английский.
 Флаг --stamp проставляет sha1 в переводах, где он пустой (после ручного перевода).
 """
 import hashlib
@@ -16,7 +16,7 @@ import os
 import re
 import shutil
 import sys
-import urllib.parse
+import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 
@@ -26,6 +26,7 @@ OUT = os.path.join(HERE, "_site")
 TRANSLATIONS = os.path.join(HERE, "translations")
 PROFILE = "https://www.curseforge.com/members/grint/projects"
 LOADERS = {"Forge", "NeoForge", "Fabric", "Quilt"}
+MODEL = "openai/gpt-4o-mini"
 RELEASE = {1: ("Release", "Релиз", "release"), 2: ("Beta", "Бета", "beta"), 3: ("Alpha", "Альфа", "alpha")}
 
 
@@ -46,16 +47,32 @@ def source_sha1(summary, description):
     return hashlib.sha1(f"{summary}\n{description}".encode("utf-8")).hexdigest()
 
 
-def deepl(texts, html_tags):
-    key = os.environ["DEEPL_API_KEY"]
-    host = "api-free.deepl.com" if key.endswith(":fx") else "api.deepl.com"
-    params = [("target_lang", "RU"), ("source_lang", "EN")] + [("text", x) for x in texts]
-    if html_tags:
-        params.append(("tag_handling", "html"))
-    req = urllib.request.Request(f"https://{host}/v2/translate", data=urllib.parse.urlencode(params).encode(),
-                                 headers={"Authorization": f"DeepL-Auth-Key {key}", "User-Agent": UA})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return [x["text"] for x in json.load(r)["translations"]]
+PROMPT = (
+    "You translate Minecraft mod pages from English to Russian for Russian-speaking players. "
+    "Translate the user's text into natural, fluent Russian. Keep every HTML tag, attribute and "
+    "entity exactly as in the source and translate only the visible text. Keep mod names, mod "
+    "loaders and versions (Applied Energistics 2, AE2, Mekanism, EMI, Jade, Forge, MEGA Cells, "
+    "RF, ME, 1.20.1, ...) as they are. Use common Russian Minecraft community terms. "
+    "Reply with the translation only, without comments or code fences."
+)
+
+
+def translate(text):
+    """Перевод через GitHub Models (бесплатно, токен GitHub Actions)."""
+    body = json.dumps({
+        "model": MODEL,
+        "temperature": 0.2,
+        "messages": [{"role": "system", "content": PROMPT}, {"role": "user", "content": text}],
+    }).encode()
+    req = urllib.request.Request("https://models.github.ai/inference/chat/completions", data=body, headers={
+        "Authorization": f"Bearer {os.environ['MODELS_TOKEN']}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "User-Agent": UA,
+    })
+    with urllib.request.urlopen(req, timeout=120) as r:
+        out = json.load(r)["choices"][0]["message"]["content"].strip()
+    return re.sub(r"^```(?:html)?\s*|\s*```$", "", out)
 
 
 def russian(mod, description, stamp=False):
@@ -71,13 +88,18 @@ def russian(mod, description, stamp=False):
             save_translation(path, tr)
         if tr["source_sha1"] == sha:
             return tr["summary"], tr["description"]
-    if not os.environ.get("DEEPL_API_KEY"):
+    if not os.environ.get("MODELS_TOKEN"):
         return None
-    summary_ru, = deepl([mod.get("summary", "")], html_tags=False)
-    description_ru, = deepl([description], html_tags=True)
+    try:
+        summary_ru = translate(mod.get("summary", ""))
+        description_ru = translate(description)
+    except (urllib.error.URLError, KeyError, IndexError, ValueError) as e:
+        # лимит или сбой GitHub Models: оставляем английский, повторим при следующей сборке
+        print(f"Не удалось перевести {mod['name']}: {e}")
+        return None
     tr = {"source_sha1": sha, "summary": summary_ru, "description": description_ru}
     save_translation(path, tr)
-    print(f"Переведено через DeepL: {mod['name']}")
+    print(f"Переведено через GitHub Models: {mod['name']}")
     return summary_ru, description_ru
 
 

@@ -1,0 +1,19 @@
+name: translate-test
+
+on: workflow_dispatch
+
+permissions:
+  models: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - env:
+          MODELS_TOKEN: ${{ github.token }}
+        run: |
+          python -c "from build_site import translate; print(translate('<p>Place the <strong>Crafting CPU Box</strong> and connect it to your ME network with a cable.<br>- Sneak + right-click opens the AE2 crafting CPU screen.</p>'))"
