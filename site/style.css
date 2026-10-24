@@ -190,3 +190,4 @@ footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
 .btn.soon:hover { filter: none; transform: none; }
 .hint { color: var(--muted); margin: -8px 0 16px; }
 .mods a.suggest { color: var(--accent); }
+.gform { width: 100%; height: 900px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }

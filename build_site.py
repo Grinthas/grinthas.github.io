@@ -172,6 +172,8 @@ UPCOMING = os.path.join(HERE, "upcoming")
 GISCUS_REPO, GISCUS_REPO_ID = "Grinthas/grinthas.github.io", "R_kgDOVVtnrg"
 COMMENTS_CATEGORY = ("General", "DIC_kwDOVVtnrs4DJgn8")
 IDEAS_CATEGORY = ("Ideas", "DIC_kwDOVVtnrs4DJgn-")
+# Google Форма для предложений без регистрации (ответы видит только владелец формы)
+SUGGEST_FORM = "https://docs.google.com/forms/d/e/1FAIpQLSdQb0cwp2ciF2dtAmVmpB6cQ6U4jc4YdmGng_qoEhiOFTlo2Q/viewform?embedded=true"
 
 
 def giscus(category, term):
@@ -218,7 +220,13 @@ def render_suggestions():
           'Идеи новых модов, машин и функций. Напишите своё предложение ниже или поддержите чужое реакцией.')}</p>
     <div class="actions"><a class="btn" href="https://github.com/{GISCUS_REPO}/discussions/categories/ideas" target="_blank" rel="noopener">{t('All suggestions on GitHub ↗', 'Все предложения на GitHub ↗')}</a></div>
   </section>
-  <section class="block">
+  <section class="block" id="form">
+    <h2>{t('Suggest without signing up', 'Предложить без регистрации')}</h2>
+    <p class="hint">{t('Only Grint sees these suggestions.', 'Такие предложения видит только Grint.')}</p>
+    <iframe class="gform" src="{SUGGEST_FORM}" title="Suggestions form" loading="lazy">…</iframe>
+  </section>
+  <section class="block" id="github">
+    <h2>{t('Public suggestions (GitHub account)', 'Открытые предложения (через GitHub)')}</h2>
     {giscus(IDEAS_CATEGORY, "suggestions")}
   </section>"""
 
