@@ -467,6 +467,27 @@ def changelog(mod_id, file_id):
         return ""
 
 
+def changelog_ru(file_id, text):
+    """Русский changelog: из translations/changelog/<file id>.json, иначе машинный перевод (как у описаний)."""
+    path = os.path.join(TRANSLATIONS, "changelog", f"{file_id}.json")
+    sha = hashlib.sha1(text.encode("utf-8")).hexdigest()
+    if os.path.exists(path):
+        with open(path, encoding="utf-8") as f:
+            tr = json.load(f)
+        if tr["source_sha1"] == sha:
+            return tr["changelog"]
+    if not os.environ.get("AUTO_TRANSLATE"):
+        return None
+    try:
+        ru = translate(text, is_html=True)
+    except Exception as e:
+        print(f"Не удалось перевести changelog {file_id}: {e}")
+        return None
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    save_translation(path, {"source_sha1": sha, "changelog": ru, "machine": True})
+    return ru
+
+
 def render_changes(mod, files):
     """Вкладка «Изменения»: что нового в каждой версии, новые сверху."""
     e = html.escape
@@ -474,12 +495,14 @@ def render_changes(mod, files):
     for f in files:
         en, ru_, cls = RELEASE.get(f["releaseType"], RELEASE[1])
         text = changelog(mod["id"], f["id"])
-        if not re.sub(r"<[^>]+>|&nbsp;|\s", "", text):
-            text = f'<p class="hint">{t("No changelog for this version.", "Для этой версии нет списка изменений.")}</p>'
+        if re.sub(r"<[^>]+>|&nbsp;|\s", "", text):
+            body = bilingual("div", text, changelog_ru(f["id"], text), "desc-body")
+        else:
+            body = f'<p class="hint">{t("No changelog for this version.", "Для этой версии нет списка изменений.")}</p>'
         items.append(f"""
       <article class="change">
         <h3>{e(f['displayName'])} <span class="badge {cls}">{t(en, ru_)}</span> <span class="date">{date(f['fileDate'])}</span></h3>
-        <div class="desc-body">{text}</div>
+        {body}
       </article>""")
     return "".join(items)
 
