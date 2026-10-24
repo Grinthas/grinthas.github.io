@@ -356,7 +356,10 @@ def render_page(mod, files, description, ru, guide):
 
 def page(template, root, title, nav, main):
     built = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    with open(os.path.join(HERE, "site", "style.css"), "rb") as f:
+        css_version = hashlib.sha1(f.read()).hexdigest()[:10]  # сбрасывает кэш браузера при изменении стилей
     return (template.replace("{{TITLE}}", html.escape(title))
+                    .replace("{{CSSV}}", css_version)
                     .replace("{{ROOT}}", root)
                     .replace("{{NAV}}", nav)
                     .replace("{{MAIN}}", main)
