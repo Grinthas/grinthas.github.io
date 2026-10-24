@@ -458,6 +458,13 @@ def load_guide(mod_id):
         return json.load(f)
 
 
+def description_images(description):
+    """Картинки из описания: замена галереи, если на CurseForge её не заполнили."""
+    urls = re.findall(r'<img[^>]+src="([^"]+)"', description or "")
+    return [{"url": html.unescape(u)} for u in dict.fromkeys(urls)
+            if not re.search(r"badge|shields\.io|\.svg", u)]
+
+
 def render_page(mod, files, description, ru, guide):
     """Отдельная страница мода: шапка, скриншоты, гайд, описание, все версии."""
     e = html.escape
@@ -485,7 +492,7 @@ def render_page(mod, files, description, ru, guide):
     shots = "".join(
         f'<a href="{e(s["url"])}" target="_blank" rel="noopener"><img src="{e(s.get("thumbnailUrl") or s["url"])}" '
         f'alt="{e(s.get("title") or mod["name"])}" loading="lazy"></a>'
-        for s in mod.get("screenshots", []))
+        for s in mod.get("screenshots") or description_images(description))
 
     tabs = []
     if guide:
