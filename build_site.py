@@ -24,6 +24,7 @@ from notify import HERE, STATUS_APPROVED, cf, listed_ids
 OUT = os.path.join(HERE, "_site")
 TRANSLATIONS = os.path.join(HERE, "translations")
 GUIDES = os.path.join(HERE, "guides")
+ICONS = os.path.join(GUIDES, "icons")
 PROFILE = "https://www.curseforge.com/members/grint/projects"
 LOADERS = {"Forge", "NeoForge", "Fabric", "Quilt"}
 RELEASE = {1: ("Release", "Релиз", "release"), 2: ("Beta", "Бета", "beta"), 3: ("Alpha", "Альфа", "alpha")}
@@ -193,6 +194,14 @@ def item_name(guide, item, lang):
     return item.split(":")[-1].lstrip("#").replace("_", " ").title()
 
 
+def item_icon(item, alt=""):
+    """<img> иконки предмета из guides/icons или '' если её нет."""
+    name = item.replace(":", "__") + ".png"
+    if not os.path.exists(os.path.join(ICONS, name)):
+        return ""
+    return f'<img class="icon" src="../../icons/{name}" alt="{html.escape(alt)}" width="32" height="32" loading="lazy">'
+
+
 def render_recipe(guide, item, lang):
     e = html.escape
     r = guide["recipes"].get(item)
@@ -200,23 +209,26 @@ def render_recipe(guide, item, lang):
         return ""
     letters = sorted(r["key"])
     color = {k: i % 8 for i, k in enumerate(letters)}
+
+    def slot(ch):
+        name = item_name(guide, r["key"][ch], lang)
+        img = item_icon(r["key"][ch], name)
+        if img:
+            return f'<span class="cell slot" title="{e(name)}">{img}</span>'
+        return f'<span class="cell k{color[ch]}" title="{e(name)}">{e(ch)}</span>'
+
     cells = []
     for row in (r["pattern"] + ["", "", ""])[:3]:
         for ch in (row + "   ")[:3]:
-            if ch in r["key"]:
-                name = item_name(guide, r["key"][ch], lang)
-                cells.append(f'<span class="cell k{color[ch]}" title="{e(name)}">{e(ch)}</span>')
-            else:
-                cells.append('<span class="cell"></span>')
-    legend = "".join(
-        f'<li><span class="cell k{color[k]}">{e(k)}</span>{e(item_name(guide, r["key"][k], lang))}</li>'
-        for k in letters)
-    count = f" ×{r['count']}" if r["count"] > 1 else ""
+            cells.append(slot(ch) if ch in r["key"] else '<span class="cell slot"></span>')
+    legend = "".join(f'<li>{slot(k)}{e(item_name(guide, r["key"][k], lang))}</li>' for k in letters)
+    count = f'<span class="count">{r["count"]}</span>' if r["count"] > 1 else ""
+    name = item_name(guide, item, lang)
     return f"""
       <figure class="recipe">
         <div class="grid">{''.join(cells)}</div>
         <span class="arrow">→</span>
-        <figcaption class="result">{e(item_name(guide, item, lang))}{count}</figcaption>
+        <figcaption class="result"><span class="cell slot big" title="{e(name)}">{item_icon(item, name)}{count}</span>{e(name)}</figcaption>
         <ul class="legend">{legend}</ul>
       </figure>"""
 
@@ -234,7 +246,7 @@ def render_guide(guide, lang):
             elif "heading" in b:
                 blocks.append(f"<h4>{e(b['heading'])}</h4>")
             elif "items" in b:
-                chips = "".join(f"<li>{e(item_name(guide, x, lang))}</li>" for x in b["items"])
+                chips = "".join(f"<li>{item_icon(x)}{e(item_name(guide, x, lang))}</li>" for x in b["items"])
                 blocks.append(f'<ul class="items">{chips}</ul>')
             elif "table" in b:
                 rows = "".join(f"<tr><th>{mc_text(k)}</th><td>{mc_text(v)}</td></tr>" for k, v in b["table"])
@@ -371,6 +383,8 @@ def build():
     shutil.rmtree(OUT, ignore_errors=True)
     os.makedirs(OUT)
     shutil.copy(os.path.join(HERE, "site", "style.css"), OUT)
+    if os.path.isdir(ICONS):
+        shutil.copytree(ICONS, os.path.join(OUT, "icons"))
 
     cards, data = [], []
     for mod in mods:

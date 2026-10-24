@@ -19,7 +19,8 @@
 
 `guides/<project id>.json` создаёт `tools/import_guides.py` из внутриигрового гайда
 (`C:\mods\grintguide`) и lang/рецептов мода. После изменения гайда запустите локально
-`py tools/import_guides.py` и закоммитьте `guides/`. Для нового мода добавьте его в `MODS`
+`py tools/import_guides.py`, затем `py tools/import_icons.py` (иконки предметов из jar-файлов
+Minecraft и модов в `guides/icons/`) и закоммитьте `guides/`. Для нового мода добавьте его в `MODS`
 в начале скрипта.
 
 ## Русские описания
