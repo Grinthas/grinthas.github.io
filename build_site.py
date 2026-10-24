@@ -168,6 +168,60 @@ def render_card(mod, files, ru):
 
 UPCOMING = os.path.join(HERE, "upcoming")
 
+# Комментарии и предложения: giscus, хранит их в Discussions этого репозитория (вход через GitHub)
+GISCUS_REPO, GISCUS_REPO_ID = "Grinthas/grinthas.github.io", "R_kgDOVVtnrg"
+COMMENTS_CATEGORY = ("General", "DIC_kwDOVVtnrs4DJgn8")
+IDEAS_CATEGORY = ("Ideas", "DIC_kwDOVVtnrs4DJgn-")
+
+
+def giscus(category, term):
+    """Ветка обсуждения giscus; язык виджета следует за переключателем EN/RU."""
+    name, cid = category
+    return f"""
+    <div class="giscus"></div>
+    <script>
+      (function () {{
+        var s = document.createElement("script");
+        s.src = "https://giscus.app/client.js";
+        var cfg = {{repo: "{GISCUS_REPO}", "repo-id": "{GISCUS_REPO_ID}", category: "{html.escape(name)}",
+          "category-id": "{cid}", mapping: "specific", term: "{html.escape(term)}", strict: "1",
+          "reactions-enabled": "1", "emit-metadata": "0", "input-position": "top",
+          theme: "preferred_color_scheme", lang: document.documentElement.lang, loading: "lazy"}};
+        for (var k in cfg) s.setAttribute("data-" + k, cfg[k]);
+        s.crossOrigin = "anonymous"; s.async = true;
+        document.currentScript.parentNode.appendChild(s);
+        document.querySelectorAll(".lang button").forEach(function (b) {{
+          b.addEventListener("click", function () {{
+            var f = document.querySelector("iframe.giscus-frame");
+            if (f) f.contentWindow.postMessage({{giscus: {{setConfig: {{lang: b.dataset.lang}}}}}}, "https://giscus.app");
+          }});
+        }});
+      }})();
+    </script>"""
+
+
+def comments_section(term):
+    return f"""
+  <section class="block" id="comments">
+    <h2>{t('Comments', 'Комментарии')}</h2>
+    <p class="hint">{t('Sign in with GitHub to comment.', 'Чтобы оставить комментарий, войдите через GitHub.')}</p>
+    {giscus(COMMENTS_CATEGORY, term)}
+  </section>"""
+
+
+def render_suggestions():
+    return f"""
+  <a class="back" href="../">{t('← All mods', '← Все моды')}</a>
+  <section class="hero">
+    <h1>{t('Suggestions', 'Предложения')}</h1>
+    <p>{t('Ideas for new mods, machines and features. Write your suggestion below or vote for others with a reaction.',
+          'Идеи новых модов, машин и функций. Напишите своё предложение ниже или поддержите чужое реакцией.')}</p>
+    <div class="actions"><a class="btn" href="https://github.com/{GISCUS_REPO}/discussions/categories/ideas" target="_blank" rel="noopener">{t('All suggestions on GitHub ↗', 'Все предложения на GitHub ↗')}</a></div>
+  </section>
+  <section class="block">
+    {giscus(IDEAS_CATEGORY, "suggestions")}
+  </section>"""
+
 
 def load_upcoming(released):
     """Моды из upcoming/*.json, которых ещё нет среди одобренных на CurseForge.
@@ -238,7 +292,8 @@ def render_upcoming_page(u):
   <section class="block" id="about">
     <h2>{t('Description', 'Описание')}</h2>
     {bilingual('div', u['description']['en'], u['description']['ru'], 'desc-body')}
-  </section>"""
+  </section>
+  {comments_section(u['slug'])}"""
 
 
 MC_COLORS = "0123456789abcdef"
@@ -400,7 +455,8 @@ def render_page(mod, files, description, ru, guide):
     tabs = []
     if guide:
         tabs.append(("guide", t("Guide", "Гайд")))
-    tabs += [("about", t("Description", "Описание")), ("files", t("All versions", "Все версии"))]
+    tabs += [("about", t("Description", "Описание")), ("files", t("All versions", "Все версии")),
+             ("comments", t("Comments", "Комментарии"))]
     tab_nav = "".join(f'<a href="#{k}">{label}</a>' for k, label in tabs)
 
     guide_html = ""
@@ -449,7 +505,8 @@ def render_page(mod, files, description, ru, guide):
         <tbody>{''.join(rows)}</tbody>
       </table>
     </div>
-  </section>"""
+  </section>
+  {comments_section(mod['slug'])}"""
 
 
 SITE_URL = "https://grinthas.github.io/"
@@ -513,7 +570,10 @@ def build():
 
     write(os.path.join(OUT, "index.html"),
           page(template, "", "Grint — моды для Minecraft | Minecraft Mods", nav(""), home.replace("{{MODS}}", "".join(cards))))
-    urls = [SITE_URL]
+    urls = [SITE_URL, f"{SITE_URL}suggestions/"]
+    write(os.path.join(OUT, "suggestions", "index.html"),
+          page(template, "../", "Предложения | Suggestions — Grint", nav("../"), render_suggestions(),
+               f"{SITE_URL}suggestions/", "Предложения идей для модов Grint. Suggestions for Grint mods."))
     for u in upcoming:
         url = f"{SITE_URL}mods/{u['slug']}/"
         urls.append(url)

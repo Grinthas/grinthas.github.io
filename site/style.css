@@ -183,3 +183,5 @@ footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
 }
 .btn.soon { cursor: default; color: var(--accent); border-style: dashed; }
 .btn.soon:hover { filter: none; transform: none; }
+.hint { color: var(--muted); margin: -8px 0 16px; }
+.mods a.suggest { color: var(--accent); }
