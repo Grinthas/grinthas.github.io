@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grint — Minecraft Mods</title>
+<meta name="description" content="Minecraft mods by Grint: downloads for every version and links to CurseForge.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<script>
+  // язык: сохранённый выбор, иначе язык браузера
+  (function () {
+    var l = null;
+    try { l = localStorage.getItem("lang"); } catch (e) {}
+    if (!l) l = (navigator.language || "en").toLowerCase().indexOf("ru") === 0 ? "ru" : "en";
+    document.documentElement.lang = l;
+  })();
+</script>
+<style>
+  :root {
+    --bg: #f6f4f1; --surface: #ffffff; --surface-2: #efebe6; --text: #1d1a17; --muted: #6b645c;
+    --line: #e2dcd4; --accent: #e8590c; --accent-text: #ffffff; --accent-soft: #fde7da;
+    --beta: #1971c2; --alpha: #c2255c; --radius: 14px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121110; --surface: #1b1917; --surface-2: #24211e; --text: #f1ece6; --muted: #a39a90;
+      --line: #2f2b27; --accent: #ff7a2f; --accent-text: #1a0e05; --accent-soft: #3a2214;
+      --beta: #74c0fc; --alpha: #f783ac;
+    }
+  }
+  * { box-sizing: border-box; }
+  html[lang="en"] [lang="ru"], html[lang="ru"] [lang="en"] { display: none; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.55 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  a { color: var(--accent); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px);
+    background: color-mix(in srgb, var(--bg) 85%, transparent); border-bottom: 1px solid var(--line);
+  }
+  header.site .wrap { display: flex; align-items: center; gap: 16px; height: 60px; }
+  .brand { font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 10px; }
+  .brand::before { content: ""; width: 14px; height: 14px; border-radius: 3px; background: var(--accent); box-shadow: 0 0 18px var(--accent); }
+  nav.mods { display: flex; gap: 4px; overflow-x: auto; flex: 1; }
+  nav.mods a { color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 8px; white-space: nowrap; font-size: 14px; }
+  nav.mods a:hover { color: var(--text); background: var(--surface-2); }
+  .lang { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex: none; }
+  .lang button { border: 0; background: none; color: var(--muted); padding: 5px 10px; font: 600 13px Inter, sans-serif; cursor: pointer; }
+  html[lang="en"] .lang [data-lang="en"], html[lang="ru"] .lang [data-lang="ru"] { background: var(--accent); color: var(--accent-text); }
+
+  .hero { padding: 56px 0 24px; }
+  .hero h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.1; margin: 0 0 12px; letter-spacing: -0.02em; }
+  .hero p { color: var(--muted); max-width: 620px; margin: 0 0 20px; font-size: 18px; }
+
+  .mod { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; margin: 24px 0; scroll-margin-top: 80px; }
+  .mod-head { display: flex; gap: 24px; align-items: flex-start; }
+  .logo { width: 112px; height: 112px; border-radius: 18px; object-fit: cover; background: var(--surface-2); flex: none; image-rendering: pixelated; }
+  .mod-title { flex: 1; min-width: 0; }
+  .mod h2 { margin: 0 0 4px; font-size: 28px; letter-spacing: -0.01em; }
+  .summary { margin: 0 0 12px; color: var(--muted); }
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0 0 16px; }
+  .tags li { font-size: 12px; font-weight: 500; padding: 3px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--text); }
+  .meta { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 0 0 20px; }
+  .meta dt { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+  .meta dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .btn {
+    display: inline-flex; flex-direction: column; justify-content: center; gap: 1px; text-decoration: none;
+    padding: 10px 16px; border-radius: 10px; border: 1px solid var(--line); color: var(--text);
+    background: var(--surface-2); font-weight: 600; font-size: 15px; transition: transform .1s, filter .1s;
+  }
+  .btn:hover { filter: brightness(1.06); transform: translateY(-1px); }
+  .btn small { font: 500 12px "JetBrains Mono", monospace; opacity: .8; }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+  .btn.small { padding: 5px 12px; font-size: 13px; border-radius: 8px; }
+
+  .shots { display: flex; gap: 12px; overflow-x: auto; margin: 24px -4px 0; padding: 4px 4px 8px; scroll-snap-type: x mandatory; }
+  .shots a { flex: none; scroll-snap-align: start; }
+  .shots img { height: 180px; width: auto; border-radius: 10px; border: 1px solid var(--line); display: block; }
+
+  .desc { margin-top: 20px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .desc summary { cursor: pointer; font-weight: 600; }
+  .desc-body { color: var(--text); overflow-wrap: anywhere; }
+  .desc-body img { max-width: 100%; height: auto; }
+
+  h3 { margin: 28px 0 12px; font-size: 18px; }
+  .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 10px 12px; text-align: left; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); background: var(--surface-2); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+  tbody tr:hover { background: var(--surface-2); }
+  .fname { font: 500 13px "JetBrains Mono", monospace; }
+  .num { font-variant-numeric: tabular-nums; color: var(--muted); }
+  .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 6px; background: var(--accent-soft); color: var(--accent); }
+  .badge.beta { color: var(--beta); background: color-mix(in srgb, var(--beta) 15%, transparent); }
+  .badge.alpha { color: var(--alpha); background: color-mix(in srgb, var(--alpha) 15%, transparent); }
+
+  footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
+
+  @media (max-width: 640px) {
+    .mod { padding: 18px; }
+    .mod-head { flex-direction: column; gap: 16px; }
+    .logo { width: 80px; height: 80px; }
+    .shots img { height: 130px; }
+    nav.mods { display: none; }
+    header.site .wrap { justify-content: space-between; }
+  }
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="#">Grint</a>
+    <nav class="mods">{{NAV}}</nav>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en">EN</button>
+      <button type="button" data-lang="ru">RU</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <h1><span lang="en">Minecraft mods by Grint</span><span lang="ru">Моды для Minecraft от Grint</span></h1>
+    <p>
+      <span lang="en">Every version of every mod, ready to download. New releases appear here automatically.</span>
+      <span lang="ru">Все версии всех модов для скачивания. Новые релизы появляются здесь автоматически.</span>
+    </p>
+    <a class="btn" href="{{PROFILE}}" target="_blank" rel="noopener"><span lang="en">CurseForge profile ↗</span><span lang="ru">Профиль на CurseForge ↗</span></a>
+  </section>
+  {{MODS}}
+</main>
+
+<footer class="wrap">
+  <span lang="en">Files are served from CurseForge. Updated {{BUILT}}.</span>
+  <span lang="ru">Файлы раздаются с CurseForge. Обновлено {{BUILT}}.</span>
+</footer>
+
+<script>
+  document.querySelectorAll(".lang button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      document.documentElement.lang = b.dataset.lang;
+      try { localStorage.setItem("lang", b.dataset.lang); } catch (e) {}
+    });
+  });
+</script>
+</body>
+</html>

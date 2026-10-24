@@ -1,12 +1,17 @@
-name: CurseForge -> Discord
+name: CurseForge -> Discord + site
 
 on:
   schedule:
     - cron: "17 * * * *"  # раз в час
+  push:
+    branches: [main]
+    paths: ["mods.txt", "site/**", "*.py", ".github/workflows/**"]
   workflow_dispatch:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 concurrency:
   group: notify
@@ -33,3 +38,25 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add sent.json
           git diff --cached --quiet || (git commit -m "Обновить список отправленных модов" && git push)
+
+  site:
+    needs: notify
+    if: always()
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Собрать сайт
+        env:
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}
+        run: python build_site.py
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deploy
+        uses: actions/deploy-pages@v4
