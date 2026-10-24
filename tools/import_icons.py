@@ -252,7 +252,7 @@ def blockstate_model(assets, ns, name):
 
 def chest(assets):
     t = assets.texture("entity/chest/normal")
-    top = t.crop((14, 0, 28, 14))
+    top = t.crop((28, 0, 42, 14)).transpose(Image.FLIP_TOP_BOTTOM)  # (14..28) — нижняя сторона крышки, изнутри
     front = Image.new("RGBA", (14, 15))
     front.paste(t.crop((14, 14, 28, 19)), (0, 0))
     front.paste(t.crop((14, 33, 28, 43)), (0, 5))
