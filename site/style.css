@@ -30,7 +30,12 @@ header.site {
 header.site .wrap { display: flex; align-items: center; gap: 16px; height: 60px; }
 .brand { font-weight: 700; font-size: 18px; color: var(--text); text-decoration: none; display: flex; align-items: center; gap: 10px; }
 .brand::before { content: ""; width: 14px; height: 14px; border-radius: 3px; background: var(--accent); box-shadow: 0 0 18px var(--accent); }
-nav.mods { display: flex; gap: 4px; overflow-x: auto; flex: 1; }
+nav.mods { display: flex; gap: 4px; overflow-x: auto; flex: 1; scrollbar-width: thin; scrollbar-color: var(--line) transparent; }
+nav.mods::-webkit-scrollbar { height: 4px; }
+nav.mods::-webkit-scrollbar-track { background: transparent; }
+nav.mods::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
+nav.mods:hover::-webkit-scrollbar-thumb { background: var(--accent); }
+nav.mods::-webkit-scrollbar-button { display: none; }
 nav.mods a { color: var(--muted); text-decoration: none; padding: 6px 10px; border-radius: 8px; white-space: nowrap; font-size: 14px; }
 nav.mods a:hover { color: var(--text); background: var(--surface-2); }
 .lang { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; flex: none; }
