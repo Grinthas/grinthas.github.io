@@ -1,7 +1,7 @@
-# Project ID модов на CurseForge (страница мода → About Project → Project ID).
+﻿# Project ID модов на CurseForge (страница мода → About Project → Project ID).
 # Новый мод: допишите его ID строкой ниже и сделайте commit — уведомление уйдёт,
 # как только мод будет одобрен.
 1761018  # Molten Industry
 1761067  # AE2 Crafting CPU Box
 1762978  # AutomaticSpawner
-1763320  # ExtraMeAssembler
+1763320  # ExtremeAe2Assembler

@@ -1,7 +1,7 @@
 {
   "cf_id": 1763320,
-  "name": "ExtraMeAssembler",
-  "slug": "extrameassembler",
+  "name": "ExtremeAe2Assembler",
+  "slug": "extremeae2assembler",
   "logo": "extremeassembler.png",
   "minecraft": "1.20.1",
   "loader": "Forge",
