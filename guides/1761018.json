@@ -1,0 +1,1621 @@
+{
+ "en": [
+  {
+   "title": "Overview",
+   "icon": "industrialfurnace:furnace_controller",
+   "blocks": [
+    {
+     "text": "Molten Industry adds the Industrial Furnace, a 3×3×3 RF-powered multiblock. It smelts 8 identical items per batch, twice as fast as a vanilla furnace, and works with every smelting recipe, modded ones included."
+    },
+    {
+     "heading": "Blocks"
+    },
+    {
+     "items": [
+      "industrialfurnace:furnace_controller",
+      "industrialfurnace:furnace_casing",
+      "industrialfurnace:furnace_energy_port",
+      "industrialfurnace:furnace_input_bus",
+      "industrialfurnace:furnace_output_bus",
+      "industrialfurnace:furnace_fluid_port"
+     ]
+    },
+    {
+     "table": [
+      [
+       "Controller",
+       "Front of the furnace. Right-click it to see status, energy and progress."
+      ],
+      [
+       "Casing",
+       "The walls."
+      ],
+      [
+       "Energy Port",
+       "Accepts RF from cables."
+      ],
+      [
+       "Input Bus",
+       "9 slots for things to smelt."
+      ],
+      [
+       "Output Bus",
+       "9 slots for the results."
+      ],
+      [
+       "Fluid and Gas Port",
+       "Optional. A fluid tank and a Mekanism gas tank, 16,000 mB each. Filled by pipes or a bucket; right-click shows the contents. Used by the infuser (water for concrete) and the compressor (osmium gas)."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Building",
+   "icon": "industrialfurnace:furnace_casing",
+   "blocks": [
+    {
+     "text": "1. Build a 3×3×3 cube with a hollow centre."
+    },
+    {
+     "text": "2. Put the controller in the middle of one wall, facing outwards."
+    },
+    {
+     "text": "3. Fill the other walls with casing. Anywhere in the walls, replace casing with at least one Energy Port, one Input Bus and one Output Bus."
+    },
+    {
+     "text": "4. Right-click the controller: §aFurnace formed§r means it is ready."
+    },
+    {
+     "heading": "You need"
+    },
+    {
+     "table": [
+      [
+       "Controller",
+       "1"
+      ],
+      [
+       "Casing",
+       "22"
+      ],
+      [
+       "Energy Port",
+       "1"
+      ],
+      [
+       "Input Bus",
+       "1"
+      ],
+      [
+       "Output Bus",
+       "1"
+      ]
+     ]
+    },
+    {
+     "text": "More ports are fine; you then need fewer casings."
+    },
+    {
+     "heading": "The formed furnace"
+    },
+    {
+     "text": "Once formed, the blocks turn into one 3D machine model with a firebox, a chimney and hatches where the ports are. Break any block and it falls apart into regular blocks again."
+    },
+    {
+     "text": "With EMI, the Industrial Furnace Structure page shows a rotating model. Click it to view the furnace layer by layer."
+    }
+   ]
+  },
+  {
+   "title": "Running it",
+   "icon": "minecraft:iron_ingot",
+   "blocks": [
+    {
+     "table": [
+      [
+       "Per batch",
+       "8 identical items"
+      ],
+      [
+       "Batch time",
+       "half the vanilla cook time (5 s for ores), at least 1 s"
+      ],
+      [
+       "Energy use",
+       "40 RF/t (4,000 RF per batch of ores)"
+      ],
+      [
+       "Buffer",
+       "200,000 RF"
+      ],
+      [
+       "Max input",
+       "10,000 RF/t"
+      ]
+     ]
+    },
+    {
+     "heading": "Buses"
+    },
+    {
+     "text": "The Input Bus pulls smeltable items from adjacent chests and inventories, 16 every half second, and leaves everything else alone."
+    },
+    {
+     "text": "The Output Bus pushes results into adjacent chests, barrels and pipes. Pipes and hoppers can also work with the buses directly."
+    },
+    {
+     "text": "If the output buses are full, the furnace waits and keeps the finished batch until there is room."
+    },
+    {
+     "heading": "Signs of work"
+    },
+    {
+     "text": "While smelting, flames burn behind the grate and the furnace hums. It does not grant smelting XP."
+    }
+   ]
+  },
+  {
+   "title": "Crusher",
+   "icon": "industrialfurnace:crusher_controller",
+   "blocks": [
+    {
+     "text": "The Industrial Crusher is built like the furnace: a 3×3×3 cube with a hollow centre and the same casing, buses and energy port, but with a Crusher Controller."
+    },
+    {
+     "items": [
+      "industrialfurnace:crusher_controller"
+     ]
+    },
+    {
+     "text": "Once formed it turns into one 3D model with an intake hopper, two toothed rollers behind a window and a brass gear on the side. The rollers and gear spin while it works."
+    },
+    {
+     "heading": "What it crushes"
+    },
+    {
+     "table": [
+      [
+       "Ores",
+       "doubled: iron, gold, diamond, emerald, coal and quartz ore give 2; copper gives 6 raw copper; lapis 10; redstone 8"
+      ],
+      [
+       "Stone",
+       "stone → cobblestone → gravel → sand"
+      ],
+      [
+       "Gravel",
+       "sand plus a 10% chance of flint"
+      ],
+      [
+       "Other",
+       "sandstone → 4 sand, glowstone → 4 dust, bone → 6 bone meal, blaze rod → 4 powder"
+      ]
+     ]
+    },
+    {
+     "heading": "Other mods"
+    },
+    {
+     "text": "These recipes appear by themselves, only when the mod is installed:"
+    },
+    {
+     "table": [
+      [
+       "Mekanism",
+       "osmium, tin, lead, uranium ore → 2 raw; fluorite → 6 gems"
+      ],
+      [
+       "Thermal",
+       "silver, nickel ore → 2 raw; ruby, sapphire → 2; tin and lead when Mekanism is absent"
+      ],
+      [
+       "AE2",
+       "certus quartz, fluix, sky stone → dust; ender pearl → ender dust"
+      ]
+     ]
+    },
+    {
+     "text": "The furnace smelts every mod's smelting recipes, e.g. Mekanism and Thermal dusts into ingots. The energy port takes RF from any mod's cables, and the buses work with Mekanism and Thermal pipes and AE2 interfaces."
+    },
+    {
+     "text": "Other ores work if a recipe targets their Forge tag (forge:ores/...). Change recipes with a datapack or KubeJS: type industrialfurnace:crushing."
+    },
+    {
+     "heading": "Running it"
+    },
+    {
+     "table": [
+      [
+       "Per batch",
+       "up to 8 identical items"
+      ],
+      [
+       "Batch time",
+       "5 s (stone, bones and the like: 3 s)"
+      ],
+      [
+       "Energy use",
+       "60 RF/t"
+      ]
+     ]
+    },
+    {
+     "text": "The buses work as on the furnace: the input bus pulls only crushable items from adjacent chests, the output bus pushes the results out."
+    },
+    {
+     "recipe": "industrialfurnace:crusher_controller"
+    }
+   ]
+  },
+  {
+   "title": "Infuser",
+   "icon": "industrialfurnace:infuser_controller",
+   "blocks": [
+    {
+     "text": "The Industrial Infuser is a multiblock modelled on Mekanism's Metallurgic Infuser. Built like the furnace, with the infuser controller. It combines a base item with an additive."
+    },
+    {
+     "items": [
+      "industrialfurnace:infuser_controller",
+      "industrialfurnace:infuser_core"
+     ]
+    },
+    {
+     "text": "Put the base and the additive into the input buses, any slots. Fluid additives (water) come from a Fluid and Gas Port. Red liquid glows behind the window while it works."
+    },
+    {
+     "heading": "What it makes"
+    },
+    {
+     "table": [
+      [
+       "No mods",
+       "dirt + mushroom → mycelium; netherrack + fungus → crimson nylium; crimson → warped nylium; concrete powder + 100 mB water → concrete (16 colours)"
+      ],
+      [
+       "Mekanism alloys",
+       "iron + redstone → infused; infused + 2 diamond dust → reinforced; reinforced + 4 refined obsidian dust → atomic"
+      ],
+      [
+       "Mekanism bio fuel",
+       "podzol, dirt from sand, slime from clay, mossy blocks (2 bio fuel per block)"
+      ],
+      [
+       "Mekanism gold",
+       "blackstone + 10 gold dust → gilded blackstone"
+      ]
+     ]
+    },
+    {
+     "heading": "Operation"
+    },
+    {
+     "table": [
+      [
+       "Per batch",
+       "up to 8 units; fewer if the additive runs short"
+      ],
+      [
+       "Batch time",
+       "5 s (concrete 2 s)"
+      ],
+      [
+       "Usage",
+       "50 RF/t"
+      ]
+     ]
+    },
+    {
+     "recipe": "industrialfurnace:infuser_controller"
+    }
+   ]
+  },
+  {
+   "title": "Enricher",
+   "icon": "industrialfurnace:enricher_controller",
+   "blocks": [
+    {
+     "text": "The Industrial Enricher is a multiblock modelled on Mekanism's Enrichment Chamber. A press on a shaft pounds the ore behind the window, lit green."
+    },
+    {
+     "items": [
+      "industrialfurnace:enricher_controller",
+      "industrialfurnace:enricher_core"
+     ]
+    },
+    {
+     "heading": "What it makes"
+    },
+    {
+     "table": [
+      [
+       "No mods",
+       "gravel → flint, sand → gravel, moss removal, polished and cracked stone, dyes from flowers, copper deoxidizing"
+      ],
+      [
+       "Mekanism",
+       "all 251 Enrichment Chamber recipes: ore → 2 dust, dirty dust → dust, enriched carbon, redstone, diamond, obsidian, gold, tin"
+      ]
+     ]
+    },
+    {
+     "heading": "Operation"
+    },
+    {
+     "table": [
+      [
+       "Per batch",
+       "up to 8 units"
+      ],
+      [
+       "Batch time",
+       "5 s"
+      ],
+      [
+       "Usage",
+       "50 RF/t"
+      ]
+     ]
+    },
+    {
+     "recipe": "industrialfurnace:enricher_controller"
+    }
+   ]
+  },
+  {
+   "title": "Compressor",
+   "icon": "industrialfurnace:compressor_controller",
+   "blocks": [
+    {
+     "text": "The Industrial Compressor is a multiblock modelled on Mekanism's Osmium Compressor. Two rams squeeze from the sides; an osmium tank sits on top."
+    },
+    {
+     "items": [
+      "industrialfurnace:compressor_controller",
+      "industrialfurnace:compressor_core"
+     ]
+    },
+    {
+     "text": "Osmium comes either as ingots in an input bus or as gas through a Fluid and Gas Port: 200 mB of gas per item, as in Mekanism."
+    },
+    {
+     "table": [
+      [
+       "Glowstone",
+       "glowstone dust + osmium → refined glowstone ingot"
+      ],
+      [
+       "Obsidian",
+       "refined obsidian dust + osmium → refined obsidian ingot"
+      ]
+     ]
+    },
+    {
+     "heading": "Operation"
+    },
+    {
+     "table": [
+      [
+       "Per batch",
+       "up to 8 units"
+      ],
+      [
+       "Batch time",
+       "5 s"
+      ],
+      [
+       "Usage",
+       "60 RF/t"
+      ]
+     ]
+    },
+    {
+     "recipe": "industrialfurnace:compressor_controller"
+    }
+   ]
+  },
+  {
+   "title": "Fluid and Gas Port",
+   "icon": "industrialfurnace:furnace_fluid_port",
+   "blocks": [
+    {
+     "text": "An optional wall block, like the buses. Holds a fluid tank and a Mekanism gas tank, 16,000 mB each."
+    },
+    {
+     "items": [
+      "industrialfurnace:furnace_fluid_port"
+     ]
+    },
+    {
+     "table": [
+      [
+       "Filling",
+       "fluid pipes, Mekanism pressurized tubes, a bucket (right-click)"
+      ],
+      [
+       "Contents",
+       "right-click with an empty hand prints the tanks in chat"
+      ],
+      [
+       "Usage",
+       "only the machine drains it: the infuser takes water, the compressor osmium gas"
+      ]
+     ]
+    },
+    {
+     "text": "Pipes cannot pull the contents back out. Breaking the controller mid-batch loses the fluid or gas already taken."
+    },
+    {
+     "recipe": "industrialfurnace:furnace_fluid_port"
+    }
+   ]
+  },
+  {
+   "title": "Recipes",
+   "icon": "minecraft:crafting_table",
+   "blocks": [
+    {
+     "recipe": "industrialfurnace:furnace_casing"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_controller"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_energy_port"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_input_bus"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_output_bus"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_fluid_port"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_core"
+    },
+    {
+     "recipe": "industrialfurnace:crusher_core"
+    },
+    {
+     "recipe": "industrialfurnace:infuser_core"
+    },
+    {
+     "recipe": "industrialfurnace:enricher_core"
+    },
+    {
+     "recipe": "industrialfurnace:compressor_core"
+    }
+   ]
+  }
+ ],
+ "ru": [
+  {
+   "title": "Обзор",
+   "icon": "industrialfurnace:furnace_controller",
+   "blocks": [
+    {
+     "text": "Molten Industry добавляет промышленную печь — мультиблок 3×3×3 на RF. Она плавит по 8 одинаковых предметов за раз и вдвое быстрее обычной печи. Подходят все рецепты печи, в том числе из других модов."
+    },
+    {
+     "heading": "Блоки"
+    },
+    {
+     "items": [
+      "industrialfurnace:furnace_controller",
+      "industrialfurnace:furnace_casing",
+      "industrialfurnace:furnace_energy_port",
+      "industrialfurnace:furnace_input_bus",
+      "industrialfurnace:furnace_output_bus",
+      "industrialfurnace:furnace_fluid_port"
+     ]
+    },
+    {
+     "table": [
+      [
+       "Контроллер",
+       "Передняя сторона печи. Правый клик показывает состояние, энергию и ход плавки."
+      ],
+      [
+       "Корпус",
+       "Стены печи."
+      ],
+      [
+       "Энергошлюз",
+       "Принимает RF от кабелей."
+      ],
+      [
+       "Входная шина",
+       "9 слотов для того, что нужно переплавить."
+      ],
+      [
+       "Выходная шина",
+       "9 слотов для готовых предметов."
+      ],
+      [
+       "Шлюз жидкостей и газов",
+       "Необязательный. Бак жидкости и бак газа Mekanism по 16 000 мБ. Заливается трубами или ведром, правый клик показывает содержимое. Нужен инфьюзеру (вода для бетона) и компрессору (газ осмия)."
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Как собрать",
+   "icon": "industrialfurnace:furnace_casing",
+   "blocks": [
+    {
+     "text": "1. Постройте куб 3×3×3 с пустым центром."
+    },
+    {
+     "text": "2. Поставьте контроллер в середину одной из стен, передней стороной наружу."
+    },
+    {
+     "text": "3. Остальные стены сделайте из корпуса. В любом месте стен замените корпус хотя бы на один энергошлюз, одну входную и одну выходную шину."
+    },
+    {
+     "text": "4. Нажмите правой кнопкой по контроллеру: §aПечь собрана§r — значит, всё готово."
+    },
+    {
+     "heading": "Что понадобится"
+    },
+    {
+     "table": [
+      [
+       "Контроллер",
+       "1"
+      ],
+      [
+       "Корпус",
+       "22"
+      ],
+      [
+       "Энергошлюз",
+       "1"
+      ],
+      [
+       "Входная шина",
+       "1"
+      ],
+      [
+       "Выходная шина",
+       "1"
+      ]
+     ]
+    },
+    {
+     "text": "Шин и шлюзов может быть больше — тогда корпуса нужно меньше."
+    },
+    {
+     "heading": "Собранная печь"
+    },
+    {
+     "text": "После сборки блоки превращаются в одну 3D-модель машины: корпус, топка с решёткой, труба и люки на местах шин и шлюза. Если сломать любой блок, печь сразу распадается на обычные блоки."
+    },
+    {
+     "text": "С модом EMI на странице «Сборка промышленной печи» видна вращающаяся модель. Клик по ней показывает печь по слоям."
+    }
+   ]
+  },
+  {
+   "title": "Работа печи",
+   "icon": "minecraft:iron_ingot",
+   "blocks": [
+    {
+     "table": [
+      [
+       "За раз",
+       "8 одинаковых предметов"
+      ],
+      [
+       "Время партии",
+       "половина времени обычной печи (руда — 5 с), минимум 1 с"
+      ],
+      [
+       "Расход",
+       "40 RF/тик (партия руды — 4 000 RF)"
+      ],
+      [
+       "Буфер",
+       "200 000 RF"
+      ],
+      [
+       "Приём",
+       "до 10 000 RF/тик"
+      ]
+     ]
+    },
+    {
+     "heading": "Шины"
+    },
+    {
+     "text": "Входная шина сама забирает из соседних сундуков и инвентарей всё, что можно переплавить, — по 16 предметов раз в полсекунды. Остальное она не трогает."
+    },
+    {
+     "text": "Выходная шина сама выталкивает готовое в соседние сундуки, бочки и трубы. Трубы и воронки тоже работают с шинами."
+    },
+    {
+     "text": "Если выходные шины заполнены, печь ждёт и держит готовую партию, пока не освободится место."
+    },
+    {
+     "heading": "Признаки работы"
+    },
+    {
+     "text": "Пока печь плавит, за решёткой горит огонь и слышен гул. Опыт за плавку печь не даёт."
+    }
+   ]
+  },
+  {
+   "title": "Дробитель",
+   "icon": "industrialfurnace:crusher_controller",
+   "blocks": [
+    {
+     "text": "Промышленный дробитель собирается так же, как печь: куб 3×3×3 с пустым центром, те же корпус, шины и энергошлюз, только с контроллером дробителя."
+    },
+    {
+     "items": [
+      "industrialfurnace:crusher_controller"
+     ]
+    },
+    {
+     "text": "После сборки он превращается в одну 3D-модель: воронка сверху, два зубчатых вала в окне и латунная шестерня сбоку. Во время работы валы и шестерня крутятся."
+    },
+    {
+     "heading": "Что дробит"
+    },
+    {
+     "table": [
+      [
+       "Руда",
+       "удваивается: железная, золотая, алмазная, изумрудная, угольная и кварцевая руда → 2 штуки; медная → 6 сырой меди; лазуритовая → 10; редстоуновая → 8"
+      ],
+      [
+       "Камень",
+       "камень → булыжник → гравий → песок"
+      ],
+      [
+       "Гравий",
+       "песок и 10% шанс кремня"
+      ],
+      [
+       "Прочее",
+       "песчаник → 4 песка, светокамень → 4 пыли, кость → 6 костной муки, огненный стержень → 4 порошка"
+      ]
+     ]
+    },
+    {
+     "heading": "Другие моды"
+    },
+    {
+     "text": "Эти рецепты появляются сами, только если нужный мод установлен:"
+    },
+    {
+     "table": [
+      [
+       "Mekanism",
+       "руды осмия, олова, свинца, урана → 2 сырых; флюорит → 6 кристаллов"
+      ],
+      [
+       "Thermal",
+       "руды серебра, никеля → 2 сырых; рубин, сапфир → 2; олово и свинец — если нет Mekanism"
+      ],
+      [
+       "AE2",
+       "истинный кварц, флюикс, небесный камень → пыль; жемчуг Края → пыль Края"
+      ]
+     ]
+    },
+    {
+     "text": "Печь плавит рецепты печи из всех модов, например пыль Mekanism и Thermal в слитки. Энергошлюз принимает RF с кабелей любых модов, шины работают с трубами Mekanism и Thermal и с интерфейсами AE2."
+    },
+    {
+     "text": "Остальные руды подходят, если у рецепта есть тег Forge (forge:ores/...). Рецепты можно менять датапаком или KubeJS: тип industrialfurnace:crushing."
+    },
+    {
+     "heading": "Работа"
+    },
+    {
+     "table": [
+      [
+       "За раз",
+       "до 8 одинаковых предметов"
+      ],
+      [
+       "Время партии",
+       "5 с (камень, кости и прочее — 3 с)"
+      ],
+      [
+       "Расход",
+       "60 RF/тик"
+      ]
+     ]
+    },
+    {
+     "text": "Шины работают так же, как у печи: входная сама берёт из соседних сундуков только то, что можно раздробить, выходная сама выгружает результат."
+    },
+    {
+     "recipe": "industrialfurnace:crusher_controller"
+    }
+   ]
+  },
+  {
+   "title": "Инфьюзер",
+   "icon": "industrialfurnace:infuser_controller",
+   "blocks": [
+    {
+     "text": "Промышленный инфьюзер — мультиблок по образцу металлургического инфьюзера Mekanism. Собирается как печь, с контроллером инфьюзера. Соединяет основу с добавкой."
+    },
+    {
+     "items": [
+      "industrialfurnace:infuser_controller",
+      "industrialfurnace:infuser_core"
+     ]
+    },
+    {
+     "text": "Основа и добавка кладутся во входные шины, в любые слоты. Жидкие добавки (вода) машина берёт из шлюза жидкостей и газов. В окне за стеклом во время работы светится красная жидкость."
+    },
+    {
+     "heading": "Что делает"
+    },
+    {
+     "table": [
+      [
+       "Без модов",
+       "земля + гриб → мицелий; незерак + гриб → багровый нилий; багровый → искажённый нилий; сухой бетон + 100 мБ воды → бетон (16 цветов)"
+      ],
+      [
+       "Mekanism, сплавы",
+       "железо + редстоун → инфузированный; инфузированный + 2 алмазной пыли → укреплённый; укреплённый + 4 пыли обсидиана → атомный"
+      ],
+      [
+       "Mekanism, биотопливо",
+       "подзол, земля из песка, слизь из глины, замшелые блоки (2 биотоплива на блок)"
+      ],
+      [
+       "Mekanism, золото",
+       "чернокамень + 10 золотой пыли → позолоченный чернокамень"
+      ]
+     ]
+    },
+    {
+     "heading": "Работа"
+    },
+    {
+     "table": [
+      [
+       "За раз",
+       "до 8 порций; если добавки меньше — меньше порций"
+      ],
+      [
+       "Время партии",
+       "5 с (бетон — 2 с)"
+      ],
+      [
+       "Расход",
+       "50 RF/тик"
+      ]
+     ]
+    },
+    {
+     "recipe": "industrialfurnace:infuser_controller"
+    }
+   ]
+  },
+  {
+   "title": "Обогатитель",
+   "icon": "industrialfurnace:enricher_controller",
+   "blocks": [
+    {
+     "text": "Промышленный обогатитель — мультиблок по образцу обогатительной камеры Mekanism. За стеклом пресс на валу бьёт по руде, камера светится зелёным."
+    },
+    {
+     "items": [
+      "industrialfurnace:enricher_controller",
+      "industrialfurnace:enricher_core"
+     ]
+    },
+    {
+     "heading": "Что делает"
+    },
+    {
+     "table": [
+      [
+       "Без модов",
+       "гравий → кремень, песок → гравий, мох с блоков, полировка и трещины камня, красители из цветов, медь без окисла"
+      ],
+      [
+       "Mekanism",
+       "все 251 рецепт обогатительной камеры: руда → 2 пыли, грязная пыль → пыль, обогащённые углерод, редстоун, алмаз, обсидиан, золото, олово"
+      ]
+     ]
+    },
+    {
+     "heading": "Работа"
+    },
+    {
+     "table": [
+      [
+       "За раз",
+       "до 8 порций"
+      ],
+      [
+       "Время партии",
+       "5 с"
+      ],
+      [
+       "Расход",
+       "50 RF/тик"
+      ]
+     ]
+    },
+    {
+     "recipe": "industrialfurnace:enricher_controller"
+    }
+   ]
+  },
+  {
+   "title": "Компрессор",
+   "icon": "industrialfurnace:compressor_controller",
+   "blocks": [
+    {
+     "text": "Промышленный компрессор — мультиблок по образцу осмиевого компрессора Mekanism. Два пуансона сжимают заготовку с боков, сверху бак с осмием."
+    },
+    {
+     "items": [
+      "industrialfurnace:compressor_controller",
+      "industrialfurnace:compressor_core"
+     ]
+    },
+    {
+     "text": "Осмий можно дать слитками во входную шину или газом через шлюз жидкостей и газов: 200 мБ газа на один предмет, как у Mekanism."
+    },
+    {
+     "table": [
+      [
+       "Светокамень",
+       "пыль светокамня + осмий → слиток очищенного светокамня"
+      ],
+      [
+       "Обсидиан",
+       "пыль рафинированного обсидиана + осмий → слиток рафинированного обсидиана"
+      ]
+     ]
+    },
+    {
+     "heading": "Работа"
+    },
+    {
+     "table": [
+      [
+       "За раз",
+       "до 8 порций"
+      ],
+      [
+       "Время партии",
+       "5 с"
+      ],
+      [
+       "Расход",
+       "60 RF/тик"
+      ]
+     ]
+    },
+    {
+     "recipe": "industrialfurnace:compressor_controller"
+    }
+   ]
+  },
+  {
+   "title": "Шлюз жидкостей и газов",
+   "icon": "industrialfurnace:furnace_fluid_port",
+   "blocks": [
+    {
+     "text": "Необязательный блок стены, как шины. Внутри бак жидкости и бак газа Mekanism, по 16 000 мБ."
+    },
+    {
+     "items": [
+      "industrialfurnace:furnace_fluid_port"
+     ]
+    },
+    {
+     "table": [
+      [
+       "Заполнение",
+       "трубы жидкостей, трубы под давлением Mekanism, ведро (правый клик)"
+      ],
+      [
+       "Содержимое",
+       "правый клик пустой рукой пишет в чат, что в баках"
+      ],
+      [
+       "Расход",
+       "тратит только машина: инфьюзер берёт воду, компрессор — газ осмия"
+      ]
+     ]
+    },
+    {
+     "text": "Обратно трубой содержимое не забрать. Если сломать контроллер посреди партии, уже взятые жидкость или газ пропадут."
+    },
+    {
+     "recipe": "industrialfurnace:furnace_fluid_port"
+    }
+   ]
+  },
+  {
+   "title": "Рецепты",
+   "icon": "minecraft:crafting_table",
+   "blocks": [
+    {
+     "recipe": "industrialfurnace:furnace_casing"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_controller"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_energy_port"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_input_bus"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_output_bus"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_fluid_port"
+    },
+    {
+     "recipe": "industrialfurnace:furnace_core"
+    },
+    {
+     "recipe": "industrialfurnace:crusher_core"
+    },
+    {
+     "recipe": "industrialfurnace:infuser_core"
+    },
+    {
+     "recipe": "industrialfurnace:enricher_core"
+    },
+    {
+     "recipe": "industrialfurnace:compressor_core"
+    }
+   ]
+  }
+ ],
+ "names": {
+  "ae2:interface": [
+   "ME Interface",
+   "ME-интерфейс"
+  ],
+  "ae2:pattern_provider": [
+   "Pattern Provider",
+   "Поставщик шаблонов"
+  ],
+  "avaritia:crystal_matrix_ingot": [
+   "Crystal Matrix Ingot",
+   "Слиток кристаллической матрицы"
+  ],
+  "avaritia:extreme_crafting_table": [
+   "Extreme Crafting Table",
+   "Экстремальный верстак"
+  ],
+  "avaritia:neutron_ingot": [
+   "Neutronium Ingot",
+   "Нейтрониевый слиток"
+  ],
+  "draconicevolution:awakened_core": [
+   "Awakened Core",
+   "Пробуждённое ядро"
+  ],
+  "draconicevolution:draconium_core": [
+   "Draconium Core",
+   "Дракониевое ядро"
+  ],
+  "draconicevolution:draconium_ingot": [
+   "Draconium Ingot",
+   "Дракониевый слиток"
+  ],
+  "draconicevolution:wyvern_core": [
+   "Wyvern Core",
+   "Ядро виверны"
+  ],
+  "industrialfurnace:compressor_controller": [
+   "Industrial Compressor Controller",
+   "Контроллер промышленного компрессора"
+  ],
+  "industrialfurnace:compressor_core": [
+   "Industrial Compressor Core",
+   "Ядро промышленного компрессора"
+  ],
+  "industrialfurnace:crusher_controller": [
+   "Industrial Crusher Controller",
+   "Контроллер промышленного дробителя"
+  ],
+  "industrialfurnace:crusher_core": [
+   "Industrial Crusher Core",
+   "Ядро промышленного дробителя"
+  ],
+  "industrialfurnace:enricher_controller": [
+   "Industrial Enricher Controller",
+   "Контроллер промышленного обогатителя"
+  ],
+  "industrialfurnace:enricher_core": [
+   "Industrial Enricher Core",
+   "Ядро промышленного обогатителя"
+  ],
+  "industrialfurnace:forge_builder": [
+   "Forge Builder",
+   "Конструктор кузни"
+  ],
+  "industrialfurnace:forge_casing": [
+   "Forge Casing",
+   "Корпус кузни"
+  ],
+  "industrialfurnace:forge_controller": [
+   "Creative Forge Controller",
+   "Контроллер творческой кузни"
+  ],
+  "industrialfurnace:forge_core": [
+   "Forge Core",
+   "Ядро кузни"
+  ],
+  "industrialfurnace:forge_energy_port": [
+   "Forge Energy Port",
+   "Энергопорт кузни"
+  ],
+  "industrialfurnace:forge_frame": [
+   "Forge Frame",
+   "Каркас кузни"
+  ],
+  "industrialfurnace:forge_glass": [
+   "Forge Glass",
+   "Стекло кузни"
+  ],
+  "industrialfurnace:forge_input_port": [
+   "Forge Input Port",
+   "Входной порт кузни"
+  ],
+  "industrialfurnace:forge_output_port": [
+   "Forge Output Port",
+   "Выходной порт кузни"
+  ],
+  "industrialfurnace:forge_speed_module": [
+   "Forge Speed Module",
+   "Модуль скорости кузни"
+  ],
+  "industrialfurnace:forge_vent": [
+   "Forge Vent",
+   "Вентиляция кузни"
+  ],
+  "industrialfurnace:furnace_casing": [
+   "Industrial Casing",
+   "Промышленный корпус"
+  ],
+  "industrialfurnace:furnace_controller": [
+   "Industrial Furnace Controller",
+   "Контроллер промышленной печи"
+  ],
+  "industrialfurnace:furnace_core": [
+   "Industrial Furnace Core",
+   "Ядро промышленной печи"
+  ],
+  "industrialfurnace:furnace_energy_port": [
+   "Industrial Furnace Energy Port",
+   "Энергетический шлюз печи"
+  ],
+  "industrialfurnace:furnace_fluid_port": [
+   "Fluid and Gas Port",
+   "Шлюз жидкостей и газов"
+  ],
+  "industrialfurnace:furnace_input_bus": [
+   "Industrial Furnace Input Bus",
+   "Входная шина печи"
+  ],
+  "industrialfurnace:furnace_output_bus": [
+   "Industrial Furnace Output Bus",
+   "Выходная шина печи"
+  ],
+  "industrialfurnace:infuser_controller": [
+   "Industrial Infuser Controller",
+   "Контроллер промышленного инфьюзера"
+  ],
+  "industrialfurnace:infuser_core": [
+   "Industrial Infuser Core",
+   "Ядро промышленного инфьюзера"
+  ],
+  "industrialfurnace:me_input_bus": [
+   "ME Input Bus",
+   "МЭ-шина входа"
+  ],
+  "industrialfurnace:me_output_bus": [
+   "ME Output Bus",
+   "МЭ-шина выхода"
+  ],
+  "mekanism:alloy_atomic": [
+   "Atomic Alloy",
+   "Атомный сплав"
+  ],
+  "mekanism:ingot_refined_obsidian": [
+   "Refined Obsidian Ingot",
+   "Слиток очищенного обсидиана"
+  ],
+  "mekanism:ingot_steel": [
+   "Steel Ingot",
+   "Стальной слиток"
+  ],
+  "mekanism:ultimate_control_circuit": [
+   "Ultimate Control Circuit",
+   "Совершенная схема управления"
+  ],
+  "minecraft:blaze_powder": [
+   "Blaze Powder",
+   "Огненный порошок"
+  ],
+  "minecraft:brick": [
+   "Brick",
+   "Кирпич"
+  ],
+  "minecraft:bucket": [
+   "Bucket",
+   "Ведро"
+  ],
+  "minecraft:copper_ingot": [
+   "Copper Ingot",
+   "Медный слиток"
+  ],
+  "minecraft:crafting_table": [
+   "Crafting Table",
+   "Верстак"
+  ],
+  "minecraft:diamond": [
+   "Diamond",
+   "Алмаз"
+  ],
+  "minecraft:dropper": [
+   "Dropper",
+   "Выбрасыватель"
+  ],
+  "minecraft:emerald": [
+   "Emerald",
+   "Изумруд"
+  ],
+  "minecraft:ender_pearl": [
+   "Ender Pearl",
+   "Жемчуг Края"
+  ],
+  "minecraft:furnace": [
+   "Furnace",
+   "Печь"
+  ],
+  "minecraft:glass": [
+   "Glass",
+   "Стекло"
+  ],
+  "minecraft:glowstone_dust": [
+   "Glowstone Dust",
+   "Светокаменная пыль"
+  ],
+  "minecraft:gold_ingot": [
+   "Gold Ingot",
+   "Золотой слиток"
+  ],
+  "minecraft:grindstone": [
+   "Grindstone",
+   "Точило"
+  ],
+  "minecraft:hopper": [
+   "Hopper",
+   "Воронка"
+  ],
+  "minecraft:iron_bars": [
+   "Iron Bars",
+   "Железная решётка"
+  ],
+  "minecraft:iron_ingot": [
+   "Iron Ingot",
+   "Железный слиток"
+  ],
+  "minecraft:lapis_lazuli": [
+   "Lapis Lazuli",
+   "Лазурит"
+  ],
+  "minecraft:obsidian": [
+   "Obsidian",
+   "Обсидиан"
+  ],
+  "minecraft:piston": [
+   "Piston",
+   "Поршень"
+  ],
+  "minecraft:quartz": [
+   "Nether Quartz",
+   "Кварц Незера"
+  ],
+  "minecraft:redstone": [
+   "Redstone Dust",
+   "Редстоун"
+  ],
+  "minecraft:redstone_block": [
+   "Block of Redstone",
+   "Редстоуновый блок"
+  ],
+  "minecraft:sticky_piston": [
+   "Sticky Piston",
+   "Липкий поршень"
+  ],
+  "minecraft:sugar": [
+   "Sugar",
+   "Сахар"
+  ]
+ },
+ "recipes": {
+  "industrialfurnace:compressor_controller": {
+   "pattern": [
+    "CPC",
+    "OKO",
+    "CPC"
+   ],
+   "key": {
+    "C": "industrialfurnace:furnace_casing",
+    "P": "minecraft:piston",
+    "O": "minecraft:obsidian",
+    "K": "industrialfurnace:compressor_core"
+   },
+   "count": 1
+  },
+  "industrialfurnace:compressor_core": {
+   "pattern": [
+    "IPI",
+    "ODO",
+    "IPI"
+   ],
+   "key": {
+    "I": "minecraft:iron_ingot",
+    "P": "minecraft:sticky_piston",
+    "O": "minecraft:obsidian",
+    "D": "minecraft:diamond"
+   },
+   "count": 1
+  },
+  "industrialfurnace:crusher_controller": {
+   "pattern": [
+    "CPC",
+    "GKG",
+    "CPC"
+   ],
+   "key": {
+    "C": "industrialfurnace:furnace_casing",
+    "P": "minecraft:piston",
+    "G": "minecraft:grindstone",
+    "K": "industrialfurnace:crusher_core"
+   },
+   "count": 1
+  },
+  "industrialfurnace:crusher_core": {
+   "pattern": [
+    "IQI",
+    "DOD",
+    "IQI"
+   ],
+   "key": {
+    "I": "minecraft:iron_ingot",
+    "Q": "minecraft:quartz",
+    "D": "minecraft:diamond",
+    "O": "minecraft:obsidian"
+   },
+   "count": 1
+  },
+  "industrialfurnace:enricher_controller": {
+   "pattern": [
+    "CHC",
+    "PKP",
+    "CHC"
+   ],
+   "key": {
+    "C": "industrialfurnace:furnace_casing",
+    "H": "minecraft:hopper",
+    "P": "minecraft:piston",
+    "K": "industrialfurnace:enricher_core"
+   },
+   "count": 1
+  },
+  "industrialfurnace:enricher_core": {
+   "pattern": [
+    "IRI",
+    "EDE",
+    "IRI"
+   ],
+   "key": {
+    "I": "minecraft:iron_ingot",
+    "R": "minecraft:redstone",
+    "E": "minecraft:emerald",
+    "D": "minecraft:diamond"
+   },
+   "count": 1
+  },
+  "industrialfurnace:forge_builder": {
+   "pattern": [
+    " CF",
+    " IC",
+    "I  "
+   ],
+   "key": {
+    "C": "industrialfurnace:forge_casing",
+    "F": "industrialfurnace:forge_frame",
+    "I": "minecraft:iron_ingot"
+   },
+   "count": 1
+  },
+  "industrialfurnace:forge_casing": {
+   "pattern": [
+    "SRS",
+    "RCR",
+    "SRS"
+   ],
+   "key": {
+    "S": "mekanism:ingot_steel",
+    "R": "minecraft:redstone_block",
+    "C": "avaritia:crystal_matrix_ingot"
+   },
+   "count": 8
+  },
+  "industrialfurnace:forge_controller": {
+   "pattern": [
+    "FWF",
+    "UTU",
+    "FNF"
+   ],
+   "key": {
+    "F": "industrialfurnace:forge_frame",
+    "W": "draconicevolution:wyvern_core",
+    "U": "mekanism:ultimate_control_circuit",
+    "T": "avaritia:extreme_crafting_table",
+    "N": "avaritia:neutron_ingot"
+   },
+   "count": 1
+  },
+  "industrialfurnace:forge_core": {
+   "pattern": [
+    "NAN",
+    "ADA",
+    "NAN"
+   ],
+   "key": {
+    "N": "avaritia:neutron_ingot",
+    "A": "mekanism:alloy_atomic",
+    "D": "draconicevolution:awakened_core"
+   },
+   "count": 1
+  },
+  "industrialfurnace:forge_energy_port": {
+   "pattern": [
+    "R",
+    "C",
+    "D"
+   ],
+   "key": {
+    "R": "minecraft:redstone_block",
+    "C": "industrialfurnace:forge_casing",
+    "D": "draconicevolution:draconium_core"
+   },
+   "count": 1
+  },
+  "industrialfurnace:forge_frame": {
+   "pattern": [
+    "SDS",
+    "DCD",
+    "SDS"
+   ],
+   "key": {
+    "S": "mekanism:ingot_refined_obsidian",
+    "D": "draconicevolution:draconium_ingot",
+    "C": "avaritia:crystal_matrix_ingot"
+   },
+   "count": 8
+  },
+  "industrialfurnace:forge_glass": {
+   "pattern": [
+    " G ",
+    "GCG",
+    " G "
+   ],
+   "key": {
+    "G": "minecraft:glass",
+    "C": "industrialfurnace:forge_casing"
+   },
+   "count": 4
+  },
+  "industrialfurnace:forge_input_port": {
+   "pattern": [
+    "H",
+    "C",
+    "B"
+   ],
+   "key": {
+    "H": "minecraft:hopper",
+    "C": "industrialfurnace:forge_casing",
+    "B": "minecraft:bucket"
+   },
+   "count": 1
+  },
+  "industrialfurnace:forge_output_port": {
+   "pattern": [
+    "C",
+    "H",
+    "D"
+   ],
+   "key": {
+    "H": "minecraft:hopper",
+    "C": "industrialfurnace:forge_casing",
+    "D": "minecraft:dropper"
+   },
+   "count": 1
+  },
+  "industrialfurnace:forge_speed_module": {
+   "pattern": [
+    "GSG",
+    "RCR",
+    "GSG"
+   ],
+   "key": {
+    "G": "minecraft:gold_ingot",
+    "S": "minecraft:sugar",
+    "R": "minecraft:redstone_block",
+    "C": "industrialfurnace:forge_casing"
+   },
+   "count": 1
+  },
+  "industrialfurnace:forge_vent": {
+   "pattern": [
+    " B ",
+    "BCB",
+    " B "
+   ],
+   "key": {
+    "B": "minecraft:iron_bars",
+    "C": "industrialfurnace:forge_casing"
+   },
+   "count": 4
+  },
+  "industrialfurnace:furnace_casing": {
+   "pattern": [
+    "IBI",
+    "BCB",
+    "IBI"
+   ],
+   "key": {
+    "I": "minecraft:iron_ingot",
+    "B": "minecraft:brick",
+    "C": "minecraft:copper_ingot"
+   },
+   "count": 4
+  },
+  "industrialfurnace:furnace_controller": {
+   "pattern": [
+    "CRC",
+    "FKF",
+    "CRC"
+   ],
+   "key": {
+    "C": "industrialfurnace:furnace_casing",
+    "R": "minecraft:redstone",
+    "F": "minecraft:furnace",
+    "K": "industrialfurnace:furnace_core"
+   },
+   "count": 1
+  },
+  "industrialfurnace:furnace_core": {
+   "pattern": [
+    "GBG",
+    "RDR",
+    "GBG"
+   ],
+   "key": {
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:blaze_powder",
+    "R": "minecraft:redstone",
+    "D": "minecraft:diamond"
+   },
+   "count": 1
+  },
+  "industrialfurnace:furnace_energy_port": {
+   "pattern": [
+    " R ",
+    "OCO",
+    " R "
+   ],
+   "key": {
+    "R": "minecraft:redstone_block",
+    "O": "minecraft:copper_ingot",
+    "C": "industrialfurnace:furnace_casing"
+   },
+   "count": 1
+  },
+  "industrialfurnace:furnace_fluid_port": {
+   "pattern": [
+    " B ",
+    "GCG",
+    " B "
+   ],
+   "key": {
+    "B": "minecraft:bucket",
+    "G": "minecraft:glass",
+    "C": "industrialfurnace:furnace_casing"
+   },
+   "count": 1
+  },
+  "industrialfurnace:furnace_input_bus": {
+   "pattern": [
+    "H",
+    "C"
+   ],
+   "key": {
+    "H": "minecraft:hopper",
+    "C": "industrialfurnace:furnace_casing"
+   },
+   "count": 1
+  },
+  "industrialfurnace:furnace_output_bus": {
+   "pattern": [
+    "C",
+    "H"
+   ],
+   "key": {
+    "H": "minecraft:hopper",
+    "C": "industrialfurnace:furnace_casing"
+   },
+   "count": 1
+  },
+  "industrialfurnace:infuser_controller": {
+   "pattern": [
+    "CRC",
+    "GKG",
+    "CRC"
+   ],
+   "key": {
+    "C": "industrialfurnace:furnace_casing",
+    "R": "minecraft:redstone",
+    "G": "minecraft:glass",
+    "K": "industrialfurnace:infuser_core"
+   },
+   "count": 1
+  },
+  "industrialfurnace:infuser_core": {
+   "pattern": [
+    "GSG",
+    "LEL",
+    "GSG"
+   ],
+   "key": {
+    "G": "minecraft:gold_ingot",
+    "S": "minecraft:glowstone_dust",
+    "L": "minecraft:lapis_lazuli",
+    "E": "minecraft:ender_pearl"
+   },
+   "count": 1
+  },
+  "industrialfurnace:me_input_bus": {
+   "pattern": [
+    "T",
+    "B"
+   ],
+   "key": {
+    "T": "ae2:pattern_provider",
+    "B": "industrialfurnace:furnace_input_bus"
+   },
+   "count": 1
+  },
+  "industrialfurnace:me_output_bus": {
+   "pattern": [
+    "T",
+    "B"
+   ],
+   "key": {
+    "T": "ae2:interface",
+    "B": "industrialfurnace:furnace_output_bus"
+   },
+   "count": 1
+  }
+ }
+}

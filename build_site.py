@@ -23,6 +23,7 @@ from notify import HERE, STATUS_APPROVED, cf, listed_ids
 
 OUT = os.path.join(HERE, "_site")
 TRANSLATIONS = os.path.join(HERE, "translations")
+GUIDES = os.path.join(HERE, "guides")
 PROFILE = "https://www.curseforge.com/members/grint/projects"
 LOADERS = {"Forge", "NeoForge", "Fabric", "Quilt"}
 RELEASE = {1: ("Release", "Релиз", "release"), 2: ("Beta", "Бета", "beta"), 3: ("Alpha", "Альфа", "alpha")}
@@ -123,20 +124,151 @@ def download_url(mod, f):
     return f["downloadUrl"] or f"{mod['links']['websiteUrl']}/files/{f['id']}"
 
 
-def render_mod(mod, files, description, ru):
-    e = html.escape
-    summary_ru, description_ru = ru or (None, None)
-    url = mod["links"]["websiteUrl"]
-    logo = (mod.get("logo") or {}).get("url", "")
-    tags = "".join(f"<li>{e(c['name'])}</li>" for c in mod["categories"])
+def mod_info(mod, files):
+    """Общие данные для карточки и страницы мода."""
     mc = sorted({v for f in files for v in f["gameVersions"] if re.match(r"\d", v)}, reverse=True)
     loaders = sorted({v for f in files for v in f["gameVersions"] if v in LOADERS})
     # основной файл, выбранный автором на CurseForge, иначе самый свежий
     latest = next((f for f in files if f["id"] == mod.get("mainFileId")), files[0] if files else None)
+    return mc, loaders, latest
+
+
+def latest_button(mod, latest):
+    if not latest:
+        return ""
+    return (f'<a class="btn primary" href="{html.escape(download_url(mod, latest))}">'
+            f'{t("Download latest", "Скачать последнюю")}<small>{html.escape(latest["displayName"])}</small></a>')
+
+
+def render_card(mod, files, ru):
+    """Карточка мода на главной: название ведёт на страницу мода."""
+    e = html.escape
+    summary_ru = ru[0] if ru else None
+    mc, loaders, latest = mod_info(mod, files)
+    page = f"mods/{e(mod['slug'])}/"
+    logo = (mod.get("logo") or {}).get("url", "")
+    tags = "".join(f"<li>{e(c['name'])}</li>" for c in mod["categories"])
+    return f"""
+  <article class="mod card">
+    <a href="{page}"><img class="logo" src="{e(logo)}" alt="" width="96" height="96"></a>
+    <div class="mod-title">
+      <h2><a href="{page}">{e(mod['name'])}</a></h2>
+      {bilingual('p', e(mod.get('summary', '')), e(summary_ru) if summary_ru else None, 'summary')}
+      <ul class="tags">{tags}</ul>
+      <p class="facts">Minecraft {e(', '.join(mc))} · {e(', '.join(loaders))} · {mod['downloadCount']:,} {t('downloads', 'загрузок')}</p>
+      <div class="actions">
+        <a class="btn" href="{page}">{t('Guide and details →', 'Гайд и подробности →')}</a>
+        {latest_button(mod, latest)}
+        <a class="btn ghost" href="{e(mod['links']['websiteUrl'])}" target="_blank" rel="noopener">CurseForge ↗</a>
+      </div>
+    </div>
+  </article>"""
+
+
+MC_COLORS = "0123456789abcdef"
+
+
+def mc_text(s):
+    """Текст гайда: экранирование и цветовые коды Minecraft (§a … §r)."""
+    out, open_ = [], False
+    for i, part in enumerate(re.split(r"§(.)", html.escape(s))):
+        if i % 2 == 0:
+            out.append(part)
+            continue
+        if open_:
+            out.append("</span>")
+            open_ = False
+        if part.lower() in MC_COLORS:
+            out.append(f'<span class="mc-{part.lower()}">')
+            open_ = True
+    if open_:
+        out.append("</span>")
+    return "".join(out)
+
+
+def item_name(guide, item, lang):
+    pair = guide["names"].get(item)
+    if pair and pair[lang == "ru"]:
+        return pair[lang == "ru"]
+    return item.split(":")[-1].lstrip("#").replace("_", " ").title()
+
+
+def render_recipe(guide, item, lang):
+    e = html.escape
+    r = guide["recipes"].get(item)
+    if not r:
+        return ""
+    letters = sorted(r["key"])
+    color = {k: i % 8 for i, k in enumerate(letters)}
+    cells = []
+    for row in (r["pattern"] + ["", "", ""])[:3]:
+        for ch in (row + "   ")[:3]:
+            if ch in r["key"]:
+                name = item_name(guide, r["key"][ch], lang)
+                cells.append(f'<span class="cell k{color[ch]}" title="{e(name)}">{e(ch)}</span>')
+            else:
+                cells.append('<span class="cell"></span>')
+    legend = "".join(
+        f'<li><span class="cell k{color[k]}">{e(k)}</span>{e(item_name(guide, r["key"][k], lang))}</li>'
+        for k in letters)
+    count = f" ×{r['count']}" if r["count"] > 1 else ""
+    return f"""
+      <figure class="recipe">
+        <div class="grid">{''.join(cells)}</div>
+        <span class="arrow">→</span>
+        <figcaption class="result">{e(item_name(guide, item, lang))}{count}</figcaption>
+        <ul class="legend">{legend}</ul>
+      </figure>"""
+
+
+def render_guide(guide, lang):
+    e = html.escape
+    toc, body = [], []
+    for i, ch in enumerate(guide[lang]):
+        anchor = f"{lang}-{i + 1}"
+        toc.append(f'<li><a href="#{anchor}">{e(ch["title"])}</a></li>')
+        blocks = []
+        for b in ch["blocks"]:
+            if "text" in b:
+                blocks.append(f"<p>{mc_text(b['text'])}</p>")
+            elif "heading" in b:
+                blocks.append(f"<h4>{e(b['heading'])}</h4>")
+            elif "items" in b:
+                chips = "".join(f"<li>{e(item_name(guide, x, lang))}</li>" for x in b["items"])
+                blocks.append(f'<ul class="items">{chips}</ul>')
+            elif "table" in b:
+                rows = "".join(f"<tr><th>{mc_text(k)}</th><td>{mc_text(v)}</td></tr>" for k, v in b["table"])
+                blocks.append(f'<div class="table-wrap"><table class="kv">{rows}</table></div>')
+            elif "recipe" in b:
+                blocks.append(render_recipe(guide, b["recipe"], lang))
+        body.append(f'<section class="chapter" id="{anchor}"><h3>{e(ch["title"])}</h3>{"".join(blocks)}</section>')
+    title = "Contents" if lang == "en" else "Содержание"
+    return f"""
+    <div class="guide" lang="{lang}">
+      <nav class="toc"><p>{title}</p><ol>{''.join(toc)}</ol></nav>
+      <div class="chapters">{''.join(body)}</div>
+    </div>"""
+
+
+def load_guide(mod_id):
+    path = os.path.join(GUIDES, f"{mod_id}.json")
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def render_page(mod, files, description, ru, guide):
+    """Отдельная страница мода: шапка, скриншоты, гайд, описание, все версии."""
+    e = html.escape
+    summary_ru, description_ru = ru or (None, None)
+    mc, loaders, latest = mod_info(mod, files)
+    logo = (mod.get("logo") or {}).get("url", "")
+    tags = "".join(f"<li>{e(c['name'])}</li>" for c in mod["categories"])
 
     rows = []
     for f in files:
-        en, ru, cls = RELEASE.get(f["releaseType"], RELEASE[1])
+        en, ru_, cls = RELEASE.get(f["releaseType"], RELEASE[1])
         fmc = ", ".join(v for v in f["gameVersions"] if re.match(r"\d", v))
         floader = ", ".join(v for v in f["gameVersions"] if v in LOADERS)
         rows.append(f"""
@@ -144,7 +276,7 @@ def render_mod(mod, files, description, ru):
           <td class="fname">{e(f['displayName'])}</td>
           <td>{e(fmc)}</td>
           <td>{e(floader)}</td>
-          <td><span class="badge {cls}">{t(en, ru)}</span></td>
+          <td><span class="badge {cls}">{t(en, ru_)}</span></td>
           <td class="num">{date(f['fileDate'])}</td>
           <td class="num">{size(f['fileLength'])}</td>
           <td><a class="btn small" href="{e(download_url(mod, f))}">{t('Download', 'Скачать')}</a></td>
@@ -155,36 +287,49 @@ def render_mod(mod, files, description, ru):
         f'alt="{e(s.get("title") or mod["name"])}" loading="lazy"></a>'
         for s in mod.get("screenshots", []))
 
-    latest_btn = (f'<a class="btn primary" href="{e(download_url(mod, latest))}">'
-                  f'{t("Download latest", "Скачать последнюю")}<small>{e(latest["displayName"])}</small></a>'
-                  if latest else "")
+    tabs = []
+    if guide:
+        tabs.append(("guide", t("Guide", "Гайд")))
+    tabs += [("about", t("Description", "Описание")), ("files", t("All versions", "Все версии"))]
+    tab_nav = "".join(f'<a href="#{k}">{label}</a>' for k, label in tabs)
+
+    guide_html = ""
+    if guide:
+        guide_html = f"""
+  <section class="block" id="guide">
+    <h2>{t('Guide', 'Гайд')}</h2>
+    {render_guide(guide, 'en')}{render_guide(guide, 'ru')}
+  </section>"""
 
     return f"""
-  <section class="mod" id="{e(mod['slug'])}">
-    <div class="mod-head">
-      <img class="logo" src="{e(logo)}" alt="" width="112" height="112">
-      <div class="mod-title">
-        <h2>{e(mod['name'])}</h2>
-        {bilingual('p', e(mod.get('summary', '')), e(summary_ru) if summary_ru else None, 'summary')}
-        <ul class="tags">{tags}</ul>
-        <dl class="meta">
-          <div><dt>{t('Minecraft', 'Minecraft')}</dt><dd>{e(', '.join(mc))}</dd></div>
-          <div><dt>{t('Loader', 'Загрузчик')}</dt><dd>{e(', '.join(loaders))}</dd></div>
-          <div><dt>{t('Downloads', 'Загрузки')}</dt><dd>{mod['downloadCount']:,}</dd></div>
-          <div><dt>{t('Updated', 'Обновлён')}</dt><dd>{date(mod['dateModified'])}</dd></div>
-        </dl>
-        <div class="actions">
-          {latest_btn}
-          <a class="btn" href="{e(url)}" target="_blank" rel="noopener">CurseForge ↗</a>
-        </div>
+  <a class="back" href="../../">{t('← All mods', '← Все моды')}</a>
+  <section class="mod page-head">
+    <img class="logo" src="{e(logo)}" alt="" width="128" height="128">
+    <div class="mod-title">
+      <h1>{e(mod['name'])}</h1>
+      {bilingual('p', e(mod.get('summary', '')), e(summary_ru) if summary_ru else None, 'summary')}
+      <ul class="tags">{tags}</ul>
+      <dl class="meta">
+        <div><dt>Minecraft</dt><dd>{e(', '.join(mc))}</dd></div>
+        <div><dt>{t('Loader', 'Загрузчик')}</dt><dd>{e(', '.join(loaders))}</dd></div>
+        <div><dt>{t('Downloads', 'Загрузки')}</dt><dd>{mod['downloadCount']:,}</dd></div>
+        <div><dt>{t('Updated', 'Обновлён')}</dt><dd>{date(mod['dateModified'])}</dd></div>
+      </dl>
+      <div class="actions">
+        {latest_button(mod, latest)}
+        <a class="btn" href="{e(mod['links']['websiteUrl'])}" target="_blank" rel="noopener">CurseForge ↗</a>
       </div>
     </div>
-    {f'<div class="shots">{shots}</div>' if shots else ''}
-    <details class="desc">
-      <summary>{t('Description', 'Описание')}</summary>
-      {bilingual('div', description, description_ru, 'desc-body')}
-    </details>
-    <h3>{t('All versions', 'Все версии')}</h3>
+  </section>
+  {f'<div class="shots">{shots}</div>' if shots else ''}
+  <nav class="tabs">{tab_nav}</nav>
+  {guide_html}
+  <section class="block" id="about">
+    <h2>{t('Description', 'Описание')}</h2>
+    {bilingual('div', description, description_ru, 'desc-body')}
+  </section>
+  <section class="block" id="files">
+    <h2>{t('All versions', 'Все версии')}</h2>
     <div class="table-wrap">
       <table>
         <thead><tr>
@@ -197,32 +342,56 @@ def render_mod(mod, files, description, ru):
   </section>"""
 
 
+def page(template, root, title, nav, main):
+    built = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    return (template.replace("{{TITLE}}", html.escape(title))
+                    .replace("{{ROOT}}", root)
+                    .replace("{{NAV}}", nav)
+                    .replace("{{MAIN}}", main)
+                    .replace("{{PROFILE}}", PROFILE)
+                    .replace("{{BUILT}}", built))
+
+
+def write(path, text):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
+
+
 def build():
     ids = listed_ids()
     mods = [m for m in cf("/mods", body={"modIds": ids}) if m.get("status") == STATUS_APPROVED]
     mods.sort(key=lambda m: m["dateCreated"], reverse=True)
 
-    sections, nav = [], []
+    with open(os.path.join(HERE, "site", "template.html"), encoding="utf-8") as f:
+        template = f.read()
+    with open(os.path.join(HERE, "site", "home.html"), encoding="utf-8") as f:
+        home = f.read()
+
+    shutil.rmtree(OUT, ignore_errors=True)
+    os.makedirs(OUT)
+    shutil.copy(os.path.join(HERE, "site", "style.css"), OUT)
+
+    cards, data = [], []
     for mod in mods:
         files = files_of(mod["id"])
         description = cf(f"/mods/{mod['id']}/description")
         ru = russian(mod, description, stamp="--stamp" in sys.argv)
-        sections.append(render_mod(mod, files, description, ru))
-        nav.append(f'<a href="#{html.escape(mod["slug"])}">{html.escape(mod["name"])}</a>')
+        data.append((mod, files, description, ru))
+        cards.append(render_card(mod, files, ru))
 
-    with open(os.path.join(HERE, "site", "template.html"), encoding="utf-8") as f:
-        page = f.read()
-    page = (page.replace("{{NAV}}", "".join(nav))
-                .replace("{{MODS}}", "".join(sections))
-                .replace("{{PROFILE}}", PROFILE)
-                .replace("{{BUILT}}", datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")))
+    def nav(root):
+        return "".join(f'<a href="{root}mods/{html.escape(m["slug"])}/">{html.escape(m["name"])}</a>' for m, *_ in data)
 
-    shutil.rmtree(OUT, ignore_errors=True)
-    os.makedirs(OUT)
-    with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8") as f:
-        f.write(page)
-    with open(os.path.join(OUT, "mods.json"), "w", encoding="utf-8") as f:
-        json.dump([{"id": m["id"], "name": m["name"], "url": m["links"]["websiteUrl"]} for m in mods], f, indent=2)
+    write(os.path.join(OUT, "index.html"),
+          page(template, "", "Grint — Minecraft Mods", nav(""), home.replace("{{MODS}}", "".join(cards))))
+    for mod, files, description, ru in data:
+        main = render_page(mod, files, description, ru, load_guide(mod["id"]))
+        write(os.path.join(OUT, "mods", mod["slug"], "index.html"),
+              page(template, "../../", f"{mod['name']} — Grint", nav("../../"), main))
+
+    write(os.path.join(OUT, "mods.json"),
+          json.dumps([{"id": m["id"], "name": m["name"], "url": m["links"]["websiteUrl"]} for m, *_ in data], indent=2))
     print(f"Собрано: {len(mods)} мод(ов) → {OUT}")
 
 

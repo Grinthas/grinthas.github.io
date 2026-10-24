@@ -5,12 +5,26 @@
 Раз в час (и при каждом push) GitHub Actions:
 - `notify.py` отправляет в Discord моды из `mods.txt`, которые одобрены на CurseForge
   и ещё не записаны в `sent.json` (название, ссылка, описание, логотип);
-- `build_site.py` собирает сайт по шаблону `site/template.html` (все версии файлов,
-  скриншоты, описание, ссылка на CurseForge) и публикует его на GitHub Pages.
+- `build_site.py` собирает сайт и публикует его на GitHub Pages: главная со списком модов
+  (`site/home.html`) и страница каждого мода `mods/<slug>/` с гайдом, скриншотами,
+  описанием и всеми версиями файлов. Оформление: `site/template.html`, `site/style.css`.
 
-Новый мод: допишите его Project ID в `mods.txt` и закоммитьте.
+## Новый мод
 
-Русские описания: `translations/<id>.json`. Если описание на CurseForge изменилось,
+Откройте https://github.com/Grinthas/grinthas.github.io/edit/main/mods.txt, допишите строку
+с Project ID (страница мода на CurseForge → About Project → Project ID) и нажмите
+**Commit changes**. Мод появится на сайте и в Discord, как только CurseForge его одобрит.
+
+## Гайды
+
+`guides/<project id>.json` создаёт `tools/import_guides.py` из внутриигрового гайда
+(`C:\mods\grintguide`) и lang/рецептов мода. После изменения гайда запустите локально
+`py tools/import_guides.py` и закоммитьте `guides/`. Для нового мода добавьте его в `MODS`
+в начале скрипта.
+
+## Русские описания
+
+`translations/<id>.json`. Если описание на CurseForge изменилось,
 перевод автоматически делается заново офлайн через Argos Translate (бесплатно, без ключей;
 качество машинное, такие переводы помечены `"machine": true` — их можно заменить ручными).
 Если перевод не удался, на русской версии временно показывается английский текст,
