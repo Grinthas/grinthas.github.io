@@ -377,7 +377,8 @@ def render_pack_card(p, root):
 
 
 def render_packs_index(packs):
-    cards = "".join(render_pack_card(p, "../") for p in packs)
+    cards = "".join(render_pack_card(p, "../") for p in packs) or (
+        f'<p class="empty">{t("New modpacks are coming soon.", "Новые сборки скоро появятся.")}</p>')
     return f"""
   <section class="hero">
     <h1>{t('Modpacks by Grint', 'Сборки от Grint')}</h1>
@@ -422,9 +423,8 @@ def render_pack_page(p):
 def write_modpacks(template, nav, urls):
     """Вкладка «Сборки» и страница каждой сборки; файлы (логотип, видео) копируются рядом."""
     packs = load_modpacks()
-    if not packs:
-        return
-    shutil.copytree(MODPACKS, os.path.join(OUT, "modpacks"), ignore=shutil.ignore_patterns("*.json"), dirs_exist_ok=True)
+    if os.path.isdir(MODPACKS):
+        shutil.copytree(MODPACKS, os.path.join(OUT, "modpacks"), ignore=shutil.ignore_patterns("*.json"), dirs_exist_ok=True)
     write(os.path.join(OUT, "modpacks", "index.html"),
           page(template, "../", "Сборки | Modpacks — Grint", nav("../"), render_packs_index(packs),
                f"{SITE_URL}modpacks/", "Сборки Minecraft от Grint. Minecraft modpacks by Grint."))
