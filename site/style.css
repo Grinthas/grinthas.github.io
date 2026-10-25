@@ -211,3 +211,4 @@ footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
 .change h3 { margin: 0 0 8px; font-size: 17px; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .change .date { color: var(--muted); font: 500 13px "JetBrains Mono", monospace; }
 .change .desc-body > :last-child { margin-bottom: 0; }
+.trailer video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius); background: #000; }

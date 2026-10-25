@@ -331,6 +331,112 @@ def render_upcoming_page(u):
   {comments_section(u['slug'])}"""
 
 
+MODPACKS = os.path.join(HERE, "modpacks")
+
+
+def load_modpacks():
+    """Сборки из modpacks/*.json: карточка на вкладке «Сборки» и своя страница с трейлером."""
+    out = []
+    for name in sorted(os.listdir(MODPACKS)) if os.path.isdir(MODPACKS) else []:
+        if name.endswith(".json"):
+            with open(os.path.join(MODPACKS, name), encoding="utf-8") as f:
+                out.append(json.load(f))
+    return out
+
+
+def pack_file(p, key):
+    """Адрес файла сборки с версией, чтобы после замены браузер не показывал старый из кэша."""
+    with open(os.path.join(MODPACKS, p[key]), "rb") as f:
+        return f"modpacks/{html.escape(p[key])}?v={hashlib.sha1(f.read()).hexdigest()[:8]}"
+
+
+def pack_link(p):
+    if p.get("cf_url"):
+        return f'<a class="btn primary" href="{html.escape(p["cf_url"])}" target="_blank" rel="noopener">CurseForge ↗</a>'
+    return soon_badge()
+
+
+def render_pack_card(p, root):
+    e = html.escape
+    page = f"{root}modpacks/{e(p['slug'])}/"
+    tags = "".join(f"<li>{e(c)}</li>" for c in p["tags"])
+    return f"""
+  <article class="mod card">
+    <a href="{page}"><img class="logo" src="{root}{pack_file(p, 'logo')}" alt="" width="96" height="96"></a>
+    <div class="mod-title">
+      <h2><a href="{page}">{e(p['name'])}</a></h2>
+      {bilingual('p', e(p['summary']['en']), e(p['summary']['ru']), 'summary')}
+      <ul class="tags">{tags}</ul>
+      <p class="facts">Minecraft {e(p['minecraft'])} · {e(p['loader'])}</p>
+      <div class="actions">
+        <a class="btn" href="{page}">{t('Details →', 'Подробнее →')}</a>
+        {pack_link(p)}
+      </div>
+    </div>
+  </article>"""
+
+
+def render_packs_index(packs):
+    cards = "".join(render_pack_card(p, "../") for p in packs)
+    return f"""
+  <section class="hero">
+    <h1>{t('Modpacks by Grint', 'Сборки от Grint')}</h1>
+    <p>{t('Our own modpacks with a story, quests and mods made for them.',
+          'Наши собственные сборки: с сюжетом, квестами и модами, сделанными специально для них.')}</p>
+  </section>
+  {cards}"""
+
+
+def render_pack_page(p):
+    e = html.escape
+    tags = "".join(f"<li>{e(c)}</li>" for c in p["tags"])
+    video = ""
+    if p.get("video"):
+        video = f"""
+  <section class="block trailer">
+    <h2>{t('Trailer', 'Трейлер')}</h2>
+    <video controls preload="metadata" playsinline poster="../../{pack_file(p, 'poster')}" src="../../{pack_file(p, 'video')}"></video>
+  </section>"""
+    return f"""
+  <a class="back" href="../">{t('← All modpacks', '← Все сборки')}</a>
+  <section class="mod page-head">
+    <img class="logo" src="../../{pack_file(p, 'logo')}" alt="" width="128" height="128">
+    <div class="mod-title">
+      <h1>{e(p['name'])}</h1>
+      {bilingual('p', e(p['summary']['en']), e(p['summary']['ru']), 'summary')}
+      <ul class="tags">{tags}</ul>
+      <dl class="meta">
+        <div><dt>Minecraft</dt><dd>{e(p['minecraft'])}</dd></div>
+        <div><dt>{t('Loader', 'Загрузчик')}</dt><dd>{e(p['loader'])}</dd></div>
+      </dl>
+      <div class="actions">{pack_link(p)}</div>
+    </div>
+  </section>{video}
+  <section class="block" id="about">
+    <h2>{t('Description', 'Описание')}</h2>
+    {bilingual('div', p['description']['en'], p['description']['ru'], 'desc-body')}
+  </section>
+  {comments_section('modpack-' + p['slug'])}"""
+
+
+def write_modpacks(template, nav, urls):
+    """Вкладка «Сборки» и страница каждой сборки; файлы (логотип, видео) копируются рядом."""
+    packs = load_modpacks()
+    if not packs:
+        return
+    shutil.copytree(MODPACKS, os.path.join(OUT, "modpacks"), ignore=shutil.ignore_patterns("*.json"), dirs_exist_ok=True)
+    write(os.path.join(OUT, "modpacks", "index.html"),
+          page(template, "../", "Сборки | Modpacks — Grint", nav("../"), render_packs_index(packs),
+               f"{SITE_URL}modpacks/", "Сборки Minecraft от Grint. Minecraft modpacks by Grint."))
+    urls.append(f"{SITE_URL}modpacks/")
+    for p in packs:
+        url = f"{SITE_URL}modpacks/{p['slug']}/"
+        urls.append(url)
+        write(os.path.join(OUT, "modpacks", p["slug"], "index.html"),
+              page(template, "../../", f"{p['name']} — сборка Minecraft | Grint", nav("../../"), render_pack_page(p),
+                   url, f"{p['name']}: {p['summary']['ru']}"))
+
+
 MC_COLORS = "0123456789abcdef"
 
 
@@ -676,6 +782,7 @@ def build():
         write(os.path.join(OUT, "mods", u["slug"], "index.html"),
               page(template, "../../", f"{u['name']} — мод для Minecraft | Grint", nav("../../"), render_upcoming_page(u),
                    url, f"{u['name']}: {u['summary']['en']} Скоро на CurseForge."))
+    write_modpacks(template, nav, urls)
     for mod, files, description, ru in data:
         main = render_page(mod, files, description, ru, load_guide(mod["id"]))
         url = f"{SITE_URL}mods/{mod['slug']}/"
