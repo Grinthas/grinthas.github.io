@@ -18,6 +18,7 @@ import shutil
 import sys
 import subprocess
 from datetime import datetime, timezone
+from urllib.parse import quote
 
 from notify import HERE, STATUS_APPROVED, cf, listed_ids
 
@@ -123,6 +124,35 @@ def date(s):
 
 def download_url(mod, f):
     return f["downloadUrl"] or f"{mod['links']['websiteUrl']}/files/{f['id']}"
+
+
+def cdn_url(f):
+    """Прямая ссылка на файл CurseForge, даже если downloadUrl пуст."""
+    return f["downloadUrl"] or f"https://edge.forgecdn.net/files/{f['id'] // 1000}/{f['id'] % 1000}/{quote(f['fileName'])}"
+
+
+def launcher_mod(mod, files, ru):
+    return {
+        "id": mod["id"],
+        "name": mod["name"],
+        "url": mod["links"]["websiteUrl"],
+        "summary": mod.get("summary", ""),
+        "summary_ru": ru[0] if ru else "",
+        "icon": (mod.get("logo") or {}).get("thumbnailUrl", ""),
+        "downloads": mod.get("downloadCount", 0),
+        "files": [{
+            "id": f["id"],
+            "fileName": f["fileName"],
+            "displayName": f["displayName"],
+            "gameVersions": f["gameVersions"],
+            "url": cdn_url(f),
+            "sha1": next((h["value"] for h in f["hashes"] if h["algo"] == 1), None),
+            "size": f["fileLength"],
+            "date": f["fileDate"],
+            "releaseType": f["releaseType"],
+            "dependencies": [d["modId"] for d in f.get("dependencies", []) if d["relationType"] == 3],
+        } for f in files if not f.get("isServerPack")],
+    }
 
 
 def mod_info(mod, files):
@@ -800,8 +830,9 @@ def build():
           + "".join(f"  <url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     write(os.path.join(OUT, "robots.txt"), f"User-agent: *\nAllow: /\nSitemap: {SITE_URL}sitemap.xml\n")
 
+    # Каталог модов для Grint Launcher: файлы с прямыми ссылками, чтобы лаунчеру не нужен был ключ CurseForge
     write(os.path.join(OUT, "mods.json"),
-          json.dumps([{"id": m["id"], "name": m["name"], "url": m["links"]["websiteUrl"]} for m, *_ in data], indent=2))
+          json.dumps([launcher_mod(m, files, ru) for m, files, _, ru in data], ensure_ascii=False, indent=2))
     print(f"Собрано: {len(mods)} мод(ов) → {OUT}")
 
 
