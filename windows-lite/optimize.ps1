@@ -48,19 +48,40 @@ $apps = @(
 )
 foreach ($a in $apps) {
     Get-AppxPackage -AllUsers -Name $a -ErrorAction SilentlyContinue | ForEach-Object {
-        Write-Host "  - $($_.Name)"
-        Remove-AppxPackage -Package $_.PackageFullName -AllUsers -ErrorAction SilentlyContinue
+        # На Windows 10 удаление с -AllUsers иногда падает с 0x80070002,
+        # тогда удаляем хотя бы у текущего пользователя.
+        $pkg = $_   # внутри catch $_ — это уже ошибка, а не пакет
+        $ok = $true
+        try { Remove-AppxPackage -Package $pkg.PackageFullName -AllUsers -ErrorAction Stop }
+        catch {
+            try { Remove-AppxPackage -Package $pkg.PackageFullName -ErrorAction Stop }
+            catch { $ok = $false }
+        }
+        if ($ok) { Write-Host "  - $($pkg.Name)" }
+        else { Write-Host "  - $($pkg.Name): не удалось, пропускаю" -ForegroundColor DarkYellow }
     }
     Get-AppxProvisionedPackage -Online | Where-Object DisplayName -like $a |
         Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue | Out-Null
 }
 
 Step 'OneDrive'
-Get-Process OneDrive -ErrorAction SilentlyContinue | Stop-Process -Force
-foreach ($setup in "$env:SystemRoot\System32\OneDriveSetup.exe", "$env:SystemRoot\SysWOW64\OneDriveSetup.exe") {
-    if (Test-Path $setup) { Start-Process $setup '/uninstall' -Wait; break }
+# Если OneDrive уже используется (вход выполнен или рабочий стол/документы лежат в OneDrive),
+# не удаляем: файлы «только в облаке» перестанут открываться, а папки останутся привязаны к OneDrive.
+$oneDriveUsed = [bool](Get-ChildItem 'HKCU:\Software\Microsoft\OneDrive\Accounts' -ErrorAction SilentlyContinue |
+    Where-Object { $_.GetValue('UserEmail') })
+foreach ($f in 'Desktop', 'MyDocuments', 'MyPictures') {
+    if ([Environment]::GetFolderPath($f) -like '*OneDrive*') { $oneDriveUsed = $true }
 }
-Remove-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name OneDrive -ErrorAction SilentlyContinue
+if ($oneDriveUsed) {
+    Write-Host '  OneDrive используется (рабочий стол или документы синхронизируются) — оставляю как есть'
+} else {
+    Get-Process OneDrive -ErrorAction SilentlyContinue | Stop-Process -Force
+    foreach ($setup in "$env:SystemRoot\System32\OneDriveSetup.exe", "$env:SystemRoot\SysWOW64\OneDriveSetup.exe") {
+        if (Test-Path $setup) { Start-Process $setup '/uninstall' -Wait; break }
+    }
+    Remove-ItemProperty 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Run' -Name OneDrive -ErrorAction SilentlyContinue
+    Write-Host '  OneDrive удалён'
+}
 
 Step 'Телеметрия, реклама, подсказки'
 Set-Reg 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection' 'AllowTelemetry' 0
