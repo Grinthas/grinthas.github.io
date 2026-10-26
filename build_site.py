@@ -783,6 +783,9 @@ def build():
     # Список сборок для Grint Launcher
     if os.path.exists(os.path.join(HERE, "modpacks.json")):
         shutil.copy(os.path.join(HERE, "modpacks.json"), OUT)
+    # Сведения о последней версии лаунчера — по ним он обновляет сам себя
+    if os.path.isdir(os.path.join(HERE, "launcher")):
+        shutil.copytree(os.path.join(HERE, "launcher"), os.path.join(OUT, "launcher"))
     if os.path.isdir(ICONS):
         shutil.copytree(ICONS, os.path.join(OUT, "icons"))
 

@@ -1,0 +1,8 @@
+version: 0.2.0
+files:
+  - url: https://github.com/Grinthas/grinthas.github.io/releases/download/launcher-v0.2.0/GrintLauncher-Setup-0.2.0.exe
+    sha512: WR49P7cMxUyAz/xXIL59EM1QBxQdGBZpxcfFXb4XNKXercCQQG7R03PxoqoC9x9k6C0DdAg/7+5CgMQX4oEedQ==
+    size: 82714621
+path: https://github.com/Grinthas/grinthas.github.io/releases/download/launcher-v0.2.0/GrintLauncher-Setup-0.2.0.exe
+sha512: WR49P7cMxUyAz/xXIL59EM1QBxQdGBZpxcfFXb4XNKXercCQQG7R03PxoqoC9x9k6C0DdAg/7+5CgMQX4oEedQ==
+releaseDate: '2026-10-26T22:44:09.858Z'
