@@ -750,6 +750,9 @@ def build():
     shutil.rmtree(OUT, ignore_errors=True)
     os.makedirs(OUT)
     shutil.copy(os.path.join(HERE, "site", "style.css"), OUT)
+    # Список сборок для Grint Launcher
+    if os.path.exists(os.path.join(HERE, "modpacks.json")):
+        shutil.copy(os.path.join(HERE, "modpacks.json"), OUT)
     if os.path.isdir(ICONS):
         shutil.copytree(ICONS, os.path.join(OUT, "icons"))
 

@@ -5,7 +5,7 @@ on:
     - cron: "17 * * * *"  # раз в час
   push:
     branches: [main]
-    paths: ["mods.txt", "site/**", "guides/**", "translations/**", "upcoming/**", "modpacks/**", "*.py", ".github/workflows/**"]
+    paths: ["mods.txt", "site/**", "guides/**", "translations/**", "upcoming/**", "modpacks/**", "modpacks.json", "*.py", ".github/workflows/**"]
   workflow_dispatch:
 
 permissions:
