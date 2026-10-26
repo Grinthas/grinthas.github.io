@@ -63,6 +63,14 @@ $RemoveApps = @(
     'MicrosoftCorporationII.QuickAssist'
     'MicrosoftTeams'
     'MSTeams'
+    # Windows 10
+    'king.com.'                            # Candy Crush и прочие игры King
+    'Microsoft.BingFinance'
+    'Microsoft.BingSports'
+    'Microsoft.Messaging'
+    'Microsoft.MSPaint'                    # Paint 3D (обычный Paint остаётся)
+    'Microsoft.OneConnect'
+    'Microsoft.Print3D'
 )
 
 function Step($text) { Write-Host "`n==> $text" -ForegroundColor Cyan }
@@ -197,6 +205,14 @@ try {
     Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' 'TaskbarMn' 0
     Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' 'ShowCopilotButton' 0
     Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' 'HideFileExt' 0
+    # Панель задач Windows 10: значок поиска вместо поля, без Кортаны, «Людей», Meet Now и представления задач
+    Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\Search' 'SearchboxTaskbarMode' 1
+    Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' 'ShowCortanaButton' 0
+    Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced' 'ShowTaskViewButton' 0
+    Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced\People' 'PeopleBand' 0
+    Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\Feeds' 'ShellFeedsTaskbarViewMode' 2
+    Set-Reg 'HKLM\zSOFTWARE\Policies\Microsoft\Windows\Windows Search' 'AllowCortana' 0
+    Set-Reg 'HKLM\zSOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer' 'HideSCAMeetNow' 1
     Set-Reg 'HKLM\zNTUSER\Software\Microsoft\Windows\CurrentVersion\BackgroundAccessApplications' 'GlobalUserDisabled' 1
     Set-Reg 'HKLM\zNTUSER\System\GameConfigStore' 'GameDVR_Enabled' 0
 
