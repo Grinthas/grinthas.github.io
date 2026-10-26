@@ -376,14 +376,38 @@ def load_modpacks():
 
 def pack_file(p, key):
     """Адрес файла сборки с версией, чтобы после замены браузер не показывал старый из кэша."""
-    with open(os.path.join(MODPACKS, p[key]), "rb") as f:
-        return f"modpacks/{html.escape(p[key])}?v={hashlib.sha1(f.read()).hexdigest()[:8]}"
+    return pack_file_path(p[key])
 
 
-def pack_link(p):
+def pack_file_path(name):
+    with open(os.path.join(MODPACKS, name), "rb") as f:
+        return f"modpacks/{html.escape(name)}?v={hashlib.sha1(f.read()).hexdigest()[:8]}"
+
+
+def pack_link(p, root):
+    """Кнопки сборки: «Играть через Grint Launcher» (если сборка есть в лаунчере) и CurseForge."""
+    links = []
+    if p.get("launcher"):
+        links.append(f'<a class="btn primary" href="{root}#launcher">{t("Play with Grint Launcher", "Играть через Grint Launcher")}</a>')
     if p.get("cf_url"):
-        return f'<a class="btn primary" href="{html.escape(p["cf_url"])}" target="_blank" rel="noopener">CurseForge ↗</a>'
-    return soon_badge()
+        cls = "btn" if links else "btn primary"
+        links.append(f'<a class="{cls}" href="{html.escape(p["cf_url"])}" target="_blank" rel="noopener">CurseForge ↗</a>')
+    return "".join(links) or soon_badge()
+
+
+def pack_shots(p):
+    """Скриншоты сборки: лента с подписями, как на страницах модов."""
+    if not p.get("shots"):
+        return ""
+    items = "".join(
+        f'<a href="../../{pack_file_path(s["file"])}" target="_blank" rel="noopener">'
+        f'<img src="../../{pack_file_path(s["file"])}" alt="{html.escape(s["caption"]["en"])}" loading="lazy"></a>'
+        for s in p["shots"])
+    return f"""
+  <section class="block" id="shots">
+    <h2>{t('Screenshots', 'Скриншоты')}</h2>
+    <div class="shots">{items}</div>
+  </section>"""
 
 
 def render_pack_card(p, root):
@@ -400,7 +424,7 @@ def render_pack_card(p, root):
       <p class="facts">Minecraft {e(p['minecraft'])} · {e(p['loader'])}</p>
       <div class="actions">
         <a class="btn" href="{page}">{t('Details →', 'Подробнее →')}</a>
-        {pack_link(p)}
+        {pack_link(p, root)}
       </div>
     </div>
   </article>"""
@@ -440,9 +464,9 @@ def render_pack_page(p):
         <div><dt>Minecraft</dt><dd>{e(p['minecraft'])}</dd></div>
         <div><dt>{t('Loader', 'Загрузчик')}</dt><dd>{e(p['loader'])}</dd></div>
       </dl>
-      <div class="actions">{pack_link(p)}</div>
+      <div class="actions">{pack_link(p, "../../")}</div>
     </div>
-  </section>{video}
+  </section>{video}{pack_shots(p)}
   <section class="block" id="about">
     <h2>{t('Description', 'Описание')}</h2>
     {bilingual('div', p['description']['en'], p['description']['ru'], 'desc-body')}

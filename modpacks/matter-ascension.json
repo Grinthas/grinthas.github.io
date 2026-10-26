@@ -1,0 +1,23 @@
+{
+  "slug": "matter-ascension",
+  "name": "Matter Ascension",
+  "logo": "matter-ascension.png",
+  "minecraft": "1.20.1",
+  "loader": "Forge",
+  "tags": ["Technology", "Quests", "Applied Energistics 2", "Mekanism", "Draconic Evolution"],
+  "launcher": true,
+  "shots": [
+    {
+      "file": "matter-ascension-reactor.png",
+      "caption": { "en": "Fusion reactor controller", "ru": "Контроллер термоядерного реактора" }
+    }
+  ],
+  "summary": {
+    "en": "A tech modpack with quests: from your first circuits to infinite matter.",
+    "ru": "Техно-сборка с квестами: путь от первых схем до бесконечной материи."
+  },
+  "description": {
+    "en": "<p>Matter Ascension is a tech progression modpack built around the <b>Matter Ascension</b> mod made specifically for it: tiered single-block machines, solid and liquid matter synthesis, solar panels up to the singular tier and deep Applied Energistics 2 integration.</p><p><b>20 quest chapters</b> guide you all the way: from a simple thermal generator and copper wire through electronics, AE2, chemistry and reactors to the matter rift, neutronium, draconium and the final megaproject.</p><p>Inside: Mekanism, Applied Energistics 2 with ExtendedAE, MEGA Cells and Applied Flux, Draconic Evolution, Re-Avaritia, Thermal Expansion, KubeJS and our own mods — Molten Industry, AutomaticSpawner, AE2 Crafting CPU Box, ExtremeAe2Assembler, Grint Guide and Recipe Editor.</p><p>The easiest way to play is <b>Grint Launcher</b>: it installs the modpack in one click, downloads Java automatically and keeps the pack up to date.</p>",
+    "ru": "<p>Matter Ascension — техническая сборка с прогрессией вокруг мода <b>Matter Ascension</b>, сделанного специально для неё: ступенчатые машины в одном блоке, синтез твёрдой и жидкой материи, солнечные панели вплоть до сингулярного уровня и глубокая интеграция с Applied Energistics 2.</p><p><b>20 глав квестов</b> ведут через всю сборку: от простого теплового генератора и медного провода через электронику, AE2, химию и реакторы к разлому материи, нейтронию, драконию и финальному мегапроекту.</p><p>Внутри: Mekanism, Applied Energistics 2 с ExtendedAE, MEGA Cells и Applied Flux, Draconic Evolution, Re-Avaritia, Thermal Expansion, KubeJS и наши моды — Molten Industry, AutomaticSpawner, AE2 Crafting CPU Box, ExtremeAe2Assembler, Grint Guide и Recipe Editor.</p><p>Проще всего играть через <b>Grint Launcher</b>: он ставит сборку в один клик, сам скачивает Java и обновляет сборку.</p>"
+  }
+}
