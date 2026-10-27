@@ -4,12 +4,28 @@
   "logo": "matter-ascension.png",
   "minecraft": "1.20.1",
   "loader": "Forge",
-  "tags": ["Technology", "Quests", "Applied Energistics 2", "Mekanism", "Draconic Evolution"],
+  "tags": [
+    "Technology",
+    "Quests",
+    "Applied Energistics 2",
+    "Mekanism",
+    "Draconic Evolution"
+  ],
   "launcher": true,
   "shots": [
     {
       "file": "matter-ascension-reactor.png",
-      "caption": { "en": "Fusion reactor controller", "ru": "Контроллер термоядерного реактора" }
+      "caption": {
+        "en": "Fusion reactor controller",
+        "ru": "Контроллер термоядерного реактора"
+      }
+    },
+    {
+      "file": "matter-ascension-intro.jpg",
+      "caption": {
+        "en": "Opening cutscene: the station falls, the capsule burns through the sky, a vision of the Rift",
+        "ru": "Вступительная катсцена: гибель станции, падение капсулы и видение Разлома"
+      }
     }
   ],
   "summary": {
