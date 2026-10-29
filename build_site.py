@@ -374,6 +374,45 @@ def load_modpacks():
     return out
 
 
+MANIFEST = os.path.join(HERE, "modpacks.json")
+
+
+def load_pack_updates():
+    """Все версии всех сборок из modpacks.json (манифест Grint Launcher): новые сверху.
+
+    Порядок внутри дня задаёт semver версии, чтобы 0.10.0 не оказалась ниже 0.9.0.
+    """
+    if not os.path.exists(MANIFEST):
+        return []
+    with open(MANIFEST, encoding="utf-8") as f:
+        data = json.load(f)
+    out = []
+    for pack in data.get("packs", []):
+        for v in pack.get("versions", []):
+            out.append({
+                "pack": pack,
+                "version": str(v.get("version", "")),
+                "date": str(v.get("date", "")),
+                "changelog": (v.get("changelog") or "").strip(),
+                "files": len(v.get("files") or []),
+            })
+    out.sort(key=lambda u: (u["date"], _semver_key(u["version"])), reverse=True)
+    return out
+
+
+def _semver_key(version):
+    """Кортеж чисел из «1.2.3» для сортировки версий; мусор уходит в ноль."""
+    return tuple(int(part) if part.isdigit() else 0 for part in re.split(r"[._-]", version)[:4])
+
+
+def pretty_date(value):
+    """2026-10-27 → 27.10.2026; неразборчивую строку оставляем как есть."""
+    try:
+        return datetime.fromisoformat(value.replace("Z", "+00:00")[:19]).strftime("%d.%m.%Y")
+    except ValueError:
+        return value
+
+
 def pack_file(p, key):
     """Адрес файла сборки с версией, чтобы после замены браузер не показывал старый из кэша."""
     return pack_file_path(p[key])
@@ -430,7 +469,110 @@ def render_pack_card(p, root):
   </article>"""
 
 
-def render_packs_index(packs):
+def updates_count(n):
+    """«1 обновление / 2 обновления / 5 обновлений» и английское «update(s)»."""
+    en = f"{n} update" if n == 1 else f"{n} updates"
+    if n % 10 == 1 and n % 100 != 11:
+        ru = f"{n} обновление"
+    elif 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+        ru = f"{n} обновления"
+    else:
+        ru = f"{n} обновлений"
+    return t(en, ru)
+
+
+def render_updates_card(updates):
+    """Пункт «Что нового» на вкладке «Сборки»: вход в общую ленту обновлений."""
+    if not updates:
+        return ""
+    latest = updates[0]
+    facts = updates_count(len(updates))
+    return f"""
+  <article class="mod card whatsnew" id="whats-new">
+    <div class="mod-title">
+      <h2><a href="updates/">{t("What's new", "Что нового")}</a></h2>
+      {bilingual('p',
+                 'Every modpack update in one timeline: version, date and what changed.',
+                 'Все обновления сборок одной лентой: версия, дата и что изменилось.',
+                 'summary')}
+      <p class="facts">{facts} · {t("latest", "последнее")} {html.escape(pretty_date(latest['date']))}</p>
+      <div class="actions">
+        <a class="btn primary" href="updates/">{t('All updates →', 'Все обновления →')}</a>
+      </div>
+    </div>
+  </article>"""
+
+
+def render_updates_page():
+    """Страница «Что нового»: лента всех обновлений всех сборок, новые сверху."""
+    e = html.escape
+    updates = load_pack_updates()
+    head = f"""
+  <a class="back" href="../">{t('← All modpacks', '← Все сборки')}</a>
+  <section class="hero">
+    <h1>{t("What's new", "Что нового")}</h1>
+    <p>{t('What changed in our modpacks and when. Newest first.',
+          'Что и когда изменилось в наших сборках. Сверху — самое свежее.')}</p>
+  </section>"""
+    if not updates:
+        return head + f"""
+  <p class="empty">{t('No updates yet.', 'Обновлений пока нет.')}</p>"""
+
+    items = []
+    for u in updates:
+        pack = u["pack"]
+        page = f"../{e(pack.get('slug') or pack.get('id', ''))}/"
+        tags = " · ".join(filter(None, [
+            f"Minecraft {e(str(pack['minecraft']))}" if pack.get("minecraft") else "",
+            e(str((pack.get("loader") or {}).get("version") or (pack.get("loader") or {}).get("type") or "")),
+            t(f"{u['files']} files", f"{u['files']} файлов") if u["files"] else "",
+        ]))
+        if u["changelog"]:
+            body = f'<div class="desc-body"><p>{e(u["changelog"]).replace(chr(10), "<br>")}</p></div>'
+        else:
+            body = f'<p class="hint">{t("No changelog for this version.", "Для этой версии нет списка изменений.")}</p>'
+        items.append(f"""
+      <article class="change">
+        <h3>
+          <a class="pack" href="{page}">{e(pack['name'])}</a>
+          <span class="badge release">{e(u['version'])}</span>
+          <span class="date">{e(pretty_date(u['date']))}</span>
+        </h3>
+        <p class="facts">{tags}</p>
+        {body}
+      </article>""")
+    count = updates_count(len(updates))
+    return head + f"""
+  <section class="block" id="updates">
+    <h2>{count}</h2>
+    {"".join(items)}
+  </section>"""
+
+
+def render_pack_history(p):
+    """Блок «Что нового» на странице сборки: только её версии."""
+    e = html.escape
+    mine = [u for u in load_pack_updates() if u["pack"].get("id") == p.get("slug")]
+    if not mine:
+        return ""
+    items = []
+    for u in mine:
+        body = (f'<div class="desc-body"><p>{e(u["changelog"]).replace(chr(10), "<br>")}</p></div>'
+                if u["changelog"] else
+                f'<p class="hint">{t("No changelog for this version.", "Для этой версии нет списка изменений.")}</p>')
+        items.append(f"""
+      <article class="change">
+        <h3><span class="badge release">{e(u['version'])}</span> <span class="date">{e(pretty_date(u['date']))}</span></h3>
+        {body}
+      </article>""")
+    return f"""
+  <section class="block" id="whats-new">
+    <h2>{t("What's new", "Что нового")}</h2>
+    {"".join(items)}
+  </section>"""
+
+
+def render_packs_index(packs, updates):
     cards = "".join(render_pack_card(p, "../") for p in packs) or (
         f'<p class="empty">{t("New modpacks are coming soon.", "Новые сборки скоро появятся.")}</p>')
     return f"""
@@ -439,7 +581,7 @@ def render_packs_index(packs):
     <p>{t('Our own modpacks with a story, quests and mods made for them.',
           'Наши собственные сборки: с сюжетом, квестами и модами, сделанными специально для них.')}</p>
   </section>
-  {cards}"""
+  {render_updates_card(updates)}{cards}"""
 
 
 def render_pack_page(p):
@@ -470,19 +612,25 @@ def render_pack_page(p):
   <section class="block" id="about">
     <h2>{t('Description', 'Описание')}</h2>
     {bilingual('div', p['description']['en'], p['description']['ru'], 'desc-body')}
-  </section>
+  </section>{render_pack_history(p)}
   {comments_section('modpack-' + p['slug'])}"""
 
 
 def write_modpacks(template, nav, urls):
-    """Вкладка «Сборки» и страница каждой сборки; файлы (логотип, видео) копируются рядом."""
+    """Вкладка «Сборки», лента «Что нового» и страница каждой сборки; файлы копируются рядом."""
     packs = load_modpacks()
+    updates = load_pack_updates()
     if os.path.isdir(MODPACKS):
         shutil.copytree(MODPACKS, os.path.join(OUT, "modpacks"), ignore=shutil.ignore_patterns("*.json"), dirs_exist_ok=True)
     write(os.path.join(OUT, "modpacks", "index.html"),
-          page(template, "../", "Сборки | Modpacks — Grint", nav("../"), render_packs_index(packs),
+          page(template, "../", "Сборки | Modpacks — Grint", nav("../"), render_packs_index(packs, updates),
                f"{SITE_URL}modpacks/", "Сборки Minecraft от Grint. Minecraft modpacks by Grint."))
     urls.append(f"{SITE_URL}modpacks/")
+    write(os.path.join(OUT, "modpacks", "updates", "index.html"),
+          page(template, "../../", "Что нового — обновления сборок | What's new — Grint", nav("../../"),
+               render_updates_page(), f"{SITE_URL}modpacks/updates/",
+               "Обновления сборок Grint: версии, даты и списки изменений. Modpack updates and changelogs."))
+    urls.append(f"{SITE_URL}modpacks/updates/")
     for p in packs:
         url = f"{SITE_URL}modpacks/{p['slug']}/"
         urls.append(url)

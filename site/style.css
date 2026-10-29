@@ -227,3 +227,12 @@ footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
 .launcher-text { margin: 0 0 16px; color: var(--muted); max-width: 680px; }
 .launcher-note { margin: 12px 0 0; font-size: 13px; color: var(--muted); }
 @media (max-width: 640px) { .launcher { padding: 18px; } }
+
+/* «Что нового»: вход в ленту обновлений на вкладке «Сборки» и сама лента */
+.whatsnew { border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 8%, var(--surface)), var(--surface) 60%); }
+.whatsnew .summary { margin: 0 0 12px; }
+.change h3 .pack { color: var(--text); text-decoration: none; font-weight: 600; }
+.change h3 .pack:hover { color: var(--accent); }
+.change .facts { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
+.badge.release { color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
