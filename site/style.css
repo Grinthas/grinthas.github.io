@@ -236,3 +236,6 @@ footer { color: var(--muted); font-size: 13px; padding: 24px 0 48px; }
 .change h3 .pack:hover { color: var(--accent); }
 .change .facts { margin: 0 0 10px; font-size: 13px; color: var(--muted); }
 .badge.release { color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); }
+
+/* вкладки «Сборки» и «Предложения» стоят первыми, моды прокручиваются за ними */
+nav.mods > a.suggest + a:not(.suggest) { margin-left: 8px; }
