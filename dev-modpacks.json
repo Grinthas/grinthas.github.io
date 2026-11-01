@@ -40,7 +40,7 @@
           "files": [
             {
               "path": "mods/ae2cpubox-1.20.1-1.2.0.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/ae2cpubox-1.20.1-1.2.0.jar",
+              "url": "https://files.grintmods.site/ae2cpubox-1.20.1-1.2.0.jar",
               "sha1": "468504a67ece6e28d06f1b22e35869a6033bfbc9",
               "size": 69798
             },
@@ -58,7 +58,7 @@
             },
             {
               "path": "mods/automaticspawner-1.20.1-1.2.0.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/automaticspawner-1.20.1-1.2.0.jar",
+              "url": "https://files.grintmods.site/automaticspawner-1.20.1-1.2.0.jar",
               "sha1": "19445ab23078c18bde4281832673b26fcadcdfee",
               "size": 98973
             },
@@ -106,19 +106,19 @@
             },
             {
               "path": "mods/extreae2assembler-1.1.0.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/extreae2assembler-1.1.0.jar",
+              "url": "https://files.grintmods.site/extreae2assembler-1.1.0.jar",
               "sha1": "037d6d978b598570605b8d2216518a462178c587",
               "size": 159302
             },
             {
               "path": "mods/ftb-quests-forge-2001.4.22.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/ftb-quests-forge-2001.4.22.jar",
+              "url": "https://files.grintmods.site/ftb-quests-forge-2001.4.22.jar",
               "sha1": "70f3bd771ab3b5921ce1ff5f14166fab694ca1aa",
               "size": 1255469
             },
             {
               "path": "mods/ftb-teams-forge-2001.3.2.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/ftb-teams-forge-2001.3.2.jar",
+              "url": "https://files.grintmods.site/ftb-teams-forge-2001.3.2.jar",
               "sha1": "c49023f5d471aa1ba7fc624d2565fe9e82b7117e",
               "size": 252579
             },
@@ -130,7 +130,7 @@
             },
             {
               "path": "mods/grintguide-1.3.0.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/grintguide-1.3.0.jar",
+              "url": "https://files.grintmods.site/grintguide-1.3.0.jar",
               "sha1": "f4211c3047da1de124ef993713d2a6190896f935",
               "size": 89535
             },
@@ -160,7 +160,7 @@
             },
             {
               "path": "mods/matterascension-0.1.0.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/matterascension-0.1.0-menu5.jar",
+              "url": "https://files.grintmods.site/matterascension-0.1.0-menu5.jar",
               "sha1": "ff55c5db35e8e7bd26c7de780f50c43cda7add3b",
               "size": 6534448
             },
@@ -184,7 +184,7 @@
             },
             {
               "path": "mods/recipeeditor-1.1.0.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/recipeeditor-1.1.0.jar",
+              "url": "https://files.grintmods.site/recipeeditor-1.1.0.jar",
               "sha1": "550715f39430d24ac18c5d9ddf372c8444160a16",
               "size": 45133
             },
@@ -346,13 +346,13 @@
             },
             {
               "path": "mods/FluxNetworks-1.20.1-7.2.1.15.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/FluxNetworks-1.20.1-7.2.1.15.jar",
+              "url": "https://files.grintmods.site/FluxNetworks-1.20.1-7.2.1.15.jar",
               "sha1": "65cea2d3da2a6d6fd274ef1dad37a516466be22c",
               "size": 515573
             },
             {
               "path": "mods/GlitchCore-forge-1.20.1-0.0.1.1.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/GlitchCore-forge-1.20.1-0.0.1.1.jar",
+              "url": "https://files.grintmods.site/GlitchCore-forge-1.20.1-0.0.1.1.jar",
               "sha1": "1a0aaf7c33b9acb26bf75899a43e8941cac1f6e7",
               "size": 87550
             },
@@ -364,7 +364,7 @@
             },
             {
               "path": "mods/SereneSeasons-forge-1.20.1-9.1.0.3.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/SereneSeasons-forge-1.20.1-9.1.0.3.jar",
+              "url": "https://files.grintmods.site/SereneSeasons-forge-1.20.1-9.1.0.3.jar",
               "sha1": "e553c2a50dc08d7b8b2aee6da1db0dc156fe961a",
               "size": 160885
             },
@@ -382,13 +382,13 @@
             },
             {
               "path": "mods/THT-Forge-1.20.1-6.2.11.3.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/THT-Forge-1.20.1-6.2.11.3.jar",
+              "url": "https://files.grintmods.site/THT-Forge-1.20.1-6.2.11.3.jar",
               "sha1": "3a5e9b70de72a3fd1c51323366a84813d77314ea",
               "size": 6093612
             },
             {
               "path": "mods/ae2advanced-1.0.2.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/ae2advanced-1.0.2.jar",
+              "url": "https://files.grintmods.site/ae2advanced-1.0.2.jar",
               "sha1": "f99bed71c04c594ca2f625cf8367bc157d5be7b1",
               "size": 34747
             },
@@ -400,7 +400,7 @@
             },
             {
               "path": "mods/bettervillage-forge-1.20.1-3.3.1-all.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/bettervillage-forge-1.20.1-3.3.1-all.jar",
+              "url": "https://files.grintmods.site/bettervillage-forge-1.20.1-3.3.1-all.jar",
               "sha1": "0c2f647cec98c3a4ca6d05b7a2f14962e66ad824",
               "size": 2612506
             },
@@ -418,7 +418,7 @@
             },
             {
               "path": "mods/custom-glow-enchantment-outline-forge-1.20.1-1.2.4.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/custom-glow-enchantment-outline-forge-1.20.1-1.2.4.jar",
+              "url": "https://files.grintmods.site/custom-glow-enchantment-outline-forge-1.20.1-1.2.4.jar",
               "sha1": "8e1e73abd814fc0eedf2329ba085da9b1b926386",
               "size": 667925
             },
@@ -436,19 +436,19 @@
             },
             {
               "path": "mods/ftb-library-forge-2001.2.13.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/ftb-library-forge-2001.2.13.jar",
+              "url": "https://files.grintmods.site/ftb-library-forge-2001.2.13.jar",
               "sha1": "a5427d5ff07eb044144ed0b54308370d88bce17e",
               "size": 780558
             },
             {
               "path": "mods/ftb-ultimine-forge-2001.1.8.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/ftb-ultimine-forge-2001.1.8.jar",
+              "url": "https://files.grintmods.site/ftb-ultimine-forge-2001.1.8.jar",
               "sha1": "c2a1eb72c36ad067faafbff4e1618c4db906de74",
               "size": 129653
             },
             {
               "path": "mods/geckolib-forge-1.20.1-4.8.4.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/geckolib-forge-1.20.1-4.8.4.jar",
+              "url": "https://files.grintmods.site/geckolib-forge-1.20.1-4.8.4.jar",
               "sha1": "81982cc287f80ffabb2fd36d22cc95e4255c739d",
               "size": 1038209
             },
@@ -519,7 +519,7 @@
               "size": 1105891
             }
           ],
-          "overrides": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/matter-ascension-0.3.10-overrides.zip"
+          "overrides": "https://files.grintmods.site/matter-ascension-0.3.10-overrides.zip"
         },
         {
           "version": "0.3.12",
