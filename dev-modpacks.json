@@ -188,6 +188,132 @@
               "url": "https://cdn.modrinth.com/data/Xvg6q5Wp/versions/uWULB2tU/thermal_foundation-1.20.1-11.0.4.68.jar",
               "sha1": "6970f0dc8e223c82650a1c8108f99b5fc4cb6581",
               "size": 4552609
+            },
+            {
+              "path": "mods/modernfix-forge-5.27.91+mc1.20.1.jar",
+              "url": "https://cdn.modrinth.com/data/nmDcB62a/versions/OM5gX4LT/modernfix-forge-5.27.91%2Bmc1.20.1.jar",
+              "sha1": "195d53d299a93c418c90b672c2640b4e41623f96",
+              "size": 1012942
+            },
+            {
+              "path": "mods/ferritecore-6.0.1-forge.jar",
+              "url": "https://cdn.modrinth.com/data/uXXizFIs/versions/DG5Fn9Sz/ferritecore-6.0.1-forge.jar",
+              "sha1": "417fb6ce8f52abf40bd9d0390371790f9576f8ba",
+              "size": 123034
+            },
+            {
+              "path": "mods/entityculling-forge-1.11.3-mc1.20.1.jar",
+              "url": "https://cdn.modrinth.com/data/NNAgCjsB/versions/HUUJcFnt/entityculling-forge-1.11.3-mc1.20.1.jar",
+              "sha1": "d3c513e88ef9f5cdd7e27d17d923d4dca69c6d55",
+              "size": 1515076
+            },
+            {
+              "path": "mods/ImmediatelyFast-1.2.4+1.20.1.jar",
+              "url": "https://cdn.modrinth.com/data/5ZwdcRci/versions/NJ17fqEK/ImmediatelyFast-1.2.4%2B1.20.1.jar",
+              "sha1": "fc2327b3e67c012949b0febac6effe3604bf894e",
+              "size": 625873
+            },
+            {
+              "path": "mods/noisium-forge-2.3.0+mc1.20-1.20.1.jar",
+              "url": "https://cdn.modrinth.com/data/KuNKN7d2/versions/gbYUKrDP/noisium-forge-2.3.0%2Bmc1.20-1.20.1.jar",
+              "sha1": "7da1cdf00c0ae5cad31e17f765f6ea021c8ac808",
+              "size": 218152
+            },
+            {
+              "path": "mods/Clumps-forge-1.20.1-12.0.0.4.jar",
+              "url": "https://cdn.modrinth.com/data/Wnxd13zP/versions/nAHGB5ls/Clumps-forge-1.20.1-12.0.0.4.jar",
+              "sha1": "8809c7aa6c71389e9c59abfe5def52c1cb8d4f1c",
+              "size": 20300
+            },
+            {
+              "path": "mods/FastSuite-1.20.1-5.1.2.jar",
+              "url": "https://cdn.modrinth.com/data/roccmqou/versions/nhk4VpGm/FastSuite-1.20.1-5.1.2.jar",
+              "sha1": "32ea4495b0e646f8f060e4e97d17044dd9fdefbd",
+              "size": 26600
+            },
+            {
+              "path": "mods/AI-Improvements-1.20-0.5.2.jar",
+              "url": "https://cdn.modrinth.com/data/DSVgwcji/versions/eJihmpNQ/AI-Improvements-1.20-0.5.2.jar",
+              "sha1": "11ad483d1fd1f7ebd84b4940b1dc0926b3e9daa8",
+              "size": 29553
+            },
+            {
+              "path": "mods/appleskin-forge-mc1.20.1-2.5.1.jar",
+              "url": "https://cdn.modrinth.com/data/EsAfCjCV/versions/XdXDExVF/appleskin-forge-mc1.20.1-2.5.1.jar",
+              "sha1": "81919356f84eab14258db98924b66c3c38e372b1",
+              "size": 47428
+            },
+            {
+              "path": "mods/Controlling-forge-1.20.1-12.0.2.jar",
+              "url": "https://cdn.modrinth.com/data/xv94TkTM/versions/LH6Bi6Am/Controlling-forge-1.20.1-12.0.2.jar",
+              "sha1": "6195a3d1464f8fb641d7e165163aea1a857ce08e",
+              "size": 115280
+            },
+            {
+              "path": "mods/trashslot-forge-1.20.1-15.1.5.jar",
+              "url": "https://cdn.modrinth.com/data/vRYk0bv7/versions/r0K8IYd7/trashslot-forge-1.20.1-15.1.5.jar",
+              "sha1": "31e3469cb88841cbaca4fb963bc9e4a1db6f8f4f",
+              "size": 117983
+            },
+            {
+              "path": "mods/InventoryProfilesNext-forge-1.20-1.10.20.jar",
+              "url": "https://cdn.modrinth.com/data/O7RBXm3n/versions/CrtAI3P9/InventoryProfilesNext-forge-1.20-1.10.20.jar",
+              "sha1": "979e74fa10b24a7d7c4d9aeb5824b80f4f9235cf",
+              "size": 1457354
+            },
+            {
+              "path": "mods/JadeAddons-1.20.1-Forge-5.5.1.jar",
+              "url": "https://cdn.modrinth.com/data/xuDOzCLy/versions/l9IrZYLt/JadeAddons-1.20.1-Forge-5.5.1.jar",
+              "sha1": "c4339eb3ef0c4728cb511efe60726653a35c7a0d",
+              "size": 91754
+            },
+            {
+              "path": "mods/carryon-forge-1.20.1-2.1.2.7.jar",
+              "url": "https://cdn.modrinth.com/data/joEfVgkn/versions/edGQD16r/carryon-forge-1.20.1-2.1.2.7.jar",
+              "sha1": "9999714ca3dd2f2401f0396ca44f3b27c3784c4f",
+              "size": 439457
+            },
+            {
+              "path": "mods/emi_loot-0.7.9+1.20.1+forge.jar",
+              "url": "https://cdn.modrinth.com/data/qbbO7Jns/versions/KKWmdLti/emi_loot-0.7.9%2B1.20.1%2Bforge.jar",
+              "sha1": "e3f6289abd4de8ebbbb0ffc162b35346c3acd54f",
+              "size": 441180
+            },
+            {
+              "path": "mods/Placebo-1.20.1-8.6.3.jar",
+              "url": "https://cdn.modrinth.com/data/tCkE8p2N/versions/6SkuAGoz/Placebo-1.20.1-8.6.3.jar",
+              "sha1": "e85f53de2e582a79ce25ff1df1e7b5b5fc08440f",
+              "size": 282474
+            },
+            {
+              "path": "mods/Searchables-forge-1.20.1-1.0.3.jar",
+              "url": "https://cdn.modrinth.com/data/fuuu3xnx/versions/PM9yAW1G/Searchables-forge-1.20.1-1.0.3.jar",
+              "sha1": "5b976f6e76ec74cdef21865e31f56bcb11558db7",
+              "size": 77732
+            },
+            {
+              "path": "mods/balm-forge-1.20.1-7.3.44.jar",
+              "url": "https://cdn.modrinth.com/data/MBAkmtvl/versions/dDN38ae7/balm-forge-1.20.1-7.3.44.jar",
+              "sha1": "dae7e647fc54609e66e4f910931be65776352b72",
+              "size": 561741
+            },
+            {
+              "path": "mods/libIPN-forge-1.20-4.0.2.jar",
+              "url": "https://cdn.modrinth.com/data/onSQdWhM/versions/pdAXmKcS/libIPN-forge-1.20-4.0.2.jar",
+              "sha1": "3e7c7fcdc037a6ae3d9146e718d87fc83f88f6d5",
+              "size": 693301
+            },
+            {
+              "path": "mods/kotlinforforge-4.12.0-all.jar",
+              "url": "https://cdn.modrinth.com/data/ordsPcFz/versions/Zsh14XeQ/kotlinforforge-4.12.0-all.jar",
+              "sha1": "962fdb760409d6d71cbf079235f1ca94e3863a22",
+              "size": 7442998
+            },
+            {
+              "path": "mods/fzzy_config-0.7.7+1.20.1+forge.jar",
+              "url": "https://cdn.modrinth.com/data/hYykXjDp/versions/53kg5uoF/fzzy_config-0.7.7%2B1.20.1%2Bforge.jar",
+              "sha1": "1a4f550dea4fb6316a96591dc46a463ee1f6602b",
+              "size": 2397175
             }
           ],
           "overrides": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/matter-ascension-0.3.0-overrides.zip"
