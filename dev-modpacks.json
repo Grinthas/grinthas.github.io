@@ -208,12 +208,6 @@
               "size": 1515076
             },
             {
-              "path": "mods/ImmediatelyFast-1.2.4+1.20.1.jar",
-              "url": "https://cdn.modrinth.com/data/5ZwdcRci/versions/NJ17fqEK/ImmediatelyFast-1.2.4%2B1.20.1.jar",
-              "sha1": "fc2327b3e67c012949b0febac6effe3604bf894e",
-              "size": 625873
-            },
-            {
               "path": "mods/noisium-forge-2.3.0+mc1.20-1.20.1.jar",
               "url": "https://cdn.modrinth.com/data/KuNKN7d2/versions/gbYUKrDP/noisium-forge-2.3.0%2Bmc1.20-1.20.1.jar",
               "sha1": "7da1cdf00c0ae5cad31e17f765f6ea021c8ac808",
