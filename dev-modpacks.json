@@ -166,10 +166,10 @@
               "size": 3739642
             },
             {
-              "path": "mods/recipeeditor-1.0.0.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/recipeeditor-1.0.0.jar",
-              "sha1": "f2071436a9441b29269529d1b3e0aa8b6cb01c66",
-              "size": 42610
+              "path": "mods/recipeeditor-1.1.0.jar",
+              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/recipeeditor-1.1.0.jar",
+              "sha1": "550715f39430d24ac18c5d9ddf372c8444160a16",
+              "size": 45133
             },
             {
               "path": "mods/rhino-forge-2001.2.3-build.10.jar",
