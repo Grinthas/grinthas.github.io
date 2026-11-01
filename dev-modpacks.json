@@ -370,10 +370,10 @@
               "size": 6093612
             },
             {
-              "path": "mods/ae2advanced-1.0.1.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/ae2advanced-1.0.1.jar",
-              "sha1": "1a2c812819bb8c0f6a44456f5cc5a1d5ea22d059",
-              "size": 27428
+              "path": "mods/ae2advanced-1.0.2.jar",
+              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/ae2advanced-1.0.2.jar",
+              "sha1": "f99bed71c04c594ca2f625cf8367bc157d5be7b1",
+              "size": 34747
             },
             {
               "path": "mods/appliedenergistics2-forge-15.4.12.jar",
