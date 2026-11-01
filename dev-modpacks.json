@@ -143,9 +143,9 @@
             },
             {
               "path": "mods/matterascension-0.1.0.jar",
-              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-0.3.0/matterascension-0.1.0.jar",
-              "sha1": "e3fb020901c39e37443e39be3f736abe35e928e8",
-              "size": 6184310
+              "url": "https://github.com/grinthas/grinthas.github.io/releases/download/matter-ascension-dev/matterascension-0.1.0-split.jar",
+              "sha1": "bf9b9a51bf52b26fdb0cf1365ac17d73edcc0466",
+              "size": 6185045
             },
             {
               "path": "mods/megacells-forge-2.4.6-1.20.1.jar",
