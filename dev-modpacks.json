@@ -867,43 +867,43 @@
             },
             {
               "path": "mods/Botania-1.20.1-456-FORGE.jar",
-              "url": "https://cdn.modrinth.com/data/pfjLUfGv/versions/npY4sRWF/Botania-1.20.1-456-FORGE.jar",
+              "url": "https://edge.forgecdn.net/files/8901/969/Botania-1.20.1-456-FORGE.jar",
               "sha1": "17e0cab4160e86f434cd137a60faeb2594ae4e15",
               "size": 12226445
             },
             {
               "path": "mods/Patchouli-1.20.1-85-FORGE.jar",
-              "url": "https://cdn.modrinth.com/data/nU0bVIaL/versions/94dtOLgZ/Patchouli-1.20.1-85-FORGE.jar",
+              "url": "https://edge.forgecdn.net/files/7731/17/Patchouli-1.20.1-85-FORGE.jar",
               "sha1": "d4614507d6e4c7cb464bba5eca891978272062ef",
               "size": 642732
             },
             {
               "path": "mods/MythicBotany-1.20.1-4.0.4.jar",
-              "url": "https://cdn.modrinth.com/data/7tl2Pt3c/versions/1IR2M8cY/MythicBotany-1.20.1-4.0.4.jar",
+              "url": "https://edge.forgecdn.net/files/6702/112/MythicBotany-1.20.1-4.0.4.jar",
               "sha1": "b616c118d611459a0711931c51c9c4d41408abb4",
               "size": 2233413
             },
             {
               "path": "mods/LibX-1.20.1-5.0.14.jar",
-              "url": "https://cdn.modrinth.com/data/qEH6GYul/versions/YHTMDq85/LibX-1.20.1-5.0.14.jar",
+              "url": "https://edge.forgecdn.net/files/5207/625/LibX-1.20.1-5.0.14.jar",
               "sha1": "d75610b0c34626cea8b1155a47d28333cc1f58a2",
               "size": 1258082
             },
             {
               "path": "mods/BotanicalMachinery-1.20.1-3.0.10.jar",
-              "url": "https://cdn.modrinth.com/data/CTJzhcfH/versions/nWd5gpH8/BotanicalMachinery-1.20.1-3.0.10.jar",
+              "url": "https://edge.forgecdn.net/files/7910/772/BotanicalMachinery-1.20.1-3.0.10.jar",
               "sha1": "c37675b395edd3643da78ae9db8424da24812c65",
               "size": 250613
             },
             {
               "path": "mods/applied-botanics-forge-1.5.2.jar",
-              "url": "https://cdn.modrinth.com/data/545hUrw9/versions/ByiqRpj3/applied-botanics-forge-1.5.2.jar",
+              "url": "https://edge.forgecdn.net/files/7427/985/applied-botanics-forge-1.5.2.jar",
               "sha1": "4129b8379681449779803319a8a8a34e0435084b",
               "size": 255276
             },
             {
               "path": "mods/Just-Enough-Botania-1.20.1-v0.2.1.jar",
-              "url": "https://cdn.modrinth.com/data/9V5kkHHH/versions/TmtCd9EB/Just-Enough-Botania-1.20.1-v0.2.1.jar",
+              "url": "https://edge.forgecdn.net/files/6858/396/Just-Enough-Botania-1.20.1-v0.2.1.jar",
               "sha1": "a2131501794eec36e49876e903c95d7754753060",
               "size": 31310
             }
