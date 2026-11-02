@@ -6,10 +6,17 @@ extends Node2D
 
 # Виды грибов. Чтобы добавить новый, допиши ещё одну строку.
 # grow - секунд роста, price - монет за продажу, unlock - цена открытия (0 - открыт сразу).
+# shape - форма шляпки (a, b или c, см. картинки shroom_*), glow - светится, когда созрел.
+# Новые грибы добавляй только В КОНЕЦ списка, иначе перепутаются старые сохранения.
 const MUSHROOMS := [
-	{"name": "Шампиньон", "grow": 5.0, "price": 2, "unlock": 0, "color": Color(0.95, 0.9, 0.8)},
-	{"name": "Светящийся гриб", "grow": 12.0, "price": 6, "unlock": 30, "color": Color(0.5, 0.95, 0.95)},
+	{"name": "Шампиньон", "grow": 5.0, "price": 2, "unlock": 0, "color": Color(0.95, 0.9, 0.8), "shape": "a"},
+	{"name": "Светящийся гриб", "grow": 12.0, "price": 6, "unlock": 30, "color": Color(0.5, 0.95, 0.95), "shape": "b", "glow": true},
+	{"name": "Лисичка", "grow": 25.0, "price": 14, "unlock": 120, "color": Color(1.0, 0.65, 0.2), "shape": "c"},
+	{"name": "Лунный гриб", "grow": 50.0, "price": 32, "unlock": 400, "color": Color(0.72, 0.62, 1.0), "shape": "a", "glow": true},
+	{"name": "Золотой гриб", "grow": 90.0, "price": 70, "unlock": 1200, "color": Color(1.0, 0.85, 0.25), "shape": "b"},
+	{"name": "Кристальный гриб", "grow": 150.0, "price": 130, "unlock": 3000, "color": Color(1.0, 0.5, 0.9), "shape": "c", "glow": true},
 ]
+const LUCKY_CHANCE := 0.12            # шанс двойного урожая при сборе
 
 const SAVE_PATH := "user://save.json"
 const START_PLOTS := 4
@@ -33,10 +40,34 @@ const ACT_CENTER := Vector2(440, 820)
 const ACT_RADIUS := 72.0
 const NO_ID := -99                    # "палец не нажат"
 
+# Украшения пещеры. block - можно ли пройти сквозь. Картинка берётся из assets/<tex>.png
+const DECOR := [
+	{"tex": "stalagmite", "tile": Vector2i(2, 2), "block": true},
+	{"tex": "stalagmite", "tile": Vector2i(12, 13), "block": true},
+	{"tex": "stalagmite", "tile": Vector2i(1, 11), "block": true},
+	{"tex": "crystal_blue", "tile": Vector2i(11, 3), "block": true},
+	{"tex": "crystal_blue", "tile": Vector2i(2, 8), "block": true},
+	{"tex": "crystal_pink", "tile": Vector2i(12, 7), "block": true},
+	{"tex": "crystal_pink", "tile": Vector2i(6, 14), "block": true},
+	{"tex": "barrel", "tile": Vector2i(12, 2), "block": true},
+	{"tex": "barrel", "tile": Vector2i(1, 13), "block": true},
+]
+# Плоские пятна на полу (по ним можно ходить).
+const DECALS := [
+	{"tex": "puddle", "tile": Vector2i(6, 11)}, {"tex": "puddle", "tile": Vector2i(3, 12)},
+	{"tex": "puddle", "tile": Vector2i(10, 12)}, {"tex": "pebbles", "tile": Vector2i(7, 2)},
+	{"tex": "pebbles", "tile": Vector2i(5, 9)}, {"tex": "pebbles", "tile": Vector2i(11, 11)},
+	{"tex": "moss", "tile": Vector2i(2, 5)}, {"tex": "moss", "tile": Vector2i(11, 9)},
+	{"tex": "moss", "tile": Vector2i(8, 13)},
+]
+# Факелы на стенах (мерцают).
+const TORCHES := [Vector2i(3, 0), Vector2i(10, 0), Vector2i(0, 6), Vector2i(13, 10), Vector2i(0, 13)]
+const FIREFLIES := 10
+
 const FONT_PATH := "res://fonts/PressStart2P-Regular.ttf"
 
 var coins: int = 0
-var unlocked: Array = [true, false]
+var unlocked: Array = [true, false, false, false, false, false]  # по числу грибов
 var selected: int = 0
 var plot_count: int = START_PLOTS
 var plots: Array = []  # у каждой грядки: {"type": -1 или номер гриба, "planted_at": время посадки}
@@ -52,6 +83,12 @@ var player_sprite: Sprite2D
 var marker: Sprite2D
 var camera: Camera2D
 var plot_nodes: Array = []            # {"bed", "shroom", "rock"} для каждой грядки
+var plot_state: Array = []            # 0 - пусто/растёт, 1 - созрел (для анимации)
+var decor_rects: Array = []           # где нельзя ходить из-за украшений
+var crystal_sprites: Array = []
+var torch_sprites: Array = []
+var fx: Node2D
+var time_s: float = 0.0
 
 var hud: CanvasLayer
 var coins_label: Label
@@ -87,13 +124,20 @@ func _ready() -> void:
 # ---------- Картинки и шрифт ----------
 
 func _load_assets() -> void:
-	for n in ["farmer", "bed", "rock", "marker", "coin", "floor_a", "floor_b", "wall"]:
+	for n in ["farmer", "bed", "rock", "marker", "coin", "wall", "torch_1", "torch_2",
+			"floor_a", "floor_b", "floor_c", "floor_d"]:
 		tex[n] = load("res://assets/%s.png" % n)
+	for d in DECOR:
+		tex[d["tex"]] = load("res://assets/%s.png" % d["tex"])
+	for d in DECALS:
+		tex[d["tex"]] = load("res://assets/%s.png" % d["tex"])
 	# Гриб рисуем розовой шляпкой, а в игре перекрашиваем в цвет конкретного гриба.
 	for m in MUSHROOMS:
 		var stages: Array = []
 		for s in 3:
-			stages.append(_tinted(load("res://assets/shroom_%d.png" % (s + 1)), m["color"]))
+			# форма a: shroom_1.png, форма b: shroom_b_1.png, форма c: shroom_c_1.png
+			var file := "shroom_%d" % (s + 1) if m["shape"] == "a" else "shroom_%s_%d" % [m["shape"], s + 1]
+			stages.append(_tinted(load("res://assets/%s.png" % file), m["color"]))
 		shroom_tex.append(stages)
 	font = load(FONT_PATH)
 	# Без сглаживания, чтобы буквы остались чёткими пикселями.
@@ -144,12 +188,35 @@ func _build_world() -> void:
 		root.add_child(rock)
 		objects.add_child(root)
 		plot_nodes.append({"bed": bed, "shroom": shroom, "rock": rock})
+		plot_state.append(0)
+
+	for d in DECOR:
+		var t: Vector2i = d["tile"]
+		var spr := _sprite(tex[d["tex"]], Vector2(-8, -16))
+		spr.position = Vector2(t) * TILE + Vector2(TILE / 2.0, TILE)
+		objects.add_child(spr)
+		if d["block"]:
+			decor_rects.append(Rect2(t.x * TILE + 3, t.y * TILE + 6, TILE - 6, TILE - 6))
+		if String(d["tex"]).begins_with("crystal"):
+			crystal_sprites.append(spr)
+
+	for t in TORCHES:
+		var torch := _sprite(tex["torch_1"], Vector2.ZERO)
+		torch.position = Vector2(t) * TILE
+		torch.z_index = 1
+		add_child(torch)
+		torch_sprites.append(torch)
 
 	player = Node2D.new()
 	player.position = Vector2(7 * TILE, 12 * TILE)
 	player_sprite = _sprite(tex["farmer"], Vector2(-8, -16))
 	player.add_child(player_sprite)
 	objects.add_child(player)
+
+	fx = Node2D.new()      # светлячки
+	fx.z_index = 50
+	fx.draw.connect(_draw_fireflies)
+	add_child(fx)
 
 	marker = _sprite(tex["marker"], Vector2(-4, -4))
 	marker.z_index = 100
@@ -175,9 +242,15 @@ func _draw_ground() -> void:
 				t = tex["wall"]
 			elif (x * 7 + y * 13) % 5 == 0:
 				t = tex["floor_b"]
+			elif (x * 11 + y * 3) % 9 == 0:
+				t = tex["floor_c"]
+			elif (x * 5 + y * 17) % 13 == 0:
+				t = tex["floor_d"]
 			else:
 				t = tex["floor_a"]
 			ground.draw_texture(t, Vector2(x, y) * TILE)
+	for d in DECALS:
+		ground.draw_texture(tex[d["tex"]], Vector2(d["tile"]) * TILE)
 
 
 func _plot_tile(i: int) -> Vector2i:
@@ -202,6 +275,9 @@ func _blocked(pos: Vector2) -> bool:
 		return true
 	for i in MAX_PLOTS:       # и грядки, и завалы (ещё закрытые грядки) мешают пройти
 		if feet.intersects(_plot_rect(i)):
+			return true
+	for r in decor_rects:     # сталагмиты, кристаллы, бочки
+		if feet.intersects(r):
 			return true
 	return false
 
@@ -231,6 +307,8 @@ func _find_target() -> int:
 # ---------- Каждый кадр ----------
 
 func _process(delta: float) -> void:
+	time_s += delta
+	_animate_world()
 	var dir := _keyboard_dir() + joy_vec
 	if dir.length() > 1.0:
 		dir = dir.normalized()
@@ -251,6 +329,40 @@ func _process(delta: float) -> void:
 	if target >= 0:
 		marker.position = _plot_center(target) + Vector2(0, -16 + (1 if int(Time.get_ticks_msec() / 250.0) % 2 == 0 else 0))
 	controls.queue_redraw()
+
+
+func _animate_world() -> void:
+	# Факелы мерцают, кристаллы переливаются, зрелые грибы качаются или светятся.
+	for i in torch_sprites.size():
+		torch_sprites[i].texture = tex["torch_%d" % (1 if (int(time_s * 5.0) + i) % 2 == 0 else 2)]
+	for i in crystal_sprites.size():
+		var k := 0.5 + 0.5 * sin(time_s * 2.5 + i * 1.7)
+		crystal_sprites[i].modulate = Color.WHITE.lerp(Color(1.5, 1.5, 1.5), k * 0.8)
+	for i in MAX_PLOTS:
+		var shroom: Sprite2D = plot_nodes[i]["shroom"]
+		if plot_state[i] == 1:
+			var type: int = plots[i]["type"]
+			if MUSHROOMS[type].get("glow", false):
+				var g := 0.5 + 0.5 * sin(time_s * 4.0 + i)
+				shroom.modulate = Color.WHITE.lerp(Color(1.7, 1.7, 1.7), g)
+			else:
+				shroom.position.y = -1.0 if int(time_s * 3.0 + i) % 2 == 0 else 0.0
+		else:
+			shroom.modulate = Color.WHITE
+			shroom.position.y = 0.0
+	fx.queue_redraw()
+
+
+func _draw_fireflies() -> void:
+	for i in FIREFLIES:
+		var base := Vector2(24 + (i * 53) % 150, 30 + (i * 97) % 200)
+		var pos := base + Vector2(sin(time_s * (0.5 + i * 0.07) + i) * 10.0, cos(time_s * (0.4 + i * 0.05) + i * 2.0) * 8.0)
+		var a := 0.5 + 0.5 * sin(time_s * 2.0 + i * 1.3)
+		if a < 0.25:
+			continue
+		pos = pos.floor()
+		fx.draw_rect(Rect2(pos - Vector2(1, 1), Vector2(3, 3)), Color(0.8, 1.0, 0.4, 0.15 * a))
+		fx.draw_rect(Rect2(pos, Vector2(1, 1)), Color(1.0, 1.0, 0.6, a))
 
 
 func _keyboard_dir() -> Vector2:
@@ -323,9 +435,12 @@ func _do_action() -> void:
 		_toast("Посажен: " + MUSHROOMS[selected]["name"])
 	elif _is_ripe(p):
 		var price: int = MUSHROOMS[p["type"]]["price"]
+		var lucky := randf() < LUCKY_CHANCE
+		if lucky:
+			price *= 2
 		coins += price
 		p["type"] = -1
-		_toast("+%d монет" % price)
+		_toast(("Повезло! двойной урожай +%d" if lucky else "+%d монет") % price)
 	else:
 		var m: Dictionary = MUSHROOMS[p["type"]]
 		_toast("Ещё %d сек" % ceili(m["grow"] - (_now() - p["planted_at"])))
@@ -544,7 +659,8 @@ func _refresh_shop() -> void:
 
 func _refresh_all() -> void:
 	coins_label.text = str(coins)
-	seed_label.text = "Сажаем: " + MUSHROOMS[selected]["name"]
+	seed_label.text = MUSHROOMS[selected]["name"]     # что сажаем (цвет = цвет гриба)
+	seed_label.add_theme_color_override("font_color", MUSHROOMS[selected]["color"])
 	if shop.visible:
 		_refresh_shop()
 	_update_plots()
@@ -559,6 +675,7 @@ func _update_plots() -> void:
 		n["rock"].visible = not open
 		var shroom: Sprite2D = n["shroom"]
 		var p: Dictionary = plots[i]
+		plot_state[i] = 0
 		if not open or p["type"] == -1:
 			shroom.visible = false
 			continue
@@ -567,6 +684,7 @@ func _update_plots() -> void:
 		var stage := 2 if progress >= 1.0 else (1 if progress >= 0.4 else 0)
 		shroom.texture = shroom_tex[p["type"]][stage]
 		shroom.visible = true
+		plot_state[i] = 1 if stage == 2 else 0
 
 
 func _toast(text: String) -> void:

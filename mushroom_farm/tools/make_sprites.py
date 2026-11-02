@@ -19,6 +19,11 @@ PAL = {
     "S": (232, 220, 192), "t": (190, 176, 146),
     "r": (110, 110, 118), "R": (150, 150, 160), "q": (72, 72, 80),
     "y": (255, 214, 64), "Y": (214, 160, 32),
+    "c": (90, 170, 255), "C": (190, 230, 255), "x": (40, 90, 170),
+    "P": (230, 90, 200), "Q": (255, 170, 235), "z": (140, 40, 120),
+    "w": (150, 100, 55), "W": (190, 135, 75), "v": (100, 62, 32), "i": (90, 90, 100),
+    "f": (255, 140, 30), "F": (255, 220, 80),
+    "u": (50, 90, 140), "U": (100, 150, 200), "n": (60, 110, 60), "N": (95, 150, 80),
 }
 
 def sprite(name, rows, w=16, h=16):
@@ -154,5 +159,164 @@ def tile(name, base, spots, seed, mortar=None):
 tile("floor_a", (59, 47, 39), [(50, 39, 32), (68, 55, 46), (76, 62, 52)], 1)
 tile("floor_b", (55, 44, 36), [(46, 36, 30), (64, 52, 43), (72, 58, 49)], 2)
 tile("wall", (92, 76, 66), [(80, 66, 57), (104, 88, 76)], 3, mortar=(46, 36, 31))
+
+
+# ---------- Новые формы шляпок: b - высокая, c - несколько маленьких ----------
+
+sprite("shroom_b_1", [E, E, E, E, E, E, ".......kk.......", "......kMMk......", "......kkkk......"])
+sprite("shroom_b_2", [E, E, E, E,
+    ".......kk.......",
+    "......kMMk......",
+    ".....kMWMMk.....",
+    ".....kkkkkk.....",
+    "......kSSk......",
+    "......kSSk......",
+])
+sprite("shroom_b_3", [
+    ".......kk.......",
+    "......kMMk......",
+    "......kMWk......",
+    ".....kMMMMk.....",
+    ".....kMWMMk.....",
+    "....kMMMMMMk....",
+    "....kMMMMWMk....",
+    "....kkkkkkkk....",
+    "......kSSk......",
+    "......kStk......",
+    ".....kkSSkk.....",
+])
+
+sprite("shroom_c_1", [E, E, E, E, E, E, E,
+    "....g.....g.....",
+    ".....g...g......",
+    ".....g...g......",
+])
+sprite("shroom_c_2", [E, E, E, E, E,
+    "................",
+    "..kkkk..........",
+    ".kMMWMk...kkkk..",
+    ".kkkkkk..kMMMMk.",
+    "...kSk...kkkkkk.",
+    "...kSk.....kSk..",
+])
+sprite("shroom_c_3", [E, E,
+    ".....kkkkk......",
+    "....kMMWMMk.....",
+    "..kkkkkkkkk.kkk.",
+    ".kMMWMk.kSk.kMMk",
+    ".kkkkkk.kSk.kkkk",
+    "...kSk..kSk..kSk",
+    "...kSk..kSk..kSk",
+    "...kSk..kSk..kSk",
+])
+
+# ---------- Украшения пещеры ----------
+
+sprite("stalagmite", [
+    E, E,
+    "................",
+    ".......kk.......",
+    "......kRrk......",
+    "......kRrk......",
+    ".....kRRrrk.....",
+    ".....kRrrqk.....",
+    "....kRRrrrqk....",
+    "....kRrrrrqk....",
+    "...kRRrrrrqqk...",
+    "...kRrrrrrqqk...",
+    "..kRRrrrrrrqqk..",
+    "..krrrrrrrrqqk..",
+    "..kqrrrrrrqqqk..",
+    "...kkkkkkkkkkk..",
+])
+
+CRYSTAL = [
+    E,
+    "........k.......",
+    ".......kCk......",
+    ".......kCck.....",
+    "..k....kCcck....",
+    ".kCk...kCccxk...",
+    ".kCck.kCcccxk...",
+    ".kCcck.kcccxk...",
+    ".kCccxkkccxxk...",
+    ".kcccxkcccxxk...",
+    "..kcxxkcccxk....",
+    "..kkxxkkxxxk....",
+    "...kkkkkkkkk....",
+]
+sprite("crystal_blue", CRYSTAL)
+sprite("crystal_pink", [r.translate(str.maketrans("Ccx", "QPz")) for r in CRYSTAL])
+
+sprite("barrel", [
+    E, E, E, E,
+    "....kkkkkkkk....",
+    "...kwWWWWWWwk...",
+    "..kwWWWWWWWWwk..",
+    "..kiiiiiiiiiik..",
+    "..kwWWWWWWWWwk..",
+    "..kwWvWWWWvWwk..",
+    "..kwWWWWWWWWwk..",
+    "..kiiiiiiiiiik..",
+    "..kwWWWWWWWWwk..",
+    "...kwwwwwwwwk...",
+    "....kkkkkkkk....",
+])
+
+sprite("puddle", [
+    E, E, E, E, E, E, E,
+    "....kkkkkkk.....",
+    "..kkuuuuuuukk...",
+    ".kuuUUuuuuuuuk..",
+    ".kuuuuuuuUUuuk..",
+    "..kkuuuuuuukk...",
+    "....kkkkkkk.....",
+])
+
+sprite("pebbles", [
+    E, E, E, E, E, E,
+    "...kk...........",
+    "..kRrk....kk....",
+    "...kk....kRrk...",
+    E,
+    "......kk........",
+    ".....kRrk.......",
+    "......kk........",
+])
+
+sprite("moss", [
+    E, E, E, E, E, E,
+    "....nn....n.....",
+    "..nnNnn..nNn....",
+    ".nnNNnnnnnnn....",
+    "..nnnnNnnnn.....",
+    "....nnnnn..n....",
+])
+
+sprite("torch_1", [E, E,
+    ".......FF.......",
+    "......FffF......",
+    "......FffF......",
+    ".......ff.......",
+    "......kkkk......",
+    ".......vv.......",
+    ".......vv.......",
+    ".......vv.......",
+    "......kvvk......",
+])
+sprite("torch_2", [E, E,
+    "......FF........",
+    ".....FffF.......",
+    "......ffF.......",
+    ".......ff.......",
+    "......kkkk......",
+    ".......vv.......",
+    ".......vv.......",
+    ".......vv.......",
+    "......kvvk......",
+])
+
+tile("floor_c", (57, 45, 37), [(110, 100, 95), (90, 82, 76), (46, 36, 30)], 4)
+tile("floor_d", (56, 46, 38), [(60, 100, 58), (78, 128, 70), (46, 36, 30)], 5)
 
 print("Готово:", sorted(os.listdir(OUT)))
