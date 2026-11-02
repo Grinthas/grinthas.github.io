@@ -93,8 +93,9 @@ jobs:
         run: |
           mkdir -p build
           cd mushroom_farm
+          ls "$SDK" "$SDK/build-tools" "$SDK/platforms" "$SDK/platform-tools" | head -40
           "$HOME/godot-bin/godot" --headless --import || true
-          "$HOME/godot-bin/godot" --headless --export-debug "Android" ../build/mushroom-farm.apk
+          "$HOME/godot-bin/godot" --headless --verbose --export-debug "Android" ../build/mushroom-farm.apk
           ls -la ../build
 
       - name: Опубликовать в Releases
