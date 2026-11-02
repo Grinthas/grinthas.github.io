@@ -16,7 +16,19 @@ const MUSHROOMS := [
 	{"name": "Золотой гриб", "grow": 90.0, "price": 70, "unlock": 1200, "color": Color(1.0, 0.85, 0.25), "shape": "b"},
 	{"name": "Кристальный гриб", "grow": 150.0, "price": 130, "unlock": 3000, "color": Color(1.0, 0.5, 0.9), "shape": "c", "glow": true},
 ]
-const LUCKY_CHANCE := 0.12            # шанс двойного урожая при сборе
+const LUCKY_CHANCE := 0.12            # шанс двойного урожая при сборе (без улучшений)
+
+# Заказы на доске объявлений: собери нужные грибы, сдай на доске, получи награду.
+const ORDER_SLOTS := 3
+const BOARD_TILE := Vector2i(7, 2)
+const BOARD_ID := 100                 # номер "цели" для доски (грядки - 0..7)
+
+# Улучшения в магазине. costs - цена каждого следующего уровня.
+const UPGRADES := [
+	{"id": "speed", "name": "Быстрые ноги", "desc": "Ходишь быстрее", "costs": [60, 150, 400]},
+	{"id": "growth", "name": "Удобрение", "desc": "Грибы растут на 10% быстрее", "costs": [100, 250, 600, 1500]},
+	{"id": "luck", "name": "Счастливая корзина", "desc": "Шанс двойного урожая +5%", "costs": [150, 350, 800, 2000]},
+]
 
 const SAVE_PATH := "user://save.json"
 const START_PLOTS := 4
@@ -55,7 +67,7 @@ const DECOR := [
 # Плоские пятна на полу (по ним можно ходить).
 const DECALS := [
 	{"tex": "puddle", "tile": Vector2i(6, 11)}, {"tex": "puddle", "tile": Vector2i(3, 12)},
-	{"tex": "puddle", "tile": Vector2i(10, 12)}, {"tex": "pebbles", "tile": Vector2i(7, 2)},
+	{"tex": "puddle", "tile": Vector2i(10, 12)}, {"tex": "pebbles", "tile": Vector2i(5, 2)},
 	{"tex": "pebbles", "tile": Vector2i(5, 9)}, {"tex": "pebbles", "tile": Vector2i(11, 11)},
 	{"tex": "moss", "tile": Vector2i(2, 5)}, {"tex": "moss", "tile": Vector2i(11, 9)},
 	{"tex": "moss", "tile": Vector2i(8, 13)},
@@ -70,6 +82,13 @@ var coins: int = 0
 var unlocked: Array = [true, false, false, false, false, false]  # по числу грибов
 var selected: int = 0
 var plot_count: int = START_PLOTS
+var upgrades := {"speed": 0, "growth": 0, "luck": 0}
+var orders: Array = []                # {"kind", "need", "got", "reward"}
+var daily_last: int = 0               # номер дня (с 1970 года), когда забрали подарок
+var daily_streak: int = 0
+var daily_today: int = 0
+var daily_next_streak: int = 0
+var daily_reward: int = 0
 var plots: Array = []  # у каждой грядки: {"type": -1 или номер гриба, "planted_at": время посадки}
 
 var tex := {}                         # картинки по имени
@@ -98,6 +117,11 @@ var toast_tween: Tween
 var controls: Control
 var shop: Control
 var shop_list: VBoxContainer
+var orders_ui: Control
+var orders_list: VBoxContainer
+var daily_ui: Control
+var daily_list: VBoxContainer
+var board_sprite: Sprite2D
 
 var joy_id: int = NO_ID
 var joy_vec := Vector2.ZERO
@@ -113,7 +137,9 @@ func _ready() -> void:
 	_load_assets()
 	_build_world()
 	_build_hud()
+	_ensure_orders()
 	_refresh_all()
+	_check_daily()
 	var timer := Timer.new()
 	timer.wait_time = 0.5
 	timer.autostart = true
@@ -125,7 +151,7 @@ func _ready() -> void:
 
 func _load_assets() -> void:
 	for n in ["farmer", "bed", "rock", "marker", "coin", "wall", "torch_1", "torch_2",
-			"floor_a", "floor_b", "floor_c", "floor_d"]:
+			"floor_a", "floor_b", "floor_c", "floor_d", "board"]:
 		tex[n] = load("res://assets/%s.png" % n)
 	for d in DECOR:
 		tex[d["tex"]] = load("res://assets/%s.png" % d["tex"])
@@ -199,6 +225,11 @@ func _build_world() -> void:
 			decor_rects.append(Rect2(t.x * TILE + 3, t.y * TILE + 6, TILE - 6, TILE - 6))
 		if String(d["tex"]).begins_with("crystal"):
 			crystal_sprites.append(spr)
+
+	board_sprite = _sprite(tex["board"], Vector2(-8, -16))
+	board_sprite.position = Vector2(BOARD_TILE) * TILE + Vector2(TILE / 2.0, TILE)
+	objects.add_child(board_sprite)
+	decor_rects.append(Rect2(BOARD_TILE.x * TILE + 2, BOARD_TILE.y * TILE + 8, TILE - 4, TILE - 8))
 
 	for t in TORCHES:
 		var torch := _sprite(tex["torch_1"], Vector2.ZERO)
@@ -283,13 +314,21 @@ func _blocked(pos: Vector2) -> bool:
 
 
 func _move_player(dir: Vector2, delta: float) -> void:
-	var step := dir * SPEED * delta
+	var step: Vector2 = dir * SPEED * (1.0 + 0.12 * upgrades["speed"]) * delta
 	var p := player.position
 	if not _blocked(Vector2(p.x + step.x, p.y)):
 		p.x += step.x
 	if not _blocked(Vector2(p.x, p.y + step.y)):
 		p.y += step.y
 	player.position = p
+
+
+func _board_center() -> Vector2:
+	return Vector2(BOARD_TILE.x * TILE + 8, BOARD_TILE.y * TILE + 10)
+
+
+func _target_center(t: int) -> Vector2:
+	return _board_center() if t == BOARD_ID else _plot_center(t)
 
 
 func _find_target() -> int:
@@ -301,6 +340,8 @@ func _find_target() -> int:
 		if d < best_d:
 			best_d = d
 			best = i
+	if body.distance_to(_board_center()) < best_d:
+		best = BOARD_ID
 	return best
 
 
@@ -312,7 +353,7 @@ func _process(delta: float) -> void:
 	var dir := _keyboard_dir() + joy_vec
 	if dir.length() > 1.0:
 		dir = dir.normalized()
-	if shop.visible:
+	if _modal_open():
 		dir = Vector2.ZERO
 	if dir != Vector2.ZERO:
 		_move_player(dir, delta)
@@ -325,9 +366,9 @@ func _process(delta: float) -> void:
 	camera.position = player.position.round() + Vector2(0, -8)
 
 	target = _find_target()
-	marker.visible = target >= 0 and not shop.visible
+	marker.visible = target >= 0 and not _modal_open()
 	if target >= 0:
-		marker.position = _plot_center(target) + Vector2(0, -16 + (1 if int(Time.get_ticks_msec() / 250.0) % 2 == 0 else 0))
+		marker.position = _target_center(target) + Vector2(0, -16 + (1 if int(Time.get_ticks_msec() / 250.0) % 2 == 0 else 0))
 	controls.queue_redraw()
 
 
@@ -350,6 +391,8 @@ func _animate_world() -> void:
 		else:
 			shroom.modulate = Color.WHITE
 			shroom.position.y = 0.0
+	# Доска мигает, когда есть выполненный заказ.
+	board_sprite.modulate = Color.WHITE.lerp(Color(1.7, 1.6, 1.0), 0.5 + 0.5 * sin(time_s * 6.0)) if _orders_ready() > 0 else Color.WHITE
 	fx.queue_redraw()
 
 
@@ -394,11 +437,12 @@ func _input(event: InputEvent) -> void:
 			_do_action()
 		elif event.physical_keycode == KEY_ESCAPE:
 			_set_shop(false)
+			_set_modal(orders_ui, false)
 
 
 func _pointer(id: int, pos: Vector2, pressed: bool) -> void:
 	if pressed:
-		if shop.visible:
+		if _modal_open():
 			return
 		if joy_id == NO_ID and pos.distance_to(JOY_CENTER) <= JOY_RADIUS * 1.3:
 			joy_id = id
@@ -426,7 +470,10 @@ func _pointer_move(id: int, pos: Vector2) -> void:
 # ---------- Действия игрока ----------
 
 func _do_action() -> void:
-	if shop.visible or target < 0:
+	if _modal_open() or target < 0:
+		return
+	if target == BOARD_ID:
+		_set_modal(orders_ui, true)
 		return
 	var p: Dictionary = plots[target]
 	if p["type"] == -1:
@@ -435,15 +482,16 @@ func _do_action() -> void:
 		_toast("Посажен: " + MUSHROOMS[selected]["name"])
 	elif _is_ripe(p):
 		var price: int = MUSHROOMS[p["type"]]["price"]
-		var lucky := randf() < LUCKY_CHANCE
+		var lucky: bool = randf() < LUCKY_CHANCE + 0.05 * upgrades["luck"]
 		if lucky:
 			price *= 2
 		coins += price
+		var done := _order_progress(p["type"])
 		p["type"] = -1
-		_toast(("Повезло! двойной урожай +%d" if lucky else "+%d монет") % price)
+		var msg := ("Повезло! двойной урожай +%d" if lucky else "+%d монет") % price
+		_toast(msg + ("\nЗаказ готов, неси на доску!" if done else ""))
 	else:
-		var m: Dictionary = MUSHROOMS[p["type"]]
-		_toast("Ещё %d сек" % ceili(m["grow"] - (_now() - p["planted_at"])))
+		_toast("Ещё %d сек" % ceili(_grow_time(p["type"]) - (_now() - p["planted_at"])))
 		return
 	_save_game()
 	_refresh_all()
@@ -473,12 +521,141 @@ func _on_dig_pressed() -> void:
 
 
 func _set_shop(on: bool) -> void:
-	shop.visible = on
+	_set_modal(shop, on)
+
+
+func _modal_open() -> bool:
+	return shop.visible or orders_ui.visible or daily_ui.visible
+
+
+func _set_modal(m: Control, on: bool) -> void:
+	m.visible = on
 	if on:
 		joy_id = NO_ID
 		joy_vec = Vector2.ZERO
 		act_id = NO_ID
+		_refresh_modals()
+
+
+func _refresh_modals() -> void:
+	if shop.visible:
 		_refresh_shop()
+	if orders_ui.visible:
+		_refresh_orders()
+
+
+# ---------- Заказы ----------
+
+func _new_order() -> Dictionary:
+	var pool: Array = []
+	for i in MUSHROOMS.size():
+		if unlocked[i]:
+			pool.append(i)
+	var kind: int = pool.pick_random()
+	var m: Dictionary = MUSHROOMS[kind]
+	var need := randi_range(3, 6)
+	if m["grow"] >= 90.0:
+		need = randi_range(2, 3)
+	elif m["grow"] >= 40.0:
+		need = randi_range(2, 4)
+	var reward := maxi(int(round(need * m["price"] * randf_range(1.8, 2.4))), need * int(m["price"]) + 2)
+	return {"kind": kind, "need": need, "got": 0, "reward": reward}
+
+
+func _ensure_orders() -> void:
+	while orders.size() < ORDER_SLOTS:
+		orders.append(_new_order())
+
+
+func _order_progress(kind: int) -> bool:
+	# Собранный гриб засчитывается в первый подходящий невыполненный заказ.
+	for o in orders:
+		if o["kind"] == kind and o["got"] < o["need"]:
+			o["got"] += 1
+			return o["got"] >= o["need"]
+	return false
+
+
+func _orders_ready() -> int:
+	var n := 0
+	for o in orders:
+		if o["got"] >= o["need"]:
+			n += 1
+	return n
+
+
+func _claim_order(i: int) -> void:
+	var o: Dictionary = orders[i]
+	if o["got"] < o["need"]:
+		return
+	coins += o["reward"]
+	_toast("Заказ сдан! +%d монет" % o["reward"])
+	orders[i] = _new_order()
+	_save_game()
+	_refresh_all()
+
+
+func _refresh_orders() -> void:
+	for c in orders_list.get_children():
+		c.queue_free()
+	orders_list.add_child(_label("Собирай грибы и сдавай их тут.", 16))
+	for i in orders.size():
+		var o: Dictionary = orders[i]
+		var m: Dictionary = MUSHROOMS[o["kind"]]
+		var info := _label("%s x%d\nСобрано %d из %d\nНаграда: %d" % [m["name"], o["need"], o["got"], o["need"], o["reward"]], 16, m["color"])
+		info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		orders_list.add_child(info)
+		var ready: bool = o["got"] >= o["need"]
+		var b := _button("Сдать" if ready else "Ещё %d" % (o["need"] - o["got"]), 64)
+		b.disabled = not ready
+		b.pressed.connect(_claim_order.bind(i))
+		orders_list.add_child(b)
+
+
+# ---------- Ежедневный подарок ----------
+
+func _check_daily() -> void:
+	daily_today = int(_now() / 86400.0)
+	if daily_today <= daily_last:
+		return
+	daily_next_streak = daily_streak + 1 if daily_today == daily_last + 1 else 1
+	daily_reward = 25 * mini(daily_next_streak, 7)
+	if daily_next_streak % 7 == 0:
+		daily_reward += 100
+	for c in daily_list.get_children():
+		c.queue_free()
+	var text := _label("Дней подряд: %d\nПодарок: %d монет\n\nЗаходи каждый день: подарок растёт до 7 дня." % [daily_next_streak, daily_reward], 16)
+	text.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	daily_list.add_child(text)
+	var b := _button("Забрать", 80)
+	b.pressed.connect(_claim_daily)
+	daily_list.add_child(b)
+	_set_modal(daily_ui, true)
+
+
+func _claim_daily() -> void:
+	coins += daily_reward
+	daily_last = daily_today
+	daily_streak = daily_next_streak
+	daily_ui.visible = false
+	_toast("Подарок: +%d монет" % daily_reward)
+	_save_game()
+	_refresh_all()
+
+
+# ---------- Улучшения ----------
+
+func _on_upgrade_pressed(id: String) -> void:
+	for u in UPGRADES:
+		if u["id"] != id:
+			continue
+		var lvl: int = upgrades[id]
+		if lvl >= u["costs"].size() or coins < u["costs"][lvl]:
+			return
+		coins -= u["costs"][lvl]
+		upgrades[id] = lvl + 1
+	_save_game()
+	_refresh_all()
 
 
 # ---------- Интерфейс ----------
@@ -590,6 +767,43 @@ func _build_hud() -> void:
 
 	_build_shop(ui)
 
+	var o := _make_modal(ui, "ЗАКАЗЫ", 720.0)
+	orders_ui = o[0]
+	orders_list = o[1]
+	var oclose := _button("Закрыть", 72)
+	oclose.pressed.connect(_set_modal.bind(orders_ui, false))
+	o[2].add_child(oclose)
+
+	var d := _make_modal(ui, "ПОДАРОК ДНЯ", 440.0)
+	daily_ui = d[0]
+	daily_list = d[1]
+
+
+func _make_modal(ui: Control, title_text: String, h: float) -> Array:
+	var root := Control.new()
+	root.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.visible = false
+	ui.add_child(root)
+	var dim := ColorRect.new()
+	dim.color = Color(0, 0, 0, 0.6)
+	dim.set_anchors_preset(Control.PRESET_FULL_RECT)
+	root.add_child(dim)
+	var panel := PanelContainer.new()
+	panel.position = Vector2(20, (960.0 - h) / 2.0)
+	panel.size = Vector2(500, h)
+	root.add_child(panel)
+	var box := VBoxContainer.new()
+	box.add_theme_constant_override("separation", 14)
+	panel.add_child(box)
+	var title := _label(title_text, 24, Color(1, 0.85, 0.3))
+	title.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	box.add_child(title)
+	var list := VBoxContainer.new()
+	list.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	list.add_theme_constant_override("separation", 12)
+	box.add_child(list)
+	return [root, list, box]
+
 
 func _build_shop(ui: Control) -> void:
 	shop = Control.new()
@@ -636,7 +850,7 @@ func _refresh_shop() -> void:
 	shop_list.add_child(_label("Монеты: %d" % coins, 16, Color(1, 0.85, 0.3)))
 	for i in MUSHROOMS.size():
 		var m: Dictionary = MUSHROOMS[i]
-		var info := _label("%s\nРост %d сек, цена %d" % [m["name"], int(m["grow"]), m["price"]])
+		var info := _label("%s\nРост %d сек, цена %d" % [m["name"], ceili(_grow_time(i)), m["price"]])
 		info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		shop_list.add_child(info)
 		var b: Button
@@ -655,14 +869,26 @@ func _refresh_shop() -> void:
 	dig.disabled = plot_count >= MAX_PLOTS or coins < _dig_cost()
 	dig.pressed.connect(_on_dig_pressed)
 	shop_list.add_child(dig)
+	var head := _label("УЛУЧШЕНИЯ", 24, Color(1, 0.85, 0.3))
+	head.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	shop_list.add_child(head)
+	for u in UPGRADES:
+		var lvl: int = upgrades[u["id"]]
+		var maxed: bool = lvl >= u["costs"].size()
+		var uinfo := _label("%s (ур. %d из %d)\n%s" % [u["name"], lvl, u["costs"].size(), u["desc"]])
+		uinfo.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		shop_list.add_child(uinfo)
+		var ub := _button("Максимум" if maxed else "Купить за %d" % u["costs"][lvl], 64)
+		ub.disabled = maxed or coins < u["costs"][lvl]
+		ub.pressed.connect(_on_upgrade_pressed.bind(u["id"]))
+		shop_list.add_child(ub)
 
 
 func _refresh_all() -> void:
 	coins_label.text = str(coins)
 	seed_label.text = MUSHROOMS[selected]["name"]     # что сажаем (цвет = цвет гриба)
 	seed_label.add_theme_color_override("font_color", MUSHROOMS[selected]["color"])
-	if shop.visible:
-		_refresh_shop()
+	_refresh_modals()
 	_update_plots()
 
 
@@ -680,7 +906,7 @@ func _update_plots() -> void:
 			shroom.visible = false
 			continue
 		var m: Dictionary = MUSHROOMS[p["type"]]
-		var progress: float = (now - p["planted_at"]) / m["grow"]
+		var progress: float = (now - p["planted_at"]) / _grow_time(p["type"])
 		var stage := 2 if progress >= 1.0 else (1 if progress >= 0.4 else 0)
 		shroom.texture = shroom_tex[p["type"]][stage]
 		shroom.visible = true
@@ -710,7 +936,7 @@ func _pixel_disc(c: Vector2, r: float, col: Color) -> void:
 
 
 func _draw_controls() -> void:
-	if shop.visible:
+	if _modal_open():
 		return
 	_pixel_disc(JOY_CENTER, JOY_RADIUS + 8, Color(0, 0, 0, 0.25))
 	_pixel_disc(JOY_CENTER, JOY_RADIUS, Color(1, 1, 1, 0.12))
@@ -725,13 +951,16 @@ func _draw_controls() -> void:
 	_pixel_disc(ACT_CENTER, ACT_RADIUS, col)
 	var label := "Действие"
 	if ready:
-		var p: Dictionary = plots[target]
-		if p["type"] == -1:
-			label = "Посадить"
-		elif _is_ripe(p):
-			label = "Собрать"
+		if target == BOARD_ID:
+			label = "Сдать" if _orders_ready() > 0 else "Заказы"
 		else:
-			label = "Растёт"
+			var p: Dictionary = plots[target]
+			if p["type"] == -1:
+				label = "Посадить"
+			elif _is_ripe(p):
+				label = "Собрать"
+			else:
+				label = "Растёт"
 	controls.draw_string(font, ACT_CENTER + Vector2(-ACT_RADIUS, 6), label,
 			HORIZONTAL_ALIGNMENT_CENTER, ACT_RADIUS * 2, 16,
 			Color(1, 1, 1, 1.0 if ready else 0.5))
@@ -746,7 +975,11 @@ func _now() -> float:
 func _is_ripe(p: Dictionary) -> bool:
 	if p["type"] == -1:
 		return false
-	return _now() - p["planted_at"] >= MUSHROOMS[p["type"]]["grow"]
+	return _now() - p["planted_at"] >= _grow_time(p["type"])
+
+
+func _grow_time(type: int) -> float:
+	return MUSHROOMS[type]["grow"] * (1.0 - 0.1 * upgrades["growth"])
 
 
 func _dig_cost() -> int:
@@ -764,6 +997,10 @@ func _save_game() -> void:
 		"selected": selected,
 		"plot_count": plot_count,
 		"plots": plots,
+		"upgrades": upgrades,
+		"orders": orders,
+		"daily_last": daily_last,
+		"daily_streak": daily_streak,
 	}
 	var f := FileAccess.open(SAVE_PATH, FileAccess.WRITE)
 	if f:
@@ -782,6 +1019,17 @@ func _load_game() -> void:
 			for i in unlocked.size():
 				if i < u.size():
 					unlocked[i] = bool(u[i])
+			var up = data.get("upgrades", {})
+			if typeof(up) == TYPE_DICTIONARY:
+				for ud in UPGRADES:
+					upgrades[ud["id"]] = clampi(int(up.get(ud["id"], 0)), 0, ud["costs"].size())
+			for o in data.get("orders", []):
+				var k := int(o.get("kind", 0))
+				if k >= 0 and k < MUSHROOMS.size():
+					orders.append({"kind": k, "need": maxi(int(o.get("need", 3)), 1),
+							"got": maxi(int(o.get("got", 0)), 0), "reward": int(o.get("reward", 10))})
+			daily_last = int(data.get("daily_last", 0))
+			daily_streak = int(data.get("daily_streak", 0))
 			for p in data.get("plots", []):
 				plots.append({
 					"type": int(p.get("type", -1)),

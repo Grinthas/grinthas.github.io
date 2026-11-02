@@ -316,6 +316,21 @@ sprite("torch_2", [E, E,
     "......kvvk......",
 ])
 
+sprite("board", [E, E, E,
+    "..kkkkkkkkkkkk..",
+    ".kwwwwwwwwwwwwk.",
+    ".kwSSSwwyyywwwk.",
+    ".kwSSSwwyyywwwk.",
+    ".kwwwwwwwSSSwwk.",
+    ".kwwwwwwwSSSwwk.",
+    ".kwwwwwwwwwwwwk.",
+    "..kkkkkkkkkkkk..",
+    "....kvk..kvk....",
+    "....kvk..kvk....",
+    "....kvk..kvk....",
+    "....kkk..kkk....",
+])
+
 tile("floor_c", (57, 45, 37), [(110, 100, 95), (90, 82, 76), (46, 36, 30)], 4)
 tile("floor_d", (56, 46, 38), [(60, 100, 58), (78, 128, 70), (46, 36, 30)], 5)
 
