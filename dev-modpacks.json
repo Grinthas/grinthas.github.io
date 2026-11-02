@@ -170,9 +170,9 @@
             },
             {
               "path": "mods/matterascension-0.1.0.jar",
-              "url": "https://files.grintmods.site/matterascension-0.1.1.jar",
-              "sha1": "07252c06f4a7b4df1dcbb9d5b37579710ce6f31a",
-              "size": 6750721
+              "url": "https://files.grintmods.site/matterascension-0.1.2.jar",
+              "sha1": "c7445f7c963c8d9a7527fe64f33341934e755e52",
+              "size": 6768776
             },
             {
               "path": "mods/megacells-forge-2.4.6-1.20.1.jar",
