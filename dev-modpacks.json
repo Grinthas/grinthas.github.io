@@ -852,6 +852,18 @@
               "sha1": "e2c23959ded20b3cc908bf26c1ac621564f2b8c3",
               "size": 483330,
               "optional": "Генерация"
+            },
+            {
+              "path": "mods/curios-forge-5.14.1+1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/6418/456/curios-forge-5.14.1%2b1.20.1.jar",
+              "sha1": "452175b95ad3db6ff58bb8968f6bf7a9d1e0f480",
+              "size": 398066
+            },
+            {
+              "path": "mods/expandability-9.0.4.jar",
+              "url": "https://edge.forgecdn.net/files/5301/414/expandability-9.0.4.jar",
+              "sha1": "2ea3c2ec654e11a5548f33d0d733aa6ecd9a0d6d",
+              "size": 80765
             }
           ],
           "overrides": "https://files.grintmods.site/matter-ascension-0.3.21-overrides.zip"
