@@ -1,8 +1,8 @@
 version: 0.4.8
 files:
-  - url: https://files.grintmods.site/launcher/GrintLauncher-Setup-0.4.8.exe
+  - url: https://github.com/Grinthas/grinthas.github.io/releases/download/launcher-v0.4.8/GrintLauncher-Setup-0.4.8.exe
     sha512: 1IXcoELO4MTKl3Hflhm1qJEAMU3vvYQ0SXVSmA2/zinScX8bzCRFAztJMIidb9OZhFSt9kHPv1EHrNaaOC+CKg==
     size: 84903935
-path: https://files.grintmods.site/launcher/GrintLauncher-Setup-0.4.8.exe
+path: https://github.com/Grinthas/grinthas.github.io/releases/download/launcher-v0.4.8/GrintLauncher-Setup-0.4.8.exe
 sha512: 1IXcoELO4MTKl3Hflhm1qJEAMU3vvYQ0SXVSmA2/zinScX8bzCRFAztJMIidb9OZhFSt9kHPv1EHrNaaOC+CKg==
 releaseDate: '2026-11-03T07:23:47.194Z'
