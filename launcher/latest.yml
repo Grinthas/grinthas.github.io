@@ -1,8 +1,8 @@
-version: 0.4.7
+version: 0.4.8
 files:
-  - url: https://files.grintmods.site/launcher/GrintLauncher-Setup-0.4.7.exe
-    sha512: Sv+HUjpSESPXDka2rbZ0dZo1rY1EIk0gY1ok6F/GX6yjsAX/3L5GChiUWSmDwj+BSqW/osxG+5vK5MCudaAWNQ==
-    size: 84903263
-path: https://files.grintmods.site/launcher/GrintLauncher-Setup-0.4.7.exe
-sha512: Sv+HUjpSESPXDka2rbZ0dZo1rY1EIk0gY1ok6F/GX6yjsAX/3L5GChiUWSmDwj+BSqW/osxG+5vK5MCudaAWNQ==
-releaseDate: '2026-11-03T01:35:15.618Z'
+  - url: https://files.grintmods.site/launcher/GrintLauncher-Setup-0.4.8.exe
+    sha512: 1IXcoELO4MTKl3Hflhm1qJEAMU3vvYQ0SXVSmA2/zinScX8bzCRFAztJMIidb9OZhFSt9kHPv1EHrNaaOC+CKg==
+    size: 84903935
+path: https://files.grintmods.site/launcher/GrintLauncher-Setup-0.4.8.exe
+sha512: 1IXcoELO4MTKl3Hflhm1qJEAMU3vvYQ0SXVSmA2/zinScX8bzCRFAztJMIidb9OZhFSt9kHPv1EHrNaaOC+CKg==
+releaseDate: '2026-11-03T07:23:47.194Z'
