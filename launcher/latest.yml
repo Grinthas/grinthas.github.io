@@ -1,8 +1,8 @@
-version: 0.4.6
+version: 0.4.7
 files:
-  - url: https://github.com/Grinthas/grinthas.github.io/releases/download/launcher-v0.4.6/GrintLauncher-Setup-0.4.6.exe
-    sha512: jDcYU4bMcl3e3i6sRFy45vHIo2tLMzFUqqwKP/8DZ4LyjE+zin65fRBsKws6CwbMObAaG7xXgveevNHLit3Uxw==
-    size: 84863855
-path: https://github.com/Grinthas/grinthas.github.io/releases/download/launcher-v0.4.6/GrintLauncher-Setup-0.4.6.exe
-sha512: jDcYU4bMcl3e3i6sRFy45vHIo2tLMzFUqqwKP/8DZ4LyjE+zin65fRBsKws6CwbMObAaG7xXgveevNHLit3Uxw==
-releaseDate: '2026-11-03T00:49:44.158Z'
+  - url: https://github.com/Grinthas/grinthas.github.io/releases/download/launcher-v0.4.7/GrintLauncher-Setup-0.4.7.exe
+    sha512: tknoSez/TWznBxTfUYeFzpPLasftBDR7o1MiY0EZYRO7WBXCgjOFo5AY7v4mHi2wxasB0YHrIC44dKkPobzr9w==
+    size: 84903231
+path: https://github.com/Grinthas/grinthas.github.io/releases/download/launcher-v0.4.7/GrintLauncher-Setup-0.4.7.exe
+sha512: tknoSez/TWznBxTfUYeFzpPLasftBDR7o1MiY0EZYRO7WBXCgjOFo5AY7v4mHi2wxasB0YHrIC44dKkPobzr9w==
+releaseDate: '2026-11-03T01:28:49.523Z'
