@@ -44,6 +44,943 @@
       ],
       "versions": [
         {
+          "version": "0.3.62",
+          "date": "2026-11-10",
+          "changelog": "Крафтер ритуалов в виде терминала; гибридный провайдер доливает эссенции из ME-сети в соседние ритуальные ядра",
+          "files": [
+            {
+              "path": "mods/ae2cpubox-1.20.1-1.2.0.jar",
+              "url": "https://files.grintmods.site/ae2cpubox-1.20.1-1.2.0.jar",
+              "sha1": "468504a67ece6e28d06f1b22e35869a6033bfbc9",
+              "size": 69798
+            },
+            {
+              "path": "mods/AppliedFlux-1.20-1.3.7-forge.jar",
+              "url": "https://edge.forgecdn.net/files/7651/647/AppliedFlux-1.20-1.3.7-forge.jar",
+              "sha1": "806d240997d5bb90099e2b501d1b2d41d0963abf",
+              "size": 252283
+            },
+            {
+              "path": "mods/architectury-9.2.14-forge.jar",
+              "url": "https://edge.forgecdn.net/files/5137/938/architectury-9.2.14-forge.jar",
+              "sha1": "a52918a500ff421180a1cbd1a0cabee712134ec4",
+              "size": 580602
+            },
+            {
+              "path": "mods/automaticspawner-1.20.1-1.2.0.jar",
+              "url": "https://files.grintmods.site/automaticspawner-1.20.1-1.2.0-b2.jar",
+              "sha1": "24c83236cc9734cdb9c8c201d63174289daa56fc",
+              "size": 100414
+            },
+            {
+              "path": "mods/BrandonsCore-1.20.1-3.2.1.302-universal.jar",
+              "url": "https://edge.forgecdn.net/files/5422/13/BrandonsCore-1.20.1-3.2.1.302-universal.jar",
+              "sha1": "1378ba5f84267c18f945c52d787ac86e40d6c241",
+              "size": 1358270
+            },
+            {
+              "path": "mods/cloth-config-11.1.136-forge.jar",
+              "url": "https://edge.forgecdn.net/files/5729/105/cloth-config-11.1.136-forge.jar",
+              "sha1": "c65d07748acc57ceb45d53b3964368b84f34d54f",
+              "size": 1181413
+            },
+            {
+              "path": "mods/CodeChickenLib-1.20.1-4.4.0.528-universal.jar",
+              "url": "https://edge.forgecdn.net/files/8491/810/CodeChickenLib-1.20.1-4.4.0.528-universal.jar",
+              "sha1": "66c614b047414e3cfcd69ff7f001b7033c5813c6",
+              "size": 1473536
+            },
+            {
+              "path": "mods/cofh_core-1.20.1-11.0.2.56.jar",
+              "url": "https://edge.forgecdn.net/files/5374/122/cofh_core-1.20.1-11.0.2.56.jar",
+              "sha1": "6f7c0056fece31bf393df450d79482810ed444af",
+              "size": 1509649
+            },
+            {
+              "path": "mods/Draconic-Evolution-1.20.1-3.1.2.621-universal.jar",
+              "url": "https://edge.forgecdn.net/files/6793/843/Draconic-Evolution-1.20.1-3.1.2.621-universal.jar",
+              "sha1": "8abd0ee849f9654ec91d3ecbd115e2c296f08c73",
+              "size": 5934411
+            },
+            {
+              "path": "mods/emi-1.1.24+1.20.1+forge.jar",
+              "url": "https://edge.forgecdn.net/files/8081/375/emi-1.1.24%2b1.20.1%2bforge.jar",
+              "sha1": "ea320200878e4a49196760234a22da763671520a",
+              "size": 1121750
+            },
+            {
+              "path": "mods/ExtendedAE-1.20-1.4.18-forge.jar",
+              "url": "https://edge.forgecdn.net/files/8457/933/ExtendedAE-1.20-1.4.18-forge.jar",
+              "sha1": "f36e46b4059dca8e2cfb6a6a126bf5ea85696ce3",
+              "size": 2970488
+            },
+            {
+              "path": "mods/extreae2assembler-1.1.0.jar",
+              "url": "https://edge.forgecdn.net/files/9309/920/extreae2assembler-1.1.0.jar",
+              "sha1": "037d6d978b598570605b8d2216518a462178c587",
+              "size": 159302
+            },
+            {
+              "path": "mods/ftb-quests-forge-2001.4.22.jar",
+              "url": "https://edge.forgecdn.net/files/8078/538/ftb-quests-forge-2001.4.22.jar",
+              "sha1": "70f3bd771ab3b5921ce1ff5f14166fab694ca1aa",
+              "size": 1255469
+            },
+            {
+              "path": "mods/ftb-teams-forge-2001.3.2.jar",
+              "url": "https://edge.forgecdn.net/files/7499/810/ftb-teams-forge-2001.3.2.jar",
+              "sha1": "c49023f5d471aa1ba7fc624d2565fe9e82b7117e",
+              "size": 252579
+            },
+            {
+              "path": "mods/Glodium-1.20-1.5-forge.jar",
+              "url": "https://edge.forgecdn.net/files/5226/922/Glodium-1.20-1.5-forge.jar",
+              "sha1": "c7534db3248adfcf39a6158b423dfc9bfc99a378",
+              "size": 60550
+            },
+            {
+              "path": "mods/grintguide-1.3.0.jar",
+              "url": "https://files.grintmods.site/grintguide-1.3.0.jar",
+              "sha1": "f4211c3047da1de124ef993713d2a6190896f935",
+              "size": 89535
+            },
+            {
+              "path": "mods/guideme-20.1.15.jar",
+              "url": "https://edge.forgecdn.net/files/8204/776/guideme-20.1.15.jar",
+              "sha1": "3d432fc99cefcfd17a12635d2d220f09a069f1c7",
+              "size": 9414827
+            },
+            {
+              "path": "mods/Jade-1.20.1-Forge-11.13.3.jar",
+              "url": "https://edge.forgecdn.net/files/8479/276/Jade-1.20.1-Forge-11.13.3.jar",
+              "sha1": "d08e64e66521d69e083c8525f1fc507f1c202384",
+              "size": 553487
+            },
+            {
+              "path": "mods/jei-1.20.1-forge-15.74.0.225.jar",
+              "url": "https://edge.forgecdn.net/files/9255/355/jei-1.20.1-forge-15.74.0.225.jar",
+              "sha1": "23b92b0ae75edc0c4f9ba1a9fa4bc6c69fa7ce60",
+              "size": 6892575
+            },
+            {
+              "path": "mods/kubejs-forge-2001.6.5-build.26.jar",
+              "url": "https://edge.forgecdn.net/files/8020/595/kubejs-forge-2001.6.5-build.26.jar",
+              "sha1": "8b0cc9797d4ed00fd2d1002d58960af8b32012ae",
+              "size": 1658792
+            },
+            {
+              "path": "mods/matterascension-0.1.0.jar",
+              "url": "https://files.grintmods.site/matterascension-0.1.45.jar",
+              "sha1": "2c34ac11bbf7461f678aa20868ceab1879a8deb6",
+              "size": 7740238
+            },
+            {
+              "path": "mods/megacells-forge-2.4.6-1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/6175/8/megacells-forge-2.4.6-1.20.1.jar",
+              "sha1": "ed6fd5eb0c782529be03f199d66d9a7c9eb2a518",
+              "size": 387196
+            },
+            {
+              "path": "mods/MouseTweaks-forge-mc1.20.1-2.25.1.jar",
+              "url": "https://edge.forgecdn.net/files/5338/457/MouseTweaks-forge-mc1.20.1-2.25.1.jar",
+              "sha1": "d751153e722a4e014691c83f39f5b07c6ec5333c",
+              "size": 76237
+            },
+            {
+              "path": "mods/Re-Avaritia-forge-1.20.1-1.4.2-release.jar",
+              "url": "https://edge.forgecdn.net/files/8838/608/Re-Avaritia-forge-1.20.1-1.4.2-release.jar",
+              "sha1": "d127e9ac5a00768b567aa1790710c39e16748fcd",
+              "size": 3739642
+            },
+            {
+              "path": "mods/recipeeditor-1.1.0.jar",
+              "url": "https://files.grintmods.site/recipeeditor-1.1.0.jar",
+              "sha1": "550715f39430d24ac18c5d9ddf372c8444160a16",
+              "size": 45133
+            },
+            {
+              "path": "mods/rhino-forge-2001.2.3-build.10.jar",
+              "url": "https://edge.forgecdn.net/files/6186/971/rhino-forge-2001.2.3-build.10.jar",
+              "sha1": "c83c9b719a6bab33fbd2b3f2f680eb3adbfc1aa1",
+              "size": 1798244
+            },
+            {
+              "path": "mods/thermal_expansion-1.20.1-11.0.1.29.jar",
+              "url": "https://edge.forgecdn.net/files/5372/749/thermal_expansion-1.20.1-11.0.1.29.jar",
+              "sha1": "c79fe5b922653d109cdcee45f4bca24c86daf6c0",
+              "size": 574141
+            },
+            {
+              "path": "mods/thermal_foundation-1.20.1-11.0.4.68.jar",
+              "url": "https://edge.forgecdn.net/files/5374/123/thermal_foundation-1.20.1-11.0.4.68.jar",
+              "sha1": "6970f0dc8e223c82650a1c8108f99b5fc4cb6581",
+              "size": 4552609
+            },
+            {
+              "path": "mods/modernfix-forge-5.27.91+mc1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/9309/378/modernfix-forge-5.27.91%2bmc1.20.1.jar",
+              "sha1": "195d53d299a93c418c90b672c2640b4e41623f96",
+              "size": 1012942
+            },
+            {
+              "path": "mods/ferritecore-6.0.1-forge.jar",
+              "url": "https://edge.forgecdn.net/files/4810/975/ferritecore-6.0.1-forge.jar",
+              "sha1": "417fb6ce8f52abf40bd9d0390371790f9576f8ba",
+              "size": 123034
+            },
+            {
+              "path": "mods/entityculling-forge-1.11.3-mc1.20.1.jar",
+              "url": "https://files.grintmods.site/entityculling-forge-1.11.3-mc1.20.1.jar",
+              "sha1": "d3c513e88ef9f5cdd7e27d17d923d4dca69c6d55",
+              "size": 1515076
+            },
+            {
+              "path": "mods/noisium-forge-2.3.0+mc1.20-1.20.1.jar",
+              "url": "https://files.grintmods.site/noisium-forge-2.3.0%2Bmc1.20-1.20.1.jar",
+              "sha1": "7da1cdf00c0ae5cad31e17f765f6ea021c8ac808",
+              "size": 218152
+            },
+            {
+              "path": "mods/Clumps-forge-1.20.1-12.0.0.4.jar",
+              "url": "https://files.grintmods.site/Clumps-forge-1.20.1-12.0.0.4.jar",
+              "sha1": "8809c7aa6c71389e9c59abfe5def52c1cb8d4f1c",
+              "size": 20300
+            },
+            {
+              "path": "mods/FastSuite-1.20.1-5.1.2.jar",
+              "url": "https://edge.forgecdn.net/files/7527/943/FastSuite-1.20.1-5.1.2.jar",
+              "sha1": "32ea4495b0e646f8f060e4e97d17044dd9fdefbd",
+              "size": 26600
+            },
+            {
+              "path": "mods/AI-Improvements-1.20-0.5.2.jar",
+              "url": "https://edge.forgecdn.net/files/4578/262/AI-Improvements-1.20-0.5.2.jar",
+              "sha1": "11ad483d1fd1f7ebd84b4940b1dc0926b3e9daa8",
+              "size": 29553
+            },
+            {
+              "path": "mods/appleskin-forge-mc1.20.1-2.5.1.jar",
+              "url": "https://edge.forgecdn.net/files/4770/828/appleskin-forge-mc1.20.1-2.5.1.jar",
+              "sha1": "81919356f84eab14258db98924b66c3c38e372b1",
+              "size": 47428
+            },
+            {
+              "path": "mods/Controlling-forge-1.20.1-12.0.2.jar",
+              "url": "https://files.grintmods.site/Controlling-forge-1.20.1-12.0.2.jar",
+              "sha1": "6195a3d1464f8fb641d7e165163aea1a857ce08e",
+              "size": 115280
+            },
+            {
+              "path": "mods/trashslot-forge-1.20.1-15.1.5.jar",
+              "url": "https://files.grintmods.site/trashslot-forge-1.20.1-15.1.5.jar",
+              "sha1": "31e3469cb88841cbaca4fb963bc9e4a1db6f8f4f",
+              "size": 117983
+            },
+            {
+              "path": "mods/InventoryProfilesNext-forge-1.20-1.10.20.jar",
+              "url": "https://edge.forgecdn.net/files/7565/992/InventoryProfilesNext-forge-1.20-1.10.20.jar",
+              "sha1": "979e74fa10b24a7d7c4d9aeb5824b80f4f9235cf",
+              "size": 1457354
+            },
+            {
+              "path": "mods/JadeAddons-1.20.1-Forge-5.5.1.jar",
+              "url": "https://edge.forgecdn.net/files/8203/724/JadeAddons-1.20.1-Forge-5.5.1.jar",
+              "sha1": "c4339eb3ef0c4728cb511efe60726653a35c7a0d",
+              "size": 91754
+            },
+            {
+              "path": "mods/carryon-forge-1.20.1-2.1.2.7.jar",
+              "url": "https://edge.forgecdn.net/files/4882/500/carryon-forge-1.20.1-2.1.2.7.jar",
+              "sha1": "9999714ca3dd2f2401f0396ca44f3b27c3784c4f",
+              "size": 439457
+            },
+            {
+              "path": "mods/emi_loot-0.7.9+1.20.1+forge.jar",
+              "url": "https://edge.forgecdn.net/files/7417/249/emi_loot-0.7.9%2b1.20.1%2bforge.jar",
+              "sha1": "e3f6289abd4de8ebbbb0ffc162b35346c3acd54f",
+              "size": 441180
+            },
+            {
+              "path": "mods/Placebo-1.20.1-8.6.3.jar",
+              "url": "https://edge.forgecdn.net/files/6274/231/Placebo-1.20.1-8.6.3.jar",
+              "sha1": "e85f53de2e582a79ce25ff1df1e7b5b5fc08440f",
+              "size": 282474
+            },
+            {
+              "path": "mods/Searchables-forge-1.20.1-1.0.3.jar",
+              "url": "https://files.grintmods.site/Searchables-forge-1.20.1-1.0.3.jar",
+              "sha1": "5b976f6e76ec74cdef21865e31f56bcb11558db7",
+              "size": 77732
+            },
+            {
+              "path": "mods/balm-forge-1.20.1-7.3.44.jar",
+              "url": "https://files.grintmods.site/balm-forge-1.20.1-7.3.44.jar",
+              "sha1": "dae7e647fc54609e66e4f910931be65776352b72",
+              "size": 561741
+            },
+            {
+              "path": "mods/libIPN-forge-1.20-4.0.2.jar",
+              "url": "https://edge.forgecdn.net/files/5208/511/libIPN-forge-1.20-4.0.2.jar",
+              "sha1": "3e7c7fcdc037a6ae3d9146e718d87fc83f88f6d5",
+              "size": 693301
+            },
+            {
+              "path": "mods/kotlinforforge-4.12.0-all.jar",
+              "url": "https://edge.forgecdn.net/files/7291/67/kotlinforforge-4.12.0-all.jar",
+              "sha1": "962fdb760409d6d71cbf079235f1ca94e3863a22",
+              "size": 7442998
+            },
+            {
+              "path": "mods/fzzy_config-0.7.7+1.20.1+forge.jar",
+              "url": "https://edge.forgecdn.net/files/8883/366/fzzy_config-0.7.7%2b1.20.1%2bforge.jar",
+              "sha1": "1a4f550dea4fb6316a96591dc46a463ee1f6602b",
+              "size": 2397175
+            },
+            {
+              "path": "mods/AdvancedAE-1.3.6-1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/8564/205/AdvancedAE-1.3.6-1.20.1.jar",
+              "sha1": "d8d9612c37a6cece6cd885f33e52c1489467a13f",
+              "size": 2486306
+            },
+            {
+              "path": "mods/AmbientSounds_FORGE_v6.3.11_mc1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/9254/806/AmbientSounds_FORGE_v6.3.11_mc1.20.1.jar",
+              "sha1": "61f0bcbfd404de4aeb0627b5b83a72d069fb1825",
+              "size": 53432741
+            },
+            {
+              "path": "mods/CreativeCore_FORGE_v2.12.40_mc1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/8947/229/CreativeCore_FORGE_v2.12.40_mc1.20.1.jar",
+              "sha1": "f8b65310e0183630dd00c1ade12f9b6ecd243287",
+              "size": 1144290
+            },
+            {
+              "path": "mods/FluxNetworks-1.20.1-7.2.1.15.jar",
+              "url": "https://edge.forgecdn.net/files/5234/697/FluxNetworks-1.20.1-7.2.1.15.jar",
+              "sha1": "65cea2d3da2a6d6fd274ef1dad37a516466be22c",
+              "size": 515573
+            },
+            {
+              "path": "mods/GlitchCore-forge-1.20.1-0.0.1.1.jar",
+              "url": "https://edge.forgecdn.net/files/5787/839/GlitchCore-forge-1.20.1-0.0.1.1.jar",
+              "sha1": "1a0aaf7c33b9acb26bf75899a43e8941cac1f6e7",
+              "size": 87550
+            },
+            {
+              "path": "mods/Mantle-1.20.1-1.11.117.jar",
+              "url": "https://edge.forgecdn.net/files/8809/819/Mantle-1.20.1-1.11.117.jar",
+              "sha1": "0d6af73ad4f11fe685aa466cedd2786b7bc57245",
+              "size": 1652715
+            },
+            {
+              "path": "mods/SereneSeasons-forge-1.20.1-9.1.0.3.jar",
+              "url": "https://edge.forgecdn.net/files/8246/702/SereneSeasons-forge-1.20.1-9.1.0.3.jar",
+              "sha1": "e553c2a50dc08d7b8b2aee6da1db0dc156fe961a",
+              "size": 160885
+            },
+            {
+              "path": "mods/SimpleDiscordRichPresence-forge-4.0.3-build.40+mc1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/4964/550/SimpleDiscordRichPresence-forge-4.0.3-build.40%2bmc1.20.1.jar",
+              "sha1": "f56b1d7e02c25e2e0c91ef9b51ed10ceb492a0d4",
+              "size": 1198997
+            },
+            {
+              "path": "mods/TConstruct-1.20.1-3.12.1.231.jar",
+              "url": "https://edge.forgecdn.net/files/8944/121/TConstruct-1.20.1-3.12.1.231.jar",
+              "sha1": "8a9a09e625ee106cf8befa953c372af4e955116c",
+              "size": 23870231
+            },
+            {
+              "path": "mods/THT-Forge-1.20.1-6.2.11.3.jar",
+              "url": "https://edge.forgecdn.net/files/5779/652/THT-Forge-1.20.1-6.2.11.3.jar",
+              "sha1": "3a5e9b70de72a3fd1c51323366a84813d77314ea",
+              "size": 6093612
+            },
+            {
+              "path": "mods/ae2advanced-1.0.3.jar",
+              "url": "https://files.grintmods.site/ae2advanced-1.0.3.jar",
+              "sha1": "eb381e027368cc53f94a9e13e35d8f3328ec6528",
+              "size": 44003
+            },
+            {
+              "path": "mods/appliedenergistics2-forge-15.4.12.jar",
+              "url": "https://edge.forgecdn.net/files/9357/405/appliedenergistics2-forge-15.4.12.jar",
+              "sha1": "4e81984691e35c729880a11f72deb52dcc74d41f",
+              "size": 8501298
+            },
+            {
+              "path": "mods/bettervillage-forge-1.20.1-3.3.1-all.jar",
+              "url": "https://edge.forgecdn.net/files/6563/409/bettervillage-forge-1.20.1-3.3.1-all.jar",
+              "sha1": "0c2f647cec98c3a4ca6d05b7a2f14962e66ad824",
+              "size": 2612506
+            },
+            {
+              "path": "mods/born_in_chaos_[Forge]1.20.1_1.7.5.jar",
+              "url": "https://edge.forgecdn.net/files/7917/933/born_in_chaos_%5bForge%5d1.20.1_1.7.5.jar",
+              "sha1": "4d616e1ccef4c55e14b04ca63228d826f4fdda5e",
+              "size": 11839865
+            },
+            {
+              "path": "mods/constructionwand-1.20.1-2.11.jar",
+              "url": "https://edge.forgecdn.net/files/4684/54/constructionwand-1.20.1-2.11.jar",
+              "sha1": "80bd5223cd8984dc1038cb9f2d1cb6b97f31998a",
+              "size": 210312
+            },
+            {
+              "path": "mods/custom-glow-enchantment-outline-forge-1.20.1-1.2.4.jar",
+              "url": "https://files.grintmods.site/custom-glow-enchantment-outline-forge-1.20.1-1.2.4.jar",
+              "sha1": "8e1e73abd814fc0eedf2329ba085da9b1b926386",
+              "size": 667925
+            },
+            {
+              "path": "mods/damagenumbers-1.4.0-forge.jar",
+              "url": "https://edge.forgecdn.net/files/5475/417/damagenumbers-1.4.0-forge.jar",
+              "sha1": "72ba3a970e2a112aee0b66b825b15720ba3c38e3",
+              "size": 38418
+            },
+            {
+              "path": "mods/embeddium-0.3.31+mc1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/5681/725/embeddium-0.3.31%2bmc1.20.1.jar",
+              "sha1": "bb2fa8f3e493af16af9160d049f96c614a1faf2f",
+              "size": 1320675
+            },
+            {
+              "path": "mods/ftb-library-forge-2001.2.13.jar",
+              "url": "https://edge.forgecdn.net/files/8226/927/ftb-library-forge-2001.2.13.jar",
+              "sha1": "a5427d5ff07eb044144ed0b54308370d88bce17e",
+              "size": 780558
+            },
+            {
+              "path": "mods/ftb-ultimine-forge-2001.1.8.jar",
+              "url": "https://edge.forgecdn.net/files/7880/472/ftb-ultimine-forge-2001.1.8.jar",
+              "sha1": "c2a1eb72c36ad067faafbff4e1618c4db906de74",
+              "size": 129653
+            },
+            {
+              "path": "mods/geckolib-forge-1.20.1-4.8.4.jar",
+              "url": "https://edge.forgecdn.net/files/8285/794/geckolib-forge-1.20.1-4.8.4.jar",
+              "sha1": "81982cc287f80ffabb2fd36d22cc95e4255c739d",
+              "size": 1038209
+            },
+            {
+              "path": "mods/ironchest-1.20.1-14.4.4.jar",
+              "url": "https://edge.forgecdn.net/files/4614/852/ironchest-1.20.1-14.4.4.jar",
+              "sha1": "4b2dd0f581e40f8bd6f6e63b2d84c06dfde2c4eb",
+              "size": 311290
+            },
+            {
+              "path": "mods/libraryferret-forge-1.20.1-4.0.0.jar",
+              "url": "https://edge.forgecdn.net/files/4601/234/libraryferret-forge-1.20.1-4.0.0.jar",
+              "sha1": "29f240c16ff1a1bc574d69162d379cc1c881e1ab",
+              "size": 190536
+            },
+            {
+              "path": "mods/lithostitched-forge-1.20.1-1.4.11.jar",
+              "url": "https://edge.forgecdn.net/files/6742/615/lithostitched-forge-1.20.1-1.4.11.jar",
+              "sha1": "d1a755de84ee5d8910ff1e65e815473056e93ece",
+              "size": 476347
+            },
+            {
+              "path": "mods/oculus-mc1.20.1-1.8.0.jar",
+              "url": "https://edge.forgecdn.net/files/6020/952/oculus-mc1.20.1-1.8.0.jar",
+              "sha1": "984f774e71790deaec674c7587bd24e0711871b2",
+              "size": 2851119
+            },
+            {
+              "path": "mods/punchy-3.0-forge-1.20.1-birthday.jar",
+              "url": "https://edge.forgecdn.net/files/9359/458/punchy-3.0-forge-1.20.1-birthday.jar",
+              "sha1": "5af6d73d9f3be5cb4c5c0623aca1b87e8cdf8f9e",
+              "size": 3075525
+            },
+            {
+              "path": "mods/screenshot_viewer-1.3.2-forge-mc1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/5343/674/screenshot_viewer-1.3.2-forge-mc1.20.1.jar",
+              "sha1": "ecb6d12d6073cbe8b8912f5b2fe7a8c025c758b9",
+              "size": 113495
+            },
+            {
+              "path": "mods/BiomesOPlenty-forge-1.20.1-19.0.0.96.jar",
+              "url": "https://files.grintmods.site/BiomesOPlenty-forge-1.20.1-19.0.0.96.jar",
+              "sha1": "f6ffd20b9825c4a69d93af7caed701a60bf804b5",
+              "size": 22381010
+            },
+            {
+              "path": "mods/TerraBlender-forge-1.20.1-3.0.1.11.jar",
+              "url": "https://files.grintmods.site/TerraBlender-forge-1.20.1-3.0.1.11.jar",
+              "sha1": "ee0e4263fe48320ee6a79939be7299497f695744",
+              "size": 107575
+            },
+            {
+              "path": "mods/waystones-forge-1.20.1-14.1.21.jar",
+              "url": "https://edge.forgecdn.net/files/8849/482/waystones-forge-1.20.1-14.1.21.jar",
+              "sha1": "61952fb248a9689fe46d5ffb223fcc41e31fef1a",
+              "size": 536782
+            },
+            {
+              "path": "mods/xaerominimap-forge-1.20.1-26.6.0.jar",
+              "url": "https://edge.forgecdn.net/files/9067/172/xaerominimap-forge-1.20.1-26.6.0.jar",
+              "sha1": "ee73886f2f5f27bf28cffa7cc8f2b9b4540df2aa",
+              "size": 2196194
+            },
+            {
+              "path": "mods/xaeroworldmap-forge-1.20.1-1.47.0.jar",
+              "url": "https://edge.forgecdn.net/files/9067/273/xaeroworldmap-forge-1.20.1-1.47.0.jar",
+              "sha1": "6715c1d3758a3805589d82c41dc581537fe185cd",
+              "size": 1429424
+            },
+            {
+              "path": "mods/yet_another_config_lib_v3-3.6.6+1.20.1-forge.jar",
+              "url": "https://edge.forgecdn.net/files/6336/646/yet_another_config_lib_v3-3.6.6%2b1.20.1-forge.jar",
+              "sha1": "644731e321c53a35a0b3177a3cc6347fe38002f4",
+              "size": 1105891
+            },
+            {
+              "path": "mods/smoothswapping-0.9.3.2-1.20.1-forge.jar",
+              "url": "https://edge.forgecdn.net/files/7320/420/smoothswapping-0.9.3.2-1.20.1-forge.jar",
+              "sha1": "bddc0e2f6a2de47c1416ed3adcb8e7b1048e2791",
+              "size": 60843
+            },
+            {
+              "path": "mods/tia-1.20-1.1-forge.jar",
+              "url": "https://edge.forgecdn.net/files/8073/521/tia-1.20-1.1-forge.jar",
+              "sha1": "bd1eac323a351355d21ddf720fb0503020c77928",
+              "size": 11766
+            },
+            {
+              "path": "mods/InventoryParticles-3.2.0+1.20.1+forge.jar",
+              "url": "https://files.grintmods.site/InventoryParticles-3.2.0%2B1.20.1%2Bforge.jar",
+              "sha1": "92e1b84f94d327001b8db3c0148d450abfcba5f4",
+              "size": 1921279
+            },
+            {
+              "path": "mods/MossyLib-1.6.0+1.20.1+forge.jar",
+              "url": "https://files.grintmods.site/MossyLib-1.6.0%2B1.20.1%2Bforge.jar",
+              "sha1": "9042e646775716e7e887700513f99aaa79906060",
+              "size": 374176
+            },
+            {
+              "path": "mods/durabilitytooltip-1.2.0-forge-mc1.20.jar",
+              "url": "https://edge.forgecdn.net/files/8830/59/durabilitytooltip-1.2.0-forge-mc1.20.jar",
+              "sha1": "e909cb910899e0ea38ec987e536345dc5c0822f9",
+              "size": 23062
+            },
+            {
+              "path": "mods/supermartijn642configlib-1.1.8-forge-mc1.20.jar",
+              "url": "https://edge.forgecdn.net/files/4715/408/supermartijn642configlib-1.1.8-forge-mc1.20.jar",
+              "sha1": "f80f9eed728966adcfbcc848633e789645057281",
+              "size": 206584
+            },
+            {
+              "path": "mods/EMIEnchants-forge-1.19.3-1.20.4-1.0.0.jar",
+              "url": "https://edge.forgecdn.net/files/5425/207/EMIEnchants-forge-1.19.3-1.20.4-1.0.0.jar",
+              "sha1": "d01c60fa55b9bc0700c23b04afc1fb43d579ccc1",
+              "size": 33704
+            },
+            {
+              "path": "mods/emi_ores-1.3+1.20.1+forge.jar",
+              "url": "https://edge.forgecdn.net/files/8254/299/emi_ores-1.3%2b1.20.1%2bforge.jar",
+              "sha1": "28ba16619a1fbcbf46f9ed327e8dc7ae339439ac",
+              "size": 119983
+            },
+            {
+              "path": "mods/emitrades-forge-1.2.1+mc1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/4901/194/emitrades-forge-1.2.1%2bmc1.20.1.jar",
+              "sha1": "ea86eceb04978bc366fe022bbab5dd5ea0bd3ab4",
+              "size": 53378
+            },
+            {
+              "path": "mods/EnchantmentDescriptions-Forge-1.20.1-17.1.21.jar",
+              "url": "https://edge.forgecdn.net/files/7612/607/EnchantmentDescriptions-Forge-1.20.1-17.1.21.jar",
+              "sha1": "0328a8350cf0a6d1c44265367a077649088b354b",
+              "size": 66883
+            },
+            {
+              "path": "mods/Bookshelf-Forge-1.20.1-20.2.15.jar",
+              "url": "https://edge.forgecdn.net/files/7612/389/Bookshelf-Forge-1.20.1-20.2.15.jar",
+              "sha1": "9df4908f606c6dc62a358b3e04e3fdedba59a12c",
+              "size": 343925
+            },
+            {
+              "path": "mods/Better_Modlist-20.1.1-all.jar",
+              "url": "https://edge.forgecdn.net/files/8605/741/Better_Modlist-20.1.1-all.jar",
+              "sha1": "4fd43f06e400dcfc06f0659ee1caca7f60a77d7d",
+              "size": 1355345
+            },
+            {
+              "path": "mods/NaturesCompass-1.20.1-1.12.0-forge.jar",
+              "url": "https://edge.forgecdn.net/files/7892/948/NaturesCompass-1.20.1-1.12.0-forge.jar",
+              "sha1": "a8589de59cdd8fed9c29610e624063a2990e422b",
+              "size": 227495
+            },
+            {
+              "path": "mods/TravelersTitles-1.20-Forge-4.0.2.jar",
+              "url": "https://edge.forgecdn.net/files/5065/825/TravelersTitles-1.20-Forge-4.0.2.jar",
+              "sha1": "64a435eaa6e08fff5af2c720c3b6a40fe292f2f7",
+              "size": 228191
+            },
+            {
+              "path": "mods/YungsApi-1.20-Forge-4.0.6.jar",
+              "url": "https://edge.forgecdn.net/files/5769/971/YungsApi-1.20-Forge-4.0.6.jar",
+              "sha1": "af584b690f5646c6032002b58abc4591beed3833",
+              "size": 370524
+            },
+            {
+              "path": "mods/villagernames-1.20.1-8.9.jar",
+              "url": "https://edge.forgecdn.net/files/9272/142/villagernames-1.20.1-8.9.jar",
+              "sha1": "c3418c3bc7b5d41385c027b2c17cfdbe7fab231b",
+              "size": 57588
+            },
+            {
+              "path": "mods/collective-1.20.1-8.73.jar",
+              "url": "https://edge.forgecdn.net/files/9394/19/collective-1.20.1-8.73.jar",
+              "sha1": "2f6a6a793567a29841569390b551a464e4fa805a",
+              "size": 934521
+            },
+            {
+              "path": "mods/LeavesBeGone-v8.0.0-1.20.1-Forge.jar",
+              "url": "https://edge.forgecdn.net/files/4613/293/LeavesBeGone-v8.0.0-1.20.1-Forge.jar",
+              "sha1": "c5043f862be7db76892c7c0c95d02fa3f8332af0",
+              "size": 50042
+            },
+            {
+              "path": "mods/PuzzlesLib-v8.1.36-1.20.1-Forge.jar",
+              "url": "https://edge.forgecdn.net/files/9130/247/PuzzlesLib-v8.1.36-1.20.1-Forge.jar",
+              "sha1": "d2e79bc84f0f2e75e3212ab236af08528117b213",
+              "size": 1790007
+            },
+            {
+              "path": "mods/gravestone-forge-1.20.1-1.0.35.jar",
+              "url": "https://files.grintmods.site/gravestone-forge-1.20.1-1.0.35.jar",
+              "sha1": "9ec9da5da2a5884b6abff5f74a763a4f3e54fa38",
+              "size": 317181
+            },
+            {
+              "path": "mods/lootr-forge-1.20-0.7.35.94.jar",
+              "url": "https://edge.forgecdn.net/files/7263/76/lootr-forge-1.20-0.7.35.94.jar",
+              "sha1": "1ec77a7df8adbf3290a296bf25b8f99f37a60020",
+              "size": 463485
+            },
+            {
+              "path": "mods/Incendium_1.20.x_v5.3.5.jar",
+              "url": "https://edge.forgecdn.net/files/5351/562/Incendium_1.20.x_v5.3.5.jar",
+              "sha1": "484556937b1b2dde2682144e7953e79bff717104",
+              "size": 4638945
+            },
+            {
+              "path": "mods/ironfurnaces-1.20.1-4.1.6.jar",
+              "url": "https://edge.forgecdn.net/files/5159/498/ironfurnaces-1.20.1-4.1.6.jar",
+              "sha1": "ce28ca1679c9c353b8e4391b45499f16b19b6648",
+              "size": 609038
+            },
+            {
+              "path": "mods/StorageDrawers-forge-1.20.1-12.15.1.jar",
+              "url": "https://files.grintmods.site/StorageDrawers-forge-1.20.1-12.15.1.jar",
+              "sha1": "9e6f098c376a96b699a1a883719976b0bbea9e20",
+              "size": 1205433
+            },
+            {
+              "path": "mods/sophisticatedbackpacks-1.20.1-3.26.19.2239.jar",
+              "url": "https://files.grintmods.site/sophisticatedbackpacks-1.20.1-3.26.19.2239.jar",
+              "sha1": "cc7168866b086ccdec5fe77ad7a9a0a6d02b798e",
+              "size": 1232150
+            },
+            {
+              "path": "mods/sophisticatedcore-1.20.1-1.5.21.2444.jar",
+              "url": "https://files.grintmods.site/sophisticatedcore-1.20.1-1.5.21.2444.jar",
+              "sha1": "2e47f1994010e035ac86eec943a8ffaeb673f43d",
+              "size": 1772747
+            },
+            {
+              "path": "mods/artifacts-forge-9.5.19.jar",
+              "url": "https://edge.forgecdn.net/files/7903/806/artifacts-forge-9.5.19.jar",
+              "sha1": "91ab6fc2cc208550f7fc37c43e42eba81eff318e",
+              "size": 850974
+            },
+            {
+              "path": "mods/dummmmmmy-1.20-2.0.12-forge.jar",
+              "url": "https://edge.forgecdn.net/files/7963/208/dummmmmmy-1.20-2.0.12-forge.jar",
+              "sha1": "3b6da54436955ea2ca6e8891ef69d0f6621ab878",
+              "size": 839685
+            },
+            {
+              "path": "mods/moonlight-1.20-2.16.38B-forge.jar",
+              "url": "https://edge.forgecdn.net/files/9354/258/moonlight-1.20-2.16.38B-forge.jar",
+              "sha1": "7394cf9cbc30015b50f794ae9a85aa0b18ab152b",
+              "size": 1425261
+            },
+            {
+              "path": "mods/obscure_api-18.jar",
+              "url": "https://edge.forgecdn.net/files/7171/906/obscure_api-18.jar",
+              "sha1": "d395153341a9a732fc80463c475b202d78675e28",
+              "size": 1128392
+            },
+            {
+              "path": "mods/mowziesmobs-1.8.2.jar",
+              "url": "https://edge.forgecdn.net/files/7815/705/mowziesmobs-1.8.2.jar",
+              "sha1": "25ffcd175cc03650e38e60d3cb7b3e038d9d3345",
+              "size": 36033850,
+              "optional": "Мобы"
+            },
+            {
+              "path": "mods/alexsmobs-1.22.9.jar",
+              "url": "https://edge.forgecdn.net/files/5698/791/alexsmobs-1.22.9.jar",
+              "sha1": "dbf93d2f1da19e16739e91e8ea0fc6f4bc2f228f",
+              "size": 26350793,
+              "optional": "Мобы"
+            },
+            {
+              "path": "mods/citadel-2.6.3-1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/7476/570/citadel-2.6.3-1.20.1.jar",
+              "sha1": "fb0b1fa96ce28e4be77b38ad95d83c3da7ec8316",
+              "size": 3185275
+            },
+            {
+              "path": "mods/aquamirae-forge-1.20.1-6.4.0.jar",
+              "url": "https://edge.forgecdn.net/files/7985/699/aquamirae-forge-1.20.1-6.4.0.jar",
+              "sha1": "f802327ab6c738ff3c29e4b39a28c224ee7b29fa",
+              "size": 19073985,
+              "optional": "Мобы"
+            },
+            {
+              "path": "mods/guardvillagers-1.20.1-1.6.19.jar",
+              "url": "https://edge.forgecdn.net/files/8719/57/guardvillagers-1.20.1-1.6.19.jar",
+              "sha1": "7e86fe325d27700385080d9ca4a1e4c8d38ec425",
+              "size": 204767,
+              "optional": "Мобы"
+            },
+            {
+              "path": "mods/YungsBetterCaves-1.20.1-Forge-2.0.7.jar",
+              "url": "https://edge.forgecdn.net/files/8806/70/YungsBetterCaves-1.20.1-Forge-2.0.7.jar",
+              "sha1": "1bd1beb5f0dac5e6257055051ba37d13245e63f9",
+              "size": 407680,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterDesertTemples-1.20-Forge-3.0.3.jar",
+              "url": "https://edge.forgecdn.net/files/4769/439/YungsBetterDesertTemples-1.20-Forge-3.0.3.jar",
+              "sha1": "31b386b2dbaa4933e0a10ccdfb25f56da16931a6",
+              "size": 918012,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterDungeons-1.20-Forge-4.0.4.jar",
+              "url": "https://edge.forgecdn.net/files/5271/360/YungsBetterDungeons-1.20-Forge-4.0.4.jar",
+              "sha1": "67a9e1c2ff126ab54cea8e0709d178915243039e",
+              "size": 792381,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterEndIsland-1.20-Forge-2.0.6.jar",
+              "url": "https://edge.forgecdn.net/files/5193/815/YungsBetterEndIsland-1.20-Forge-2.0.6.jar",
+              "sha1": "4e7bf109981593061b8100bc8bf23e1c9bbcbb76",
+              "size": 387111,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterJungleTemples-1.20-Forge-2.0.5.jar",
+              "url": "https://edge.forgecdn.net/files/5331/760/YungsBetterJungleTemples-1.20-Forge-2.0.5.jar",
+              "sha1": "0b3c8556983895fea980247bb4d437ca535e7259",
+              "size": 806652,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterMineshafts-1.20-Forge-4.0.4.jar",
+              "url": "https://edge.forgecdn.net/files/4769/63/YungsBetterMineshafts-1.20-Forge-4.0.4.jar",
+              "sha1": "e2cbc574807a994bb9610184eb4bbfe29a6c0774",
+              "size": 492998,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterNetherFortresses-1.20-Forge-2.0.6.jar",
+              "url": "https://edge.forgecdn.net/files/5193/465/YungsBetterNetherFortresses-1.20-Forge-2.0.6.jar",
+              "sha1": "889cd16a93764d1d6af2e2dda5bbc286a2683e7a",
+              "size": 619255,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterOceanMonuments-1.20-Forge-3.0.4.jar",
+              "url": "https://edge.forgecdn.net/files/4883/3/YungsBetterOceanMonuments-1.20-Forge-3.0.4.jar",
+              "sha1": "d8e74ed19903752a97ed0e1d2b1a8bf378bc252f",
+              "size": 1033262,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterStrongholds-1.20-Forge-4.0.3.jar",
+              "url": "https://edge.forgecdn.net/files/4769/83/YungsBetterStrongholds-1.20-Forge-4.0.3.jar",
+              "sha1": "3730238c56edca4bb5b2238e1314aec572ced385",
+              "size": 473564,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBetterWitchHuts-1.20-Forge-3.0.3.jar",
+              "url": "https://edge.forgecdn.net/files/4769/489/YungsBetterWitchHuts-1.20-Forge-3.0.3.jar",
+              "sha1": "71fee574f920c6b05004f100ba07e9b8d5844169",
+              "size": 179190,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsBridges-1.20-Forge-4.0.3.jar",
+              "url": "https://edge.forgecdn.net/files/4769/518/YungsBridges-1.20-Forge-4.0.3.jar",
+              "sha1": "88467fe87b95e6cf7a432822033cf74dd8586254",
+              "size": 136236,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/YungsCaveBiomes-1.20.1-Forge-2.0.5.jar",
+              "url": "https://edge.forgecdn.net/files/6606/910/YungsCaveBiomes-1.20.1-Forge-2.0.5.jar",
+              "sha1": "c0a57a7d5a0cea0297f82a482490fc1e7933695f",
+              "size": 13014967,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/dungeons-and-taverns-3.0.3.f.jar",
+              "url": "https://edge.forgecdn.net/files/5206/484/dungeons-and-taverns-3.0.3.f%5bForge%5d.jar",
+              "sha1": "3f324242f3daf4785a8b9338f228679418f4870a",
+              "size": 13161907,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/dungeons-and-taverns-ancient-city-overhaul-1.jar",
+              "url": "https://edge.forgecdn.net/files/4785/961/dungeons-and-taverns-ancient-city-overhaul-1%20%5bForge%5d.jar",
+              "sha1": "c5b4170f6f40dde1c5c7d161f606bccbe3dd2871",
+              "size": 691038,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/dungeons-and-taverns-pillager-outpost-rework-1.1.jar",
+              "url": "https://edge.forgecdn.net/files/4788/285/dungeons-and-taverns-pillager-outpost-rework-1.1%20%5bForge%5d.jar",
+              "sha1": "e2c23959ded20b3cc908bf26c1ac621564f2b8c3",
+              "size": 483330,
+              "optional": "Генерация"
+            },
+            {
+              "path": "mods/curios-forge-5.14.1+1.20.1.jar",
+              "url": "https://edge.forgecdn.net/files/6418/456/curios-forge-5.14.1%2b1.20.1.jar",
+              "sha1": "452175b95ad3db6ff58bb8968f6bf7a9d1e0f480",
+              "size": 398066
+            },
+            {
+              "path": "mods/expandability-9.0.4.jar",
+              "url": "https://edge.forgecdn.net/files/5301/414/expandability-9.0.4.jar",
+              "sha1": "2ea3c2ec654e11a5548f33d0d733aa6ecd9a0d6d",
+              "size": 80765
+            },
+            {
+              "path": "mods/Botania-1.20.1-456-FORGE.jar",
+              "url": "https://edge.forgecdn.net/files/8901/969/Botania-1.20.1-456-FORGE.jar",
+              "sha1": "17e0cab4160e86f434cd137a60faeb2594ae4e15",
+              "size": 12226445
+            },
+            {
+              "path": "mods/Patchouli-1.20.1-85-FORGE.jar",
+              "url": "https://edge.forgecdn.net/files/7731/17/Patchouli-1.20.1-85-FORGE.jar",
+              "sha1": "d4614507d6e4c7cb464bba5eca891978272062ef",
+              "size": 642732
+            },
+            {
+              "path": "mods/MythicBotany-1.20.1-4.0.4.jar",
+              "url": "https://edge.forgecdn.net/files/6702/112/MythicBotany-1.20.1-4.0.4.jar",
+              "sha1": "b616c118d611459a0711931c51c9c4d41408abb4",
+              "size": 2233413
+            },
+            {
+              "path": "mods/LibX-1.20.1-5.0.14.jar",
+              "url": "https://edge.forgecdn.net/files/5207/625/LibX-1.20.1-5.0.14.jar",
+              "sha1": "d75610b0c34626cea8b1155a47d28333cc1f58a2",
+              "size": 1258082
+            },
+            {
+              "path": "mods/BotanicalMachinery-1.20.1-3.0.10.jar",
+              "url": "https://edge.forgecdn.net/files/7910/772/BotanicalMachinery-1.20.1-3.0.10.jar",
+              "sha1": "c37675b395edd3643da78ae9db8424da24812c65",
+              "size": 250613
+            },
+            {
+              "path": "mods/applied-botanics-forge-1.5.2.jar",
+              "url": "https://edge.forgecdn.net/files/7427/985/applied-botanics-forge-1.5.2.jar",
+              "sha1": "4129b8379681449779803319a8a8a34e0435084b",
+              "size": 255276
+            },
+            {
+              "path": "mods/Just-Enough-Botania-1.20.1-v0.2.1.jar",
+              "url": "https://edge.forgecdn.net/files/6858/396/Just-Enough-Botania-1.20.1-v0.2.1.jar",
+              "sha1": "a2131501794eec36e49876e903c95d7754753060",
+              "size": 31310
+            },
+            {
+              "path": "mods/sound-physics-remastered-forge-1.20.1-1.5.1.jar",
+              "url": "https://cdn.modrinth.com/data/qyVF9oeo/versions/x0sJ9PeR/sound-physics-remastered-forge-1.20.1-1.5.1.jar",
+              "sha1": "944b4673bcab118f411d050b2cd6b693262bb664",
+              "size": 206984,
+              "optional": "Звук"
+            },
+            {
+              "path": "mods/extrasounds-1.5.6+1.20.1-forge.jar",
+              "url": "https://cdn.modrinth.com/data/jv7tzVE4/versions/YL1apCoc/extrasounds-1.5.6%2B1.20.1-forge.jar",
+              "sha1": "f257b19ec910c1105a9c6a0d6d96e3c3fba74ebc",
+              "size": 564826,
+              "optional": "Звук"
+            },
+            {
+              "path": "mods/disrobe-sounds-1.0.2+1.20.1+forge.jar",
+              "url": "https://cdn.modrinth.com/data/y8yfAwML/versions/NVTq7gQJ/disrobe-sounds-1.0.2%2B1.20.1%2Bforge.jar",
+              "sha1": "1b7a8c4716e8f6bacdac9a757f0b5683c360c812",
+              "size": 200518,
+              "optional": "Звук"
+            },
+            {
+              "path": "mods/botania-mana-greenhouse-1.8.2.jar",
+              "url": "https://files.grintmods.site/botania-mana-greenhouse-1.8.2.jar",
+              "sha1": "a9cb4dbb9d7a8c8d1dc0787bf0a8e5767cae72ed",
+              "size": 100992
+            },
+            {
+              "path": "mods/botanicalextramachinery-1.3.0.5.jar",
+              "url": "https://files.grintmods.site/botanicalextramachinery-1.3.0.5.jar",
+              "sha1": "6352d79db751a2b8a6bae658977cde40102cfcaf",
+              "size": 1825661
+            }
+          ],
+          "overrides": "https://files.grintmods.site/matter-ascension-0.3.62-overrides.zip",
+          "profiles": {
+            "low": {
+              "name": "Слабый ПК",
+              "off": [
+                "mowziesmobs",
+                "alexsmobs",
+                "born_in_chaos",
+                "aquamirae",
+                "YungsCaveBiomes",
+                "YungsBetterCaves",
+                "dungeons-and-taverns",
+                "YungsBetterMineshafts",
+                "YungsBetterDungeons",
+                "YungsBetterStrongholds",
+                "YungsBetterOceanMonuments",
+                "YungsBetterNetherFortresses",
+                "YungsBetterEndIsland",
+                "YungsBridges",
+                "Incendium",
+                "bettervillage"
+              ]
+            },
+            "medium": {
+              "name": "Средний ПК",
+              "off": [
+                "mowziesmobs",
+                "alexsmobs",
+                "YungsCaveBiomes",
+                "YungsBetterCaves",
+                "dungeons-and-taverns"
+              ]
+            },
+            "high": {
+              "name": "Мощный ПК",
+              "off": []
+            }
+          }
+        },
+        {
           "version": "0.3.61",
           "date": "2026-11-10",
           "changelog": "Магия: мана-кристаллизатор, жертвенный алтарь, астральная обсерватория, алхимический реактор, крафтер ритуалов и гибридный провайдер получили функции; новые иконки в инвентаре",
@@ -170,9 +1107,9 @@
             },
             {
               "path": "mods/matterascension-0.1.0.jar",
-              "url": "https://files.grintmods.site/matterascension-0.1.44.jar",
-              "sha1": "ad1ba163cd8f137d6a7ecb2e601e3cdc799452ee",
-              "size": 7739429
+              "url": "https://files.grintmods.site/matterascension-0.1.45.jar",
+              "sha1": "2c34ac11bbf7461f678aa20868ceab1879a8deb6",
+              "size": 7740238
             },
             {
               "path": "mods/megacells-forge-2.4.6-1.20.1.jar",
